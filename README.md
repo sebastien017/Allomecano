@@ -7,7 +7,7 @@
 [User Stories](support/US.md)
 
 ## MCD
-[Dictionnaire des donnée](support/dictionnaire.md)
+[Dictionnaire des données](support/dictionnaire.md)
 
 ## Routes
 [Routes](support/routes.md)
