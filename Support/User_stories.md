@@ -27,7 +27,7 @@
 | utilisateur | pouvoir communiquer avec le prestataire par chat | m'assurer que le prestataire correspond à mon besoin |
 | utilisateur | pouvoir payer ma prestation directement sur le site |--|
 | utilisateur | recevoir une confirmation de mon rdv par mail/sms |--|
-|--|--|--|
+| profesionnel | renseigner des prestations personnalisées | proposer plus de services en fonction de mes compétences |
 |--|--|--|
 
 
