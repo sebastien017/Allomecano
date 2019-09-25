@@ -13,7 +13,7 @@
 | utilisateur | compléter mon profil | renseigner mes informations personnelles |
 | professionnel | renseigner mes disponibilités | afficher mon planing aux utilisateur |
 | visiteur | choisir une prestation auprès d'un professionnel | indiquer quel sera la nature de la prestation|
-| visiteur | choisir l'heure de mon rdv | |
+| visiteur | choisir l'heure de mon rdv avant qu'on me demande de créer un compte pour le valider | |
 | utilisateur | noter et commenter la prestation d'un professionnel | laisser un avis utile aux autres clients |
 | utilisateur | confirmer mon rdv et ma prestation auprès du professionnel |--|
 | utilisateur | voir mes rdv passés et à venir dans mon compte | visualiser rapidement mes rdv |
