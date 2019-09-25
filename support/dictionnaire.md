@@ -8,6 +8,8 @@ User | firstname | varchar(100) |-|-|
 User | lastname | varchar(100) |-|-|
 User | phone | int(10) |-|-|
 User | adress | varchar(255) |-|-|
+User | city | varchar(100) |-|-|
+User | postal_code | int (5) |-|-|
 User | avatar | text(65000) |-|-|
 User | email | varchar(320) |-|-|
 User | role | json | Permet de définir le rôle de l'utilisateur |-|
@@ -20,6 +22,8 @@ Entité | Nom du paramètre | Type | Commentaire | Description |
 -|-|-|-|-|
 Garage | name | varchar(100) |-|-|
 Garage | adress | varchar(255) |-|-|
+Garage | city | varchar(100) |-|-|
+Garage | postal_code | int (5) |-|-|
 Garage | phone | int(10) |-|-|
 Garage | email | varchar(320) |-|-|
 Garage | created_at | datetime |-|-|
