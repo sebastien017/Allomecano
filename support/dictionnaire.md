@@ -21,24 +21,24 @@ User | garage_id | int | Fait le lien entre la table user et prestataire si le u
 Entité | Nom du paramètre | Type | Commentaire | Description |
 -|-|-|-|-|
 Garage | name | varchar(100) |-|-|
-Garage | adress | varchar(255) |-|-|
-Garage | city | varchar(100) |-|-|
-Garage | postal_code | int (5) |-|-|
-Garage | phone | int(10) |-|-|
-Garage | email | varchar(320) |-|-|
+Garage | adress | varchar(255) Null |-|-|
+Garage | city | varchar(100) Null |-|-|
+Garage | postal_code | int (5) Null|-|-|
+Garage | phone | int(10) Null |-|-|
+Garage | email | varchar(320) Null |-|-|
 Garage | created_at | datetime |-|-|
-Garage | updated_at | datetime |-|-|
-Garage | mobility | boolean |-|-|
-Garage | distance | int(100) |-|-|
+Garage | updated_at | datetime Null |-|-|
+Garage | mobility | boolean Null |-|-|
+Garage | distance | int(100) Null |-|-|
 
 ## Prestation
 Entité | Nom du paramètre | Type | Commentaire | Description |
 -|-|-|-|-|
 Service | name |varchar(100)|-|-|
 Service | price |int|-|-|
-Service | image | text(65000) |-|-|
+Service | image | text(65000) Null |-|-|
 Service | created_at | datetime |-|-|
-Service | updated_at | datetime |-|-|
+Service | updated_at | datetime Null |-|-|
 
 Il y aura une table intermédiaire garage_service pour lister les prestations proposées pour chaque garage.
 
@@ -49,25 +49,25 @@ Entité | Nom du paramètre | Type | Commentaire | Description |
 Image | url | text(65000) |-|-|
 Image | garage_id | int |-|-|
 Image | created_at | datetime |-|-|
-Image | updated_at | datetime |-|-|
+Image | updated_at | datetime Null |-|-|
 
 ## Commentaires et notes
 Entité | Nom du paramètre | Type | Commentaire | Description |
 -|-|-|-|-|
-Comment | content | text(500) |-|-|
+Comment | content | text(500) Null |-|-|
 Comment | rate | int(6) |-|-|
 Comment | garage_id | int |-|-|
 Comment | user_id | int |-|-|
 Comment | created_at | datetime |-|-|
 Comment | enable | boolean |-|-|
 
-## Agenda
+## Visit
 Entité | Nom du paramètre | Type | Commentaire | Description |
 -|-|-|-|-|
-Agenda | date | date |-|-|
-Agenda | time | time |-|-|
-Agenda | garage_id |int|-|-|
-Agenda | user_id |int|-|-|
-Agenda | reservation_date | datetime |-|-|
-Agenda | created_at | datetime |-|-|
-Agenda | updated_at | datetime |-|-|
+Visit | date | date |-|-|
+Visit | time | time |-|-|
+Visit | garage_id |int|-|-|
+Visit | user_id |int|-|-|
+Visit | reservation_date | datetime |-|-|
+Visit | created_at | datetime |-|-|
+Visit | updated_at Null | datetime |-|-| 
