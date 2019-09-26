@@ -57,6 +57,13 @@ class Service
     {
         $this->garages = new ArrayCollection();
         $this->visits = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int

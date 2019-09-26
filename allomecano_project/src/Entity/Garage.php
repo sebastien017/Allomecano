@@ -89,6 +89,13 @@ class Garage
         $this->images = new ArrayCollection();
         $this->visit = new ArrayCollection();
         $this->service = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int

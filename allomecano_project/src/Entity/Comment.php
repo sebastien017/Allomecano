@@ -46,6 +46,17 @@ class Comment
      */
     private $garage;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->enable = true;
+    }
+
+    public function __toString()
+    {
+        return $this->content;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
