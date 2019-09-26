@@ -15,7 +15,7 @@
 		<nav class="navbar" role="navigation" aria-label="main navigation">
 			<div class="navbar-brand">
 				<a href="{{ path('home') }}" class="navbar-item" href="https://bulma.io">
-					<img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+					<img src="{{ asset('assets/img/logo.jpg') }}" width="106" height="52">Allomecano
         </a>
           <span class="navbar-burger burger" data-target="navbarMenuHeroB">
               <span></span>
@@ -41,12 +41,17 @@
 	</header>
         {% block body %}{% endblock %}
         {% block footer %}
-        <div class="columns is-multiline is-mobile has-text-centered is-centered">
-			<div class="column is-2">Logo ici</div>
-			<a href=""><div class="column">A propos de nous</div></a>
-			<a href=""><div class="column">FAQ</div></a>
-			<a href=""><div class="column">Contact</div></a>
-			<a href=""><div class="column">Mentions légales</div></a>
+        <div class="columns is-multiline is-mobile has-text-centered footer is-12">
+			<div class="column is-12"><img src="{{ asset('assets/img/footer-logo.png') }}">
+            </div>
+            <div class="column is-mobile is-12">
+                <div class="columns is-mobile is-centered is-multiline">
+                <a href=""><div class="column">A propos de nous</div></a>
+                <a href=""><div class="column">FAQ</div></a>
+                <a href=""><div class="column">Contact</div></a>
+                <a href=""><div class="column">Mentions légales</div></a>
+                </div>
+            </div>
 		</div>
         </section>
         {% endblock %}

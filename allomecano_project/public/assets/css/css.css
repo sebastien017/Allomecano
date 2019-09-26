@@ -30,10 +30,25 @@
     background-image:url(../img/search.jpg);
     background-repeat: no-repeat;
     width: 100% !important;
+    height: auto;
     background-position: center;
     position: relative;
 }
 
 .mt-1 {
     margin-top: 0.4em;
+}
+
+.navbar-item img {
+    max-height: 52px !important;
+}
+
+.about-us {
+    background-color: #3C4F76;
+    color: white;
+}
+
+.footer {
+    background-color: #B4C5E4;
+    color: #3C3744;
 }
