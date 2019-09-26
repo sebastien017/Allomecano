@@ -31,6 +31,11 @@ class Image
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Garage", inversedBy="images")
+     */
+    private $garage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class Image
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getGarage(): ?Garage
+    {
+        return $this->garage;
+    }
+
+    public function setGarage(?Garage $garage): self
+    {
+        $this->garage = $garage;
 
         return $this;
     }
