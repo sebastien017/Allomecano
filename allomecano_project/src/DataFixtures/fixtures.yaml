@@ -4,45 +4,52 @@
 
 # Les mots clés des types de données ici sont les méthodes utilisées par Faker
 
-App\Entity\User:
-    user_{1..5}:
+App\Entity\Garage:
+    garage_{1..10}:
         name: '<name()>'
+        adress: '<streetAddress()>'
+        city: '<city()>'
         email: '<email()>'
+        createdAt: '<date_create()>'
+
+App\Entity\User:
+    user_{1..4}:
+        username: '<name()>'
         password: '<word()>'
+        firstname: '<firstname()>'
+        lastname: '<lastname()>'
+        phone: '<randomDigit()>'
+        adress: '<streetAddress()>'
+        city: '<city()>'
+        email: '<email()>'
+        created_at: '<date_create()>'
+        garage: '@garage_*'
+
 
 App\Entity\Comment:
-    comment_{1..30}:
-        name: '<jobTitle()>'
-        createdAt: '<date_create()>' 
-
-App\Entity\Garage:
-    garage_{1..15}:
-        title: '<text(60)>'
-        name: '<text(255)>'
+    comment_{1..20}:
+        content: '<text(35)>'
+        rate: '<randomDigit()>'
         createdAt: '<date_create()>'
         enable: '<boolean()>'
-        tag: '3x @tag_*'
         user: '@user_*'
-
-App\Entity\Image:
-    image_{1..30}:
-        name: '<text(255)>'
-        createdAt: '<date_create()>'
-        enable: '<boolean()>'
-        question: '@question_*'
-        user: '@user_*'
+        garage: '@garage_*'
 
 App\Entity\Service:
     service_{1..5}:
         name: '<name()>'
-        email: '<email()>'
-        password: '<word()>'
+        price: '<randomDigit()>'
+        createdAt: '<date_create()>'
 
 App\Entity\Visit:
     visit_{1..5}:
-        name: '<name()>'
-        email: '<email()>'
-        password: '<word()>'
+        date: '<dateTime()>'
+        time: '<dateTime()>'
+        reservation_date: '<dateTime()>'
+        createdAt: '<date_create()>'
+        user: '@user_*'
+        garage: '@garage_*'
+        service: '@service_*'
 
 
 
