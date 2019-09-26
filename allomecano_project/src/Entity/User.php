@@ -104,6 +104,13 @@ class User implements UserInterface
     {
         $this->comment = new ArrayCollection();
         $this->visit = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    public function __toString()
+    {
+        return $this->username;
     }
 
     public function getId(): ?int
