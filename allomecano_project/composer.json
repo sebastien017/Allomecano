@@ -15,6 +15,7 @@
         "symfony/framework-bundle": "4.3.*",
         "symfony/http-client": "4.3.*",
         "symfony/intl": "4.3.*",
+        "symfony/mercure": "^0.2.0",
         "symfony/monolog-bundle": "^3.1",
         "symfony/orm-pack": "*",
         "symfony/process": "4.3.*",
@@ -28,6 +29,8 @@
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
+        "fzaninotto/faker": "^1.8",
+        "nelmio/alice": "^3.5",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
