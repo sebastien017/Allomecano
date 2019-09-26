@@ -2,11 +2,58 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	    <title>{% block title %}Allomecano{% endblock %}</title>
+        {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+        <link rel="stylesheet" href="{{ asset('assets/css/css.css') }}">
+        {% endblock %}
     </head>
     <body>
+    	<header>
+		<nav class="navbar" role="navigation" aria-label="main navigation">
+			<div class="navbar-brand">
+				<a class="navbar-item" href="https://bulma.io">
+					<img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+        </a>
+          <span class="navbar-burger burger" data-target="navbarMenuHeroB">
+              <span></span>
+              <span></span>
+              <span></span>
+          </span>
+			</div>
+			<div id="navbarMenuHeroB" class="navbar-menu">
+				<div class="navbar-end">
+					<div class="navbar-item">
+						<div class="buttons">
+							<a class="button is-primary"> 
+                <strong><i class="fas fa-user-circle mr-1"></i>S'enregistrer</strong>
+              </a> 
+              <a class="button is-light">
+                <i class="fas fa-sign-in-alt mr-1"></i>Se connecter
+              </a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block footer %}
+        <div class="columns is-multiline is-mobile has-text-centered ">
+			<div class="column is-full-mobile">Logo ici</div>
+			<div class="column">A propos de nous</div>
+			<div class="column">FAQ</div>
+			<div class="column">Contact</div>
+			<div class="column">Mentions légales</div>
+		</div>
+        </section>
+        {% endblock %}
+        {% block javascripts %}
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+	    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	    <script defer src="{{ asset('assets/js/menu.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
