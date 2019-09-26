@@ -1,5 +1,6 @@
 .content-home {
-    margin: 0 0.7em 0 0.7em;
+    flex-grow: 1;
+    background-color: #3C4F76;
 }
 
 .input--home {
@@ -44,11 +45,21 @@
 }
 
 .about-us {
-    background-color: #3C4F76;
     color: white;
+    padding-top: 2em;
 }
 
 .footer {
     background-color: #B4C5E4;
     color: #3C3744;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.columns:not(:last-child) {
+    margin: 0;
 }
