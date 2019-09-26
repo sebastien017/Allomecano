@@ -38,3 +38,4 @@ easy_admin:
             class: App\Entity\Visit
             list:
                 fields: ['id', {property: 'date', label: 'Date de rendez-vous'}, {property: 'time', label: 'Heure de rendez-vous'}, {property: 'reservation date', label: 'Date de réservation'}, {property: 'created at', label: 'Date de création'}, {property: 'user', label: 'Client'}, 'Garage']
+

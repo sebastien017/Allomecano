@@ -1,0 +1,57 @@
+#App\Entity\Genre: # namespace de l'entité
+#    genre_{1..42}: #le nombre d'iteration d'entité souhaité ici : genre_1, genre_2...genre_23
+#        name: '<word()>' <-- numberBetween(0,5), sentence(),(...)  cf (https://github.com/fzaninotto/Faker#basic-usage)
+
+# Les mots clés des types de données ici sont les méthodes utilisées par Faker
+
+App\Entity\Garage:
+    garage_{1..10}:
+        name: '<name()>'
+        adress: '<streetAddress()>'
+        city: '<city()>'
+        email: '<email()>'
+        createdAt: '<date_create()>'
+
+App\Entity\User:
+    user_{1..4}:
+        username: '<name()>'
+        password: '<word()>'
+        firstname: '<firstname()>'
+        lastname: '<lastname()>'
+        phone: '<randomDigit()>'
+        adress: '<streetAddress()>'
+        city: '<city()>'
+        email: '<email()>'
+        created_at: '<date_create()>'
+        garage: '@garage_*'
+
+
+App\Entity\Comment:
+    comment_{1..20}:
+        content: '<text(35)>'
+        rate: '<randomDigit()>'
+        createdAt: '<date_create()>'
+        enable: '<boolean()>'
+        user: '@user_*'
+        garage: '@garage_*'
+
+App\Entity\Service:
+    service_{1..5}:
+        name: '<name()>'
+        price: '<randomDigit()>'
+        createdAt: '<date_create()>'
+
+App\Entity\Visit:
+    visit_{1..5}:
+        date: '<dateTime()>'
+        time: '<dateTime()>'
+        reservation_date: '<dateTime()>'
+        createdAt: '<date_create()>'
+        user: '@user_*'
+        garage: '@garage_*'
+        service: '@service_*'
+
+
+
+# Quand on écrit '@departement_*' on fait référence au departements créé plus haut (ligne 31)
+# Le mot department derrière le @ est le même qu'a la ligne 31
