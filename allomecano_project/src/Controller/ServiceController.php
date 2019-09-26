@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ServiceController extends AbstractController
 {
     /**
-     * @Route("/services", name="show_services", methods={"GET})
+     * @Route("/services", name="show_services", methods={"GET"})
      */
     public function showServices()
     {
@@ -18,7 +18,7 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/services/{service}", name="show_service", methods={"GET})
+     * @Route("/services/{service}", name="show_service", methods={"GET"})
      */
     public function showGarageByService()
     {

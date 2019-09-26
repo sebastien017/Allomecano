@@ -14,7 +14,7 @@
     	<header>
 		<nav class="navbar" role="navigation" aria-label="main navigation">
 			<div class="navbar-brand">
-				<a class="navbar-item" href="https://bulma.io">
+				<a href="{{ path('home') }}" class="navbar-item" href="https://bulma.io">
 					<img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
         </a>
           <span class="navbar-burger burger" data-target="navbarMenuHeroB">
@@ -27,10 +27,10 @@
 				<div class="navbar-end">
 					<div class="navbar-item">
 						<div class="buttons">
-							<a class="button is-primary"> 
+							<a href="{{ path('signup') }}" class="button is-primary"> 
                 <strong><i class="fas fa-user-circle mr-1"></i>S'enregistrer</strong>
               </a> 
-              <a class="button is-light">
+              <a href="{{ path('signin') }}" class="button is-light">
                 <i class="fas fa-sign-in-alt mr-1"></i>Se connecter
               </a>
 						</div>
@@ -41,12 +41,12 @@
 	</header>
         {% block body %}{% endblock %}
         {% block footer %}
-        <div class="columns is-multiline is-mobile has-text-centered ">
-			<div class="column is-full-mobile">Logo ici</div>
-			<div class="column">A propos de nous</div>
-			<div class="column">FAQ</div>
-			<div class="column">Contact</div>
-			<div class="column">Mentions légales</div>
+        <div class="columns is-multiline is-mobile has-text-centered is-centered">
+			<div class="column is-2">Logo ici</div>
+			<a href=""><div class="column">A propos de nous</div></a>
+			<a href=""><div class="column">FAQ</div></a>
+			<a href=""><div class="column">Contact</div></a>
+			<a href=""><div class="column">Mentions légales</div></a>
 		</div>
         </section>
         {% endblock %}
