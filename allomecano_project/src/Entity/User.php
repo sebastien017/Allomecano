@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -82,6 +84,27 @@ class User implements UserInterface
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user")
+     */
+    private $comment;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Garage", cascade={"persist", "remove"})
+     */
+    private $garage;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Visit", mappedBy="user")
+     */
+    private $visit;
+
+    public function __construct()
+    {
+        $this->comment = new ArrayCollection();
+        $this->visit = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -272,6 +295,80 @@ class User implements UserInterface
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComment(): Collection
+    {
+        return $this->comment;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comment->contains($comment)) {
+            $this->comment[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comment->contains($comment)) {
+            $this->comment->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getGarage(): ?Garage
+    {
+        return $this->garage;
+    }
+
+    public function setGarage(?Garage $garage): self
+    {
+        $this->garage = $garage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Visit[]
+     */
+    public function getVisit(): Collection
+    {
+        return $this->visit;
+    }
+
+    public function addVisit(Visit $visit): self
+    {
+        if (!$this->visit->contains($visit)) {
+            $this->visit[] = $visit;
+            $visit->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVisit(Visit $visit): self
+    {
+        if ($this->visit->contains($visit)) {
+            $this->visit->removeElement($visit);
+            // set the owning side to null (unless already changed)
+            if ($visit->getUser() === $this) {
+                $visit->setUser(null);
+            }
+        }
 
         return $this;
     }
