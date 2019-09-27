@@ -351,6 +351,7 @@ class User implements UserInterface
         return $this;
     }
 
+<<<<<<< HEAD
     public function getGps(): ?float
     {
         return $this->gps;
@@ -362,4 +363,6 @@ class User implements UserInterface
 
         return $this;
     }
+=======
+>>>>>>> 567cca79200062383235f0e8a54162a7688e0127
 }
