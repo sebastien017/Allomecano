@@ -6,7 +6,7 @@ $('#user_input_autocomplete_address').autocomplete({
                 
             success : function(data){
                 response($.map(data.features, function(objet){
-                    console.log(objet.properties.label);
+                    //console.log(objet.properties.label);
                     return objet.properties.label; // on retourne cette forme de suggestion
                 }));
             }
