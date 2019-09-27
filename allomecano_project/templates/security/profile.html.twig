@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Allomecano | Mon profil - {{ user.username }}{% endblock %}
+
+{% block body %}
+<h1>Hello {{ user.username }}</h1>
+<a href="{{ path('profileEdit', {'id': user.id})}}">Modifier mes données</a>
+
+<div class="control has-icons-left mt-1">
+
+    <form action="{{ path('delete_user', {id: user.id})}}" method="post" style="display: inline-block">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id)}}">
+        <button class="button is-danger mt-1">Supprimer mon compte</button>
+    </form>
+    
+</div>
+{% endblock %}
