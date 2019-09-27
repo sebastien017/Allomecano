@@ -4,4 +4,43 @@
 
 {% block body %}
 
+<section class="section contact flex-1 has-text-centered">
+<div class="column is-6 is-vcentered">
+    <h1 class="is-size-5 mb-5"><i class="fas fa-envelope mr-1"></i>Contactez-nous</h1>
+
+    <form class="form-horizontal" >
+    <div class="field mt-1">
+        <label for="inputName" class="label">Votre nom</label>
+        <div class="control has-icons-left">
+            <input type="text" value="" name="name" placeholder="Nom" class="input" id="inputName" required>
+            <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+            </span>
+        </div>
+    </div>
+
+    <div class="field mt-1">
+        <label for="inputEmail" class="label">Adresse mail</label>
+        <div class="control has-icons-left">
+            <input type="email" value="" name="email" placeholder="utilisateur@mail.com" class="input" id="inputEmail" required>
+            <span class="icon is-small is-left">
+            <i class="fas fa-at"></i>
+            </span>
+        </div>
+    </div>
+    <div class="field">
+        <label for="inputMessage" class="label">Votre message</label>
+        <div class="control has-icons-left">
+            <textarea class="textarea" placeholder="Votre message" id="inputMessage" name="message" required row="5"></textarea>
+        </div>
+</div>
+            
+<div class="field">
+    <button class="button is-success">
+    <i class="fas fa-share-square mr-1"></i>Envoyer la demande
+    </button></div>
+</form>
+</div>
+</section>
+
 {% endblock %}
