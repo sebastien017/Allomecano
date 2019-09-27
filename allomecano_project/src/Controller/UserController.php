@@ -62,7 +62,7 @@ class UserController extends AbstractController
             $em->persist($user);
             $em->flush();
             // On redirige l'utilisateur sur la page de login
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('security/signup.html.twig', [
