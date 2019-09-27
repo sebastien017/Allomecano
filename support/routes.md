@@ -10,7 +10,7 @@
 | `/planing` | `GET & POST` |`PlaningController`| `editPlaning`| Mon planing| Débloquer certains créneaux horaires | Accessibles aux pro uniquement |
 | `/admin` | `GET & POST` |--|--|--|--| Géré par EasyAdminBundle|
 | `/services` | `GET` | `ServiceController` | `showServices`| Prestations | Choix de la prestation |--|
-| `/services/{service}` | `GET` | `ServiceController` | `showGarageByService` | Les professionnels | Choix du professionnel |--|
+| `/garages/{service}&{gps}` |`GET` | `GarageController` | `showGarageByService&Gps` | {NomDuGarage} | Affichage des infos du professionnel pour les particuliers |--|
 | `/garage/{garage}` |`GET` | `GarageController` | `showSingleGarage` | {NomDuGarage} | Affichage des infos du professionnel pour les particuliers |--|
 | `/reservation`| `GET & POST` | `PlaningController`| `showPlaningByGarage` | Réservation de mon rdv| Choix de la date |--|
 | `/reservation/confirm`| `GET & POST` | `PlaningController` | `validatePlaning` | Confirmation de mon rdv | Validation de la prise de rdv |--|
