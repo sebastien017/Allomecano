@@ -83,6 +83,11 @@ class Garage
      */
     private $service;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $gps;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -123,30 +128,6 @@ class Garage
     public function setAdress(?string $adress): self
     {
         $this->adress = $adress;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(?string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    public function getPostalCode(): ?int
-    {
-        return $this->postalCode;
-    }
-
-    public function setPostalCode(?int $postalCode): self
-    {
-        $this->postalCode = $postalCode;
 
         return $this;
     }
@@ -326,6 +307,18 @@ class Garage
         if ($this->service->contains($service)) {
             $this->service->removeElement($service);
         }
+
+        return $this;
+    }
+
+    public function getGps(): ?float
+    {
+        return $this->gps;
+    }
+
+    public function setGps(float $gps): self
+    {
+        $this->gps = $gps;
 
         return $this;
     }

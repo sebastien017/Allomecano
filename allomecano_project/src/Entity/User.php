@@ -56,16 +56,6 @@ class User implements UserInterface
     private $adress;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $postal_code;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $avatar;
@@ -99,6 +89,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Visit", mappedBy="user")
      */
     private $visit;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $gps;
 
     public function __construct()
     {
@@ -234,30 +229,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(?string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    public function getPostalCode(): ?int
-    {
-        return $this->postal_code;
-    }
-
-    public function setPostalCode(?int $postal_code): self
-    {
-        $this->postal_code = $postal_code;
-
-        return $this;
-    }
-
     public function getAvatar(): ?string
     {
         return $this->avatar;
@@ -380,4 +351,18 @@ class User implements UserInterface
         return $this;
     }
 
+<<<<<<< HEAD
+    public function getGps(): ?float
+    {
+        return $this->gps;
+    }
+
+    public function setGps(float $gps): self
+    {
+        $this->gps = $gps;
+
+        return $this;
+    }
+=======
+>>>>>>> 567cca79200062383235f0e8a54162a7688e0127
 }
