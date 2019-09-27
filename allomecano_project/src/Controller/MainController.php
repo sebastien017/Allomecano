@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Service;
+use App\Form\ServiceSearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
@@ -10,10 +13,15 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home()
+    public function home(Request $request)
     {
+        $services = $this->getDoctrine()->getRepository(Service::class)->findAll();
+        $form = $this->createForm(ServiceSearchType::class);
+        $form->handleRequest($request);
+
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'MainController',
+            'services' => $services,
+            'searchForm' => $form->createView(),
         ]);
     }
 
