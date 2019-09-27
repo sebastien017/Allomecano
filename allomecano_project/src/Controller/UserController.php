@@ -2,32 +2,42 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\HttpFoundation\Request;
+use App\Entity\User;
 use App\Form\UserType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
     /**
-     * @Route("/profile/{id}", name="profile", methods={"GET"})
+     * @Route("/login", name="app_login")
      */
-    public function profile()
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        return $this->render('user/profile.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        // if ($this->getUser()) {
+        //    $this->redirectToRoute('target_path');
+        // }
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**
-     * @Route("/profile/edit/{id}", name="profileEdit", methods={"GET", "POST"})
+     * @Route("/profile/{id}", name="profile", methods={"GET"})
      */
-    public function editProfile()
+    public function profile(User $user)
     {
-        return $this->render('user/edit-profile.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        return $this->render('security/profile.html.twig', [
+            'user' => $user,
+            ]);
     }
 
     /**
@@ -52,21 +62,33 @@ class UserController extends AbstractController
             $em->persist($user);
             $em->flush();
             // On redirige l'utilisateur sur la page de login
-            return $this->redirectToRoute('signin');
+            return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('user/signup.html.twig', [
+        return $this->render('security/signup.html.twig', [
                 'form' => $form->createView(),
         ]);
     }
+
     
-    /**
-     * @Route("/signin", name="signin", methods={"GET", "POST"})
+        
+        /**
+         * @Route("/profile/edit/{id}", name="profileEdit")
      */
-    public function signin()
+    public function editProfile(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
-        return $this->render('user/signin.html.twig', [
-            'controller_name' => 'UserController',
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword = $user->getPassword();
+            $encodedPassword = $encoder->encodePassword($user, $plainPassword);
+            $user->setPassword($encodedPassword);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('profile', ['id' => $user->getId()]);
+        }
+        return $this->render('security/edit-profile.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -76,5 +98,18 @@ class UserController extends AbstractController
     public function logout()
     {
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
+    }
+
+     /**
+     * @Route("/profile/delete/{id}", name="delete_user")
+     */
+    public function delete(User $user, Request $request)
+    {
+        if($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($user);
+            $em->flush();
+        }
+        return $this->redirectToRoute('home');
     }
 }
