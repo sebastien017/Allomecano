@@ -350,4 +350,16 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getGps(): ?float
+    {
+        return $this->gps;
+    }
+
+    public function setGps(float $gps): self
+    {
+        $this->gps = $gps;
+
+        return $this;
+    }
 }
