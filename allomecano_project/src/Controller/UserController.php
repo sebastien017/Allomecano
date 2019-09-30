@@ -70,11 +70,9 @@ class UserController extends AbstractController
         ]);
     }
 
-    
-        
-        /**
-         * @Route("/profile/edit/{id}", name="profileEdit")
-     */
+    /**
+    * @Route("/profile/edit/{id}", name="profileEdit")
+    */
     public function editProfile(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
         $form = $this->createForm(UserType::class, $user);

@@ -27,13 +27,7 @@
                 {{ form_row(form.phone, {'attr': {'class': 'input', 'placeholder' : 'N° de téléphone'}}) }}
             </div>
             <div class="control has-icons-left mt-1">
-                {{ form_row(form.adress, {'attr': {'class': 'input', 'placeholder' : 'Adresse'}}) }}
-            </div>
-            <div class="control has-icons-left mt-1">
-                {{ form_row(form.city, {'attr': {'class': 'input', 'placeholder' : 'Ville'}}) }}
-            </div>
-            <div class="control has-icons-left mt-1">
-                {{ form_row(form.postalCode, {'attr': {'class': 'input', 'placeholder' : 'Code Postal'}}) }}
+                {{ form_row(form.adress, {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder' : 'Adresse'}}) }}
             </div>
             <div class="control has-icons-left mt-1">
                 {{ form_row(form.avatar, {'attr': {'class': 'input', 'placeholder' : 'Url de votre avatar'}}) }}
