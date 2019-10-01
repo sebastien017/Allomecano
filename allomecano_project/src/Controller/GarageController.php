@@ -20,12 +20,17 @@ class GarageController extends AbstractController
     }
 
     /**
-     * @Route("/garages/{gps}&{address}&{service}", name="show_garage_by_service_gps", methods={"GET"})
+     * @Route("/garages/", name="show_garage_by_service_gps", methods={"GET"})
      */
     public function showGarageByServiceAndGps(Request $request)
     {
-        $services = $this->getDoctrine()->getRepository(Service::class);
+        /*$services = $this->getDoctrine()->getRepository(Service::class);
         dump($services);
-        exit;
+        exit;*/
+
+        return $this->render('garage/search.html.twig', [
+            
+        ]);
+        
     }
 }
