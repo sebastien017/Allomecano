@@ -3,26 +3,56 @@
 {% block title %}Allomecano | Se connecter{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
+<!-- A déplacer 
     {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+    <div class="mb-3">
+         You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
-    {% endif %}
+{% endif %}-->
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername" class="sr-only">Username</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+<form class="flex-1" method="post">
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+<section class="is-primary is-fullheight">
+  <div class="hero-body is-primary no-padding-top">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+          <form action="" class="box">
+            <div class="field">
+            {# Affiche les erreurs #}
+            {% if error %}
+            <article class="error">
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+            </article>
+            {% endif %}
+
+            <form method="post">
+
+            <h1 class="is-size-4 mb-1">Se connecter</h1>
+
+              <label for="inputEmail" class="label">Email</label>
+              <div class="control has-icons-left">
+                <input type="email" value="{{ last_username }}" name="email" placeholder="user@oclock.io" class="input" id="inputEmail" required autofocus>
+              <span class="icon is-small is-left">
+                  <i class="fa fa-envelope"></i>
+              </span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="" class="label">Mot de passe</label>
+              <div class="control has-icons-left">
+                <input type="password" id="inputPassword" name="password" placeholder="*******" class="input" required>
+                <span class="icon is-small is-left">
+                  <i class="fa fa-lock"></i>
+                </span>
+              </div>
+            </div>
+
+            <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}">
 
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -35,8 +65,16 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+     <div class="field">
+        <button class="button is-success">
+        Se connecter
+        </button>
+    </div>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
