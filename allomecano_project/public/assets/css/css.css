@@ -111,3 +111,11 @@ body {
 .legal {
     padding-top: 0;
 }
+
+#container-formGarage{
+    display: none;
+}
+
+.visible {
+    display: block;
+}
