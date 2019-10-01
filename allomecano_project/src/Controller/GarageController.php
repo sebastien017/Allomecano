@@ -2,30 +2,33 @@
 
 namespace App\Controller;
 
+use App\Entity\Garage;
 use App\Entity\Service;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GarageController extends AbstractController
 {
     /**
-     * @Route("/garage/{garage}", name="garage")
+     * @Route("/garage/{id}", name="garage", methods={"GET"})
      */
-    public function showSingleGarage()
+    public function showSingleGarage(Garage $garage)
     {
+
+    $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
         return $this->render('garage/garage.html.twig', [
-            'controller_name' => 'GarageController',
+            'garage' => $garage,
         ]);
     }
-
     /**
      * @Route("/garages/{service}&{gps}", name="show_garage_by_service_gps", methods={"GET"})
      */
     public function showGarageByServiceAndGps(Request $request)
     {
         $services = $this->getDoctrine()->getRepository(Service::class);
-        dump($services);
-        exit;
+        // dump($services);
+        // exit;
     }
+
 }

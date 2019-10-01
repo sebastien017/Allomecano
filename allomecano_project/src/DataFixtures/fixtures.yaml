@@ -8,9 +8,10 @@ App\Entity\Garage:
     garage_{1..10}:
         name: '<name()>'
         adress: '<streetAddress()>'
-        city: '<city()>'
         email: '<email()>'
         createdAt: '<date_create()>'
+        gps: '<randomDigit()>'
+        visit: '<time()>'
 
 App\Entity\User:
     user_{1..4}:
@@ -20,10 +21,10 @@ App\Entity\User:
         lastname: '<lastname()>'
         phone: '<randomDigit()>'
         adress: '<streetAddress()>'
-        city: '<city()>'
         email: '<email()>'
         created_at: '<date_create()>'
         garage: '@garage_*'
+        gps: '<randomDigit()>'
 
 
 App\Entity\Comment:
