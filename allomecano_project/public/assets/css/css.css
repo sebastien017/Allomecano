@@ -139,6 +139,10 @@ body {
     color: white;
 }
 
+.inline {
+    display: inline;
+}
+
 #container-formGarage {
     display: none;
 }
