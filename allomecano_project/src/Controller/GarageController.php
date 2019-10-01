@@ -20,7 +20,7 @@ class GarageController extends AbstractController
     }
 
     /**
-     * @Route("/garages/{service}&{gps}", name="show_garage_by_service_gps", methods={"GET"})
+     * @Route("/garages/{gps}&{address}&{service}", name="show_garage_by_service_gps", methods={"GET"})
      */
     public function showGarageByServiceAndGps(Request $request)
     {
