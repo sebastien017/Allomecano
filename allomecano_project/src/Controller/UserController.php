@@ -10,6 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Form\GarageType;
+use App\Entity\Garage;
 
 class UserController extends AbstractController
 {
@@ -45,14 +47,18 @@ class UserController extends AbstractController
      */
     public function signup(Request $request, UserPasswordEncoderInterface $encoder)
     {
+        $garage = new Garage;
         $form = $this->createForm(UserType::class);
         $form->handleRequest($request);
+        $formGarage = $this->createForm(GarageType::class);
+        $formGarage->handleRequest($request);
         // Traitement du formulaire si envoyé
         if ($form->isSubmitted() && $form->isValid()) {
             // On récupère les données du formulaire
             $user = $form->getData();
             // On ajout le ROLE_USER à notre utilisateur
             $user->setRoles(['ROLE_USER']);
+            $user->setGarage($garage);
             // On doit encoder le mot de passe avant d'enregistrer l'utilisateur
             $plainPassword = $user->getPassword();
             $encodedPassword = $encoder->encodePassword($user, $plainPassword);
@@ -60,6 +66,12 @@ class UserController extends AbstractController
             // On utilise l'entity manager pour persister et enregistrer notre objet
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
+
+            if ($formGarage->isSubmitted() && $formGarage->isValid()){
+                $garage = getData();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($garage); 
+            }
             $em->flush();
             // On redirige l'utilisateur sur la page de login
             return $this->redirectToRoute('app_login');
@@ -67,6 +79,7 @@ class UserController extends AbstractController
 
         return $this->render('security/signup.html.twig', [
                 'form' => $form->createView(),
+                'formGarage' => $formGarage->createView()
         ]);
     }
 
