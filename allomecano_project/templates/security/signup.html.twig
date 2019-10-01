@@ -53,10 +53,10 @@
         <div class="control has-icons-left mt-1">
             {{ form_row(formGarage.email, {'attr': {'placeholder': 'Email de votre garage', 'class': 'input'}}) }}
         </div>
-        <div class="control has-icons-left mt-1">
+        <div class="control has-icons-left mt-1" onchange="affiche_bloc();">
             {{ form_row(formGarage.mobility, {'label': 'Cochez si vous êtes mobile'}) }}
         </div>
-        <div class="control has-icons-left mt-1">
+        <div id="form-distance" class="control has-icons-left mt-1">
             {{ form_row(formGarage.distance, {'attr': {'class': 'input'}}) }}
         </div>
         <div class="control has-icons-left mt-1">
