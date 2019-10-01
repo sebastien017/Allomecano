@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Gestion des steps (confirmation rendez-vous)
+    bulmaSteps.attach();
+
     // Récupération de tous les éléments "navbar-burger"
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
   
