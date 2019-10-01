@@ -142,3 +142,11 @@ body {
 .inline {
     display: inline;
 }
+
+#container-formGarage {
+    display: none;
+}
+
+#form-distance {
+    display: none;
+}
