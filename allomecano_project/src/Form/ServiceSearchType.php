@@ -13,7 +13,7 @@ class ServiceSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', EntityType::class, [
+            ->add('service', EntityType::class, [
                 // looks for choices from this entity
                 'class' => Service::class,
             

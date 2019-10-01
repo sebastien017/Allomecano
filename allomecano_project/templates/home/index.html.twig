@@ -10,11 +10,15 @@
 			<div class="column is-6 search--details">
 			<i class="fas fa-map-marked-alt mr-2"></i>Prendre rendez-vous chez un professionnel en mécanique
 			</div>
+		<div id="container-searchForm">
 				<form action="{{ path('show_garage_by_service_gps') }}" method="GET=">
 				<input id="gps-coord" name="gps" style="visibility : hidden; width : 0%"></input>
      			<input class="input input--home" type="text" name ="address" id="user_input_autocomplete_address" placeholder="Votre adresse...">
-				 {% form_theme searchForm 'bootstrap_4_layout.html.twig' %}
-				{{ form_widget(searchForm, {'attr': {'class': 'input input--home', 'name': 'service'}}) }}
+
+				{{ form_start(searchForm)}}
+            	{{ form_row(searchForm.service, {'attr': {'class': 'input input--home', 'name': 'service'}}) }}
+    			{{ form_end(searchForm)}}
+
 				<button type="submit" class="button is-success"><i class="fas fa-search mr-1"></i>Chercher</button>
 				</form>
 		  </div>
