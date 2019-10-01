@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class UserType extends AbstractType
 {
@@ -46,17 +47,17 @@ class UserType extends AbstractType
         ->add('adress', TextType::class, [
             'label' => 'Adresse'
             ])
-        ->add('city', TextType::class, [
-            'label' => 'Ville'
-            ])
-        ->add('postalCode', NumberType::class, [
-            'label' => 'Code Postal',
-            'constraints' => [
-                new NotBlank(),
-                new Assert\Length([
-                'min' => 5,
-                'max' => 5,])]
-            ])
+        // ->add('city', TextType::class, [
+        //     'label' => 'Ville'
+        //     ])
+        // ->add('postalCode', NumberType::class, [
+        //     'label' => 'Code Postal',
+        //     'constraints' => [
+        //         new NotBlank(),
+        //         new Assert\Length([
+        //         'min' => 5,
+        //         'max' => 5,])]
+        //     ])
         ->add('avatar', UrlType::class, [
             'label' => 'Avatar',
             'required' => false,

@@ -10,36 +10,30 @@
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
     {{ form_start(form) }}
         <div class="control has-icons-left">
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.firstname, {'attr': {'class': 'input', 'placeholder' : 'Prénom', 'autofocus' : ''}}) }}
-        </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.lastname, {'attr': {'class': 'input', 'placeholder' : 'Nom'}}) }}
-        </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.username, {'attr': {'class': 'input', 'placeholder' : 'Pseudo'}}) }}
-        </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.email, {'attr': {'class': 'input', 'placeholder' : 'utilisateur@mail.com'}}) }}
-        </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.phone, {'attr': {'class': 'input', 'placeholder' : 'N° de téléphone'}}) }}
-        </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.adress, {'attr': {'class': 'input', 'placeholder' : 'Adresse'}}) }}
-        </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.city, {'attr': {'class': 'input', 'placeholder' : 'Ville'}}) }}
-        </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.postalCode, {'attr': {'class': 'input', 'placeholder' : 'Code Postal'}}) }}
-        </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.avatar, {'attr': {'class': 'input', 'placeholder' : 'Url de votre avatar'}}) }}
-        </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.password) }}
-        </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.firstname, {'attr': {'class': 'input', 'placeholder' : 'Prénom', 'autofocus' : ''}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.lastname, {'attr': {'class': 'input', 'placeholder' : 'Nom'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.username, {'attr': {'class': 'input', 'placeholder' : 'Pseudo'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.email, {'attr': {'class': 'input', 'placeholder' : 'utilisateur@mail.com'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.phone, {'attr': {'class': 'input', 'placeholder' : 'N° de téléphone'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.adress, {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder' : 'Adresse'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.avatar, {'attr': {'class': 'input', 'placeholder' : 'Url de votre avatar'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.password, {'attr': {'placeholder': 'Modification du mot de passe'}}) }}
+            </div>
 
         <button class="button is-success mt-1">S'enregistrer</button>
     {{ form_end(form) }}
