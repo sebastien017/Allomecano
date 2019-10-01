@@ -10,38 +10,62 @@
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
     {{ form_start(form) }}
         <div class="control has-icons-left">
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.firstname, {'attr': {'class': 'input', 'placeholder' : 'Prénom', 'autofocus' : ''}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.lastname, {'attr': {'class': 'input', 'placeholder' : 'Nom'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.username, {'attr': {'class': 'input', 'placeholder' : 'Pseudo'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.email, {'attr': {'class': 'input', 'placeholder' : 'utilisateur@mail.com'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.phone, {'attr': {'class': 'input', 'placeholder' : 'N° de téléphone'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.adress, {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder' : 'Adresse'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.avatar, {'attr': {'class': 'input', 'placeholder' : 'Url de votre avatar'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+                {{ form_row(form.password, {'attr': {'placeholder': 'Modification du mot de passe'}}) }}
+            </div>
+            <div class="control has-icons-left mt-1">
+            <label> Cocher cette case si vous êtes un professionnel.</label><br>
+                <input type="checkbox" id="formGarage" name="formGarage" onchange="affiche_bloc();">
+            </div>
+
+    {{ form_end(form) }}
+
+    <div id="container-formGarage">
+
+    {{ form_start(formGarage)}}
         <div class="control has-icons-left mt-1">
-        {{ form_row(form.firstname, {'attr': {'class': 'input', 'placeholder' : 'Prénom', 'autofocus' : ''}}) }}
+            {{ form_row(formGarage.name, {'attr': {'placeholder': 'Nom de votre garage', 'class': 'input',}}) }}
         </div>
         <div class="control has-icons-left mt-1">
-        {{ form_row(form.lastname, {'attr': {'class': 'input', 'placeholder' : 'Nom'}}) }}
+            {{ form_row(formGarage.adress  , {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder': 'Adresse de votre garage'}}) }}
         </div>
         <div class="control has-icons-left mt-1">
-        {{ form_row(form.username, {'attr': {'class': 'input', 'placeholder' : 'Pseudo'}}) }}
+            {{ form_row(formGarage.email, {'attr': {'placeholder': 'Email de votre garage', 'class': 'input'}}) }}
         </div>
         <div class="control has-icons-left mt-1">
-        {{ form_row(form.email, {'attr': {'class': 'input', 'placeholder' : 'utilisateur@mail.com'}}) }}
+            {{ form_row(formGarage.mobility, {'label': 'Cochez si vous êtes mobile'}) }}
         </div>
         <div class="control has-icons-left mt-1">
-        {{ form_row(form.phone, {'attr': {'class': 'input', 'placeholder' : 'N° de téléphone'}}) }}
+            {{ form_row(formGarage.distance, {'attr': {'class': 'input'}}) }}
         </div>
         <div class="control has-icons-left mt-1">
-        {{ form_row(form.adress, {'attr': {'class': 'input', 'placeholder' : 'Adresse'}}) }}
+            {{ form_row(formGarage.service, {'attr': {'class': 'input'}}) }}
         </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.city, {'attr': {'class': 'input', 'placeholder' : 'Ville'}}) }}
-        </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.postalCode, {'attr': {'class': 'input', 'placeholder' : 'Code Postal'}}) }}
-        </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.avatar, {'attr': {'class': 'input', 'placeholder' : 'Url de votre avatar'}}) }}
-        </div>
-        <div class="control has-icons-left mt-1">
-        {{ form_row(form.password) }}
-        </div>
+    {{ form_end(formGarage)}}
+
+    </div>
 
         <button class="button is-success mt-1">S'enregistrer</button>
-    {{ form_end(form) }}
     </section>
 {% endblock %}

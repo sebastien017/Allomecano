@@ -25,6 +25,10 @@
     margin-right: 0.3em;
 }
 
+.ml-1 {
+    margin-left: 0.3em;
+}
+
 .mr-2 {
     margin-right: 0.6em;
 }
@@ -110,4 +114,6 @@ body {
 
 .legal {
     padding-top: 0;
+}
+
 }
