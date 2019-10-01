@@ -75,11 +75,14 @@
         {% endblock %}
         {% block javascripts %}
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-	    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script defer src="{{ asset('assets/js/menu.js') }}"></script>
+	      <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-        <script src="{{ asset('assets/js/address.js') }}"></script>
+        <script defer src="{{ asset('assets/js/menu.js') }}"></script>
+        <script src="{{ asset('assets/js/placeGmap.js') }}"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?&language=fr&key=AIzaSyAa_XzBtUTRBtVf2yBNiqYhT1bvBJX_Xoo&libraries=places&callback=initAutocomplete" async defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/bulma-steps@2.2.1/dist/js/bulma-steps.js"></script> 
+        <script src="{{ asset('assets/js/formGarage.js') }}"></script>
         {% endblock %}
     </body>
 </html>

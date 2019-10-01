@@ -13,12 +13,14 @@ class ServiceSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', EntityType::class, [
+            ->add('service', EntityType::class, [
                 // looks for choices from this entity
                 'class' => Service::class,
             
                 // uses the User.username property as the visible option string
                 'choice_label' => 'name',
+                'label' => false
+
             
                 // used to render a select box, check boxes or radios
                 // 'multiple' => true,
