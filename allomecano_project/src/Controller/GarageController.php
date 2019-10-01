@@ -30,7 +30,7 @@ class GarageController extends AbstractController
 
         // Récupération coordonnées gps
         $gps = $request->request->get('gps');
-        $regex = preg_replace('!\(([^\)]+)\)!', '', $gps);
+        $regex = preg_replace("/\((.+?)\)/", '-', $gps);
 
         // ID du service
         $service_search = $request->request->get('service_search');
