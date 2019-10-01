@@ -1,10 +1,14 @@
 var placeSearch, autocomplete, geocoder;
 
 function initAutocomplete() {
+  var options = {
+    componentRestrictions: {country: 'fr'}
+};
   geocoder = new google.maps.Geocoder();
   autocomplete = new google.maps.places.Autocomplete(
     (document.getElementById('user_input_autocomplete_address')), {
-      types: ['geocode']
+      types: ['geocode'],
+      options
     });
 
   autocomplete.addListener('place_changed', fillInAddress);
