@@ -116,4 +116,24 @@ body {
     padding-top: 0;
 }
 
+.reservation-dates {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
 }
+
+.no-padding-top {
+    padding-top: 0;
+}
+
+.alert {
+    padding: 0.5em;
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+    margin-bottom: 0.5em;
+}
+
+.alert-danger {
+    background-color: #F05555;
+    font-weight: bold;
+    color: white;
