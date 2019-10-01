@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Allomecano | Réservation{% endblock %}
+
+{% block body %}
+
+<section class="section section--reservation">
+<div class="columns is-12 is-multiline has-text-centered">
+    <div class="column reservation-infos is-6">
+    Nom du garage<br>
+    *****<br>
+    Adresse
+    </div>
+    <div class="column reservation is-6">
+    Prendre mon rendez-vous
+    </div>
+</div>
+</section>
+
+<div class="columns is-multiline is-12 has-text-centered">
+    <div class="column reservation-infos is-12">
+        <i class="fas fa-chevron-circle-left mr-1"></i>Les prochains rendez-vous<i class="fas fa-chevron-circle-right ml-1"></i>
+    </div>
+</div>
+    <div class="column is-12 has-text-centered is-vcentered is-mobile">
+        <div class="columns reservation-dates is-12 has-text-centered is-vcentered is-mobile">
+            <div class="column is-one-third">
+            Lundi xx/10<br><br>
+            13h
+            </div>
+            <div class="column is-one-third">
+            Mardi xx/10<br><br>
+            15h
+            </div>
+            <div class="column is-one-third">
+            Mercredi xx/10<br><br>
+            9h
+            </div>
+        </div>
+    </div>
+   
+{% endblock %}

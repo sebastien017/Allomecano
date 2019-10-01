@@ -25,6 +25,10 @@
     margin-right: 0.3em;
 }
 
+.ml-1 {
+    margin-left: 0.3em;
+}
+
 .mr-2 {
     margin-right: 0.6em;
 }
@@ -112,10 +116,4 @@ body {
     padding-top: 0;
 }
 
-#container-formGarage{
-    display: none;
-}
-
-.visible {
-    display: block;
 }
