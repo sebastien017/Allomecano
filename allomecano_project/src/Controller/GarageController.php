@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Garage;
 use App\Entity\Service;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
