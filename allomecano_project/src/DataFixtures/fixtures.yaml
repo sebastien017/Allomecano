@@ -10,7 +10,12 @@ App\Entity\Garage:
         adress: '<streetAddress()>'
         email: '<email()>'
         createdAt: '<date_create()>'
+<<<<<<< HEAD
+        gps: '<randomDigit()>'
+        visit: '<time()>'
+=======
         gps : '<RandomDigit()>'
+>>>>>>> 0c25e8f11b4754dba623b16a0fb6571317103e9b
 
 App\Entity\User:
     user_{1..4}:
@@ -24,6 +29,7 @@ App\Entity\User:
         gps : '<RandomDigit()>'
         created_at: '<date_create()>'
         garage: '@garage_*'
+        gps: '<randomDigit()>'
 
 
 App\Entity\Comment:

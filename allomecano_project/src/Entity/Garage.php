@@ -28,15 +28,6 @@ class Garage
      */
     private $adress;
 
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $postalCode;
 
     /**
      * @ORM\Column(type="string", length=320, nullable=true)
@@ -82,6 +73,7 @@ class Garage
      * @ORM\ManyToMany(targetEntity="App\Entity\Service", inversedBy="garages")
      */
     private $service;
+    
 
     /**
      * @ORM\Column(type="float")
@@ -100,7 +92,10 @@ class Garage
 
     public function __toString()
     {
-        return $this->name;
+         $this->name = $name;
+         $this->images = $images;
+         $this->service = $service;
+       
     }
 
     public function getId(): ?int
