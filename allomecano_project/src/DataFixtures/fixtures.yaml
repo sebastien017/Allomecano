@@ -4,21 +4,8 @@
 
 # Les mots clés des types de données ici sont les méthodes utilisées par Faker
 
-App\Entity\Garage:
-    garage_{1..10}:
-        name: '<name()>'
-        adress: '<streetAddress()>'
-        email: '<email()>'
-        createdAt: '<date_create()>'
-<<<<<<< HEAD
-        gps: '<randomDigit()>'
-        visit: '<time()>'
-=======
-        gps : '<RandomDigit()>'
->>>>>>> 0c25e8f11b4754dba623b16a0fb6571317103e9b
-
 App\Entity\User:
-    user_{1..4}:
+    user_{1..15}:
         username: '<name()>'
         password: '<word()>'
         firstname: '<firstname()>'
@@ -26,11 +13,17 @@ App\Entity\User:
         phone: '<randomDigit()>'
         adress: '<streetAddress()>'
         email: '<email()>'
-        gps : '<RandomDigit()>'
+        gps: '<RandomDigit()>'
         created_at: '<date_create()>'
-        garage: '@garage_*'
-        gps: '<randomDigit()>'
 
+App\Entity\Garage:
+    garage_{1..5}:
+        name: '<name()>'
+        adress: '<streetAddress()>'
+        email: '<email()>'
+        createdAt: '<date_create()>'
+        gps: '<randomDigit()>'
+        user: '@user_*'
 
 App\Entity\Comment:
     comment_{1..20}:
@@ -56,8 +49,3 @@ App\Entity\Visit:
         user: '@user_*'
         garage: '@garage_*'
         service: '@service_*'
-
-
-
-# Quand on écrit '@departement_*' on fait référence au departements créé plus haut (ligne 31)
-# Le mot department derrière le @ est le même qu'a la ligne 31
