@@ -81,11 +81,6 @@ class User implements UserInterface
     private $comment;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Garage", cascade={"persist", "remove"})
-     */
-    private $garage;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Visit", mappedBy="user")
      */
     private $visit;
@@ -94,6 +89,11 @@ class User implements UserInterface
      * @ORM\Column(type="float")
      */
     private $gps;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Garage", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $garage;
 
     public function __construct()
     {
@@ -308,18 +308,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getGarage(): ?Garage
-    {
-        return $this->garage;
-    }
-
-    public function setGarage(?Garage $garage): self
-    {
-        $this->garage = $garage;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Visit[]
      */
@@ -359,6 +347,24 @@ class User implements UserInterface
     public function setGps(float $gps): self
     {
         $this->gps = $gps;
+
+        return $this;
+    }
+
+    public function getGarage(): ?Garage
+    {
+        return $this->garage;
+    }
+
+    public function setGarage(?Garage $garage): self
+    {
+        $this->garage = $garage;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = $garage === null ? null : $this;
+        if ($newUser !== $garage->getUser()) {
+            $garage->setUser($newUser);
+        }
 
         return $this;
     }

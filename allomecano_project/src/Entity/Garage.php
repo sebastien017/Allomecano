@@ -80,6 +80,11 @@ class Garage
      */
     private $gps;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="garage", cascade={"persist", "remove"})
+     */
+    private $user;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -314,6 +319,18 @@ class Garage
     public function setGps(float $gps): self
     {
         $this->gps = $gps;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
