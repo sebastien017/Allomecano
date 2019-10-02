@@ -21,6 +21,7 @@ function codeAddress(address) {
     if (status == 'OK') {
       // This is the lat and lng results[0].geometry.location
       $('#gps-coord').val(results[0].geometry.location)
+      //  alert(results[0].geometry.location.lng)
       // alert(results[0].geometry.location);
     } else {
       alert('Geocode was not successful for the following reason: ' + status);

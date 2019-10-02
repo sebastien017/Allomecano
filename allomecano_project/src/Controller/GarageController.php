@@ -6,7 +6,6 @@ use App\Entity\Garage;
 use App\Entity\Service;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Garage;
 
 
 class GarageController extends AbstractController
