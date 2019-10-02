@@ -3,8 +3,14 @@
 {% block title %}Allomecano | Mon profil - {{ user.username }}{% endblock %}
 
 {% block body %}
+
 <h1>Hello {{ user.username }}</h1>
+
 <a href="{{ path('profileEdit', {'id': user.id})}}">Modifier mes données</a>
+
+{% if is_granted('ROLE_GARAGE') %}
+    <a href="{{ path('garageEdit', {'id': app.user.id, 'garage': app.user.garage.id})}}">Modifier les données de mon garage</a>
+{% endif %}
 
 <div class="control has-icons-left mt-1">
 

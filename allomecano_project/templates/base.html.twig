@@ -47,6 +47,9 @@
 							<a href="{{ path('profile', {'id': app.user.id }) }}" class="button is-primary"> 
                 <strong><i class="fas fa-user-circle mr-1"></i>Mon compte</strong>
               </a> 
+              <a href="{{ path('signup_garage', {'id': app.user.id }) }}" class="button is-light">
+                <i class="fas fa-sign-in-alt mr-1"></i>Inscription garage
+              </a>
               <a href="{{ path('logout') }}" class="button is-light">
                 <i class="fas fa-sign-in-alt mr-1"></i>Déconnexion
               </a>
