@@ -57,5 +57,17 @@ class GarageRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /*
+    public function findOneBySomeField($value): ?Garage
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    */
     
 }
