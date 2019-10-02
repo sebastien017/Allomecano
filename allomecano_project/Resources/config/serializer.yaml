@@ -1,0 +1,8 @@
+App\Entity\Garage:
+    attributes:
+        gps:
+            groups: ['garage']
+        name:
+            groups: ['garage']
+        adress:
+            groups: ['garage']
