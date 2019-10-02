@@ -138,3 +138,15 @@ body {
     font-weight: bold;
     color: white;
 }
+
+.inline {
+    display: inline;
+}
+
+#container-formGarage {
+    display: none;
+}
+
+#form-distance {
+    display: none;
+}
