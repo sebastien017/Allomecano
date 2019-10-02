@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Garage;
 use App\Form\UserType;
+use App\Form\GarageType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Form\GarageType;
-use App\Entity\Garage;
 
 class UserController extends AbstractController
 {
@@ -37,8 +38,11 @@ class UserController extends AbstractController
      */
     public function profile(User $user)
     {
+        $garage = new Garage;
+
         return $this->render('security/profile.html.twig', [
             'user' => $user,
+            'garage' => $garage
             ]);
     }
 
@@ -47,18 +51,14 @@ class UserController extends AbstractController
      */
     public function signup(Request $request, UserPasswordEncoderInterface $encoder)
     {
-        $garage = new Garage;
         $form = $this->createForm(UserType::class);
         $form->handleRequest($request);
-        $formGarage = $this->createForm(GarageType::class);
-        $formGarage->handleRequest($request);
         // Traitement du formulaire si envoyé
         if ($form->isSubmitted() && $form->isValid()) {
             // On récupère les données du formulaire
             $user = $form->getData();
             // On ajout le ROLE_USER à notre utilisateur
             $user->setRoles(['ROLE_USER']);
-            $user->setGarage($garage);
             // On doit encoder le mot de passe avant d'enregistrer l'utilisateur
             $plainPassword = $user->getPassword();
             $encodedPassword = $encoder->encodePassword($user, $plainPassword);
@@ -67,11 +67,6 @@ class UserController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
 
-            if ($formGarage->isSubmitted() && $formGarage->isValid()){
-                $garage = getData();
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($garage); 
-            }
             $em->flush();
             // On redirige l'utilisateur sur la page de login
             return $this->redirectToRoute('app_login');
@@ -79,7 +74,6 @@ class UserController extends AbstractController
 
         return $this->render('security/signup.html.twig', [
                 'form' => $form->createView(),
-                'formGarage' => $formGarage->createView()
         ]);
     }
 
@@ -122,5 +116,55 @@ class UserController extends AbstractController
             $em->flush();
         }
         return $this->redirectToRoute('home');
+    }
+
+
+    /**
+     * @Route("/signup/garage/{id}", name="signup_garage", methods={"GET", "POST"})
+     */
+    public function signupGarage(User $user, Request $request)
+    {
+        $garage = new Garage;
+        $formGarage = $this->createForm(GarageType::class, $garage);
+        $formGarage->handleRequest($request);
+
+
+            if ($formGarage->isSubmitted() && $formGarage->isValid()){
+                $garage = $formGarage->getData();
+                $garage->setUser($user->setRoles(['ROLE_GARAGE']));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($garage); 
+                $em->flush();
+                // On redirige l'utilisateur sur la page de login
+                return $this->redirectToRoute('profile', ['id' => $user->getId()]);
+            }
+                
+        return $this->render('security/signup-garage.html.twig', [
+                'formGarage' => $formGarage->createView()
+        ]);
+    }
+
+    /**
+    * @Route("/edit/{id}/garage/{garage}", name="garageEdit")
+    * @ParamConverter("garage", options={"mapping": {"id": "user_id", "garage": "id"}})
+    */
+    public function editGarage(Request $request, Garage $garage): Response
+    {
+        // $user = new User;
+        $formGarage = $this->createForm(GarageType::class, $garage);
+        $formGarage->handleRequest($request);
+
+
+            if ($formGarage->isSubmitted() && $formGarage->isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($garage); 
+                $em->flush();
+                // On redirige l'utilisateur sur la page de login
+                return $this->redirectToRoute('profile', ['id' => $garage->getUser()->getId()]);
+            }
+        return $this->render('security/edit-garage.html.twig', [
+            'garage' => $garage,
+            'formGarage' => $formGarage->createView(),
+        ]);
     }
 }

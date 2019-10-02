@@ -47,6 +47,11 @@ class UserType extends AbstractType
         ->add('adress', TextType::class, [
             'label' => 'Adresse'
             ])
+        ->add('gps', TextType::class, [
+            'label' => false,
+            'required' => false,
+            'attr' => array('style' => 'visibility : hidden; width : 0%')
+            ])
         // ->add('city', TextType::class, [
         //     'label' => 'Ville'
         //     ])

@@ -48,9 +48,11 @@ class GarageType extends AbstractType
             ->add('service', EntityType::class, [
                 // looks for choices from this entity
                 'class' => Service::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true
             
                 // uses the User.username property as the visible option string
-                'choice_label' => 'name',
             
             ]);
         ;
