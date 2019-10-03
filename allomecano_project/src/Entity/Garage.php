@@ -316,12 +316,12 @@ class Garage
         return $this;
     }
 
-    public function getGps(): ?float
+    public function getGps(): ?string
     {
         return $this->gps;
     }
 
-    public function setGps(float $gps): self
+    public function setGps(string $gps): self
     {
         $this->gps = $gps;
 
