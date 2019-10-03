@@ -14,7 +14,7 @@
 <script src="https://maps.google.com/maps/api/js?key=AIzaSyAa_XzBtUTRBtVf2yBNiqYhT1bvBJX_Xoo" type="text/javascript"></script>
 
 <script>
-map = new google.maps.Map(document.getElementById("map"), {
+		map = new google.maps.Map(document.getElementById("map"), {
 		center: new google.maps.LatLng({{ zoomLatitude }}, {{ zoomLongitude }}),
 		zoom: 11,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -27,18 +27,30 @@ map = new google.maps.Map(document.getElementById("map"), {
 			navigationControlOptions: {
 			style: google.maps.NavigationControlStyle.ZOOM_PAN
 		}
-	});
-		// On construit l'objet villes à partir de la variable json 
-		let villes = JSON.parse(garages);
-		// On parcourt l'objet villes
-		for(garage in garages){
-			var marker = new google.maps.Marker({
-				// parseFloat nous permet de transformer la latitude et la longitude en nombre décimal
-				position: {lat: parseFloat(villes[ville].lat), lng: parseFloat(villes[ville].lon)},
-				title: villes[ville].nomVille,
-				map: map
-			});	
+		});
+
+		geocoder = new google.maps.Geocoder();
+		// On parcourt l'objet garages
+		{% for garage in garages %}
+		{
+			geocoder.geocode({ 'address': "{{ garage.adress }}" }, function (results, status) 
+			{
+        		var latLng = {lat: results[0].geometry.location.lat (), lng: results[0].geometry.location.lng ()};
+
+        		if (status == 'OK') 
+				{
+            		var marker = new google.maps.Marker({
+                	position: latLng,
+                	map: map
+            		});
+        		} 
+				else 
+				{
+            		console.log('Geocode was not successful for the following reason: ' + status);
+        		}
+    		});
 		}
+		{% endfor %}
 </script>
 
 {% endblock %}
