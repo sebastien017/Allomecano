@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class GarageController extends AbstractController
 {
     /**
-     * @Route("/garage/{id}", name="garage", methods={"GET"})
+     * @Route("/garage/{id}", name="single_garage", methods={"GET"})
      */
     public function showSingleGarage(Garage $garage)
     {
@@ -29,7 +29,7 @@ class GarageController extends AbstractController
     $gpsCoordsArray = explode(',', $gps, 2);
     $latitude = $gpsCoordsArray[0];
     $longitude = trim($gpsCoordsArray[1]);
-        return $this->render('garage/garage.html.twig', [
+        return $this->render('garage/single_garage.html.twig', [
             'zoomLatitude' => $latitude,
             'zoomLongitude' => $longitude,
             'garage' => $garage,
