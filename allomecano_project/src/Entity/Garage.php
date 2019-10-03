@@ -76,7 +76,7 @@ class Garage
     
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string")
      */
     private $gps;
 

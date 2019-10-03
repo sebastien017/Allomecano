@@ -17,7 +17,7 @@ easy_admin:
       Commentaire:
             class: App\Entity\Comment
             list:
-                fields: ['id', {property: 'rate', label: 'Note'}, {property: 'createdAt', label: 'date de création'} ,{property: 'enable', label: 'Activer o/n'}, 'garage']
+                fields: ['id', 'content', {property: 'rate', label: 'Note'}, {property: 'createdAt', label: 'date de création'} ,{property: 'enable', label: 'Activer o/n'}]
       Garage:
             class: App\Entity\Garage
             list:
@@ -33,9 +33,9 @@ easy_admin:
       Utilisateur:
             class: App\Entity\User
             list:
-                fields: ['id', {property: 'username', label: 'Pseudo'}, {property: 'firstname', label: 'Prénom'}, {property: 'lastname', label: 'Nom'}, {property: 'phone', label: 'Téléphone'}, {property: 'adress', label: 'Adresse'}, {property: 'city', label: 'Ville'}]
+                fields: ['id', {property: 'username', label: 'Pseudo'}, {property: 'firstname', label: 'Prénom'}, {property: 'lastname', label: 'Nom'}, {property: 'phone', label: 'Téléphone'}, {property: 'adress', label: 'Adresse'}]
       Visit:
             class: App\Entity\Visit
             list:
-                fields: ['id', {property: 'date', label: 'Date de rendez-vous'}, {property: 'time', label: 'Heure de rendez-vous'}, {property: 'reservation date', label: 'Date de réservation'}, {property: 'created at', label: 'Date de création'}, {property: 'user', label: 'Client'}, 'Garage']
+                fields: ['id', {property: 'date', label: 'Date de rendez-vous'}, {property: 'time', label: 'Heure de rendez-vous'}, {property: 'reservation date', label: 'Date de réservation'}, {property: 'created at', label: 'Date de création'}]
 

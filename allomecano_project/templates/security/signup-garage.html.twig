@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Allomecano | S'enregistrer{% endblock %}
+
+{% block body %}
+    <section class="is-primary is-fullheight">
+    <div class="hero-body is-primary">
+        <div class="container">
+        <div class="columns is-centered">
+        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+        
+{{ form_start(formGarage)}}
+
+    <div class="control has-icons-left mt-1">
+        {{ form_row(formGarage.name, {'attr': {'placeholder': 'Nom de votre garage', 'class': 'input',}}) }}
+    </div>
+    <div class="control has-icons-left mt-1">
+        {{ form_row(formGarage.adress  , {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder': 'Adresse de votre garage'}}) }}
+    </div>
+    <div class="control has-icons-left mt-1">
+        {{ form_row(formGarage.email, {'attr': {'placeholder': 'Email de votre garage', 'class': 'input'}}) }}
+    </div>
+    <div class="control has-icons-left mt-1" onchange="affiche_bloc();">
+        {{ form_row(formGarage.mobility, {'label': 'Cochez si vous êtes mobile'}) }}
+    </div>
+    <div id="form-distance" class="control has-icons-left mt-1">
+        {{ form_row(formGarage.distance, {'attr': {'class': 'input'}}) }}
+    </div>
+    <div class="control has-icons-left mt-1">
+        {{ form_row(formGarage.service) }}
+    </div>
+
+    {{ form_row(formGarage.gps) }}
+
+    <button class="button is-success mt-1">S'enregistrer</button>
+
+{{ form_end(formGarage)}}
+
+</section>
+
+{% endblock %}

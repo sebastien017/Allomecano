@@ -10,13 +10,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class UserType extends AbstractType
 {
@@ -47,6 +48,11 @@ class UserType extends AbstractType
         ->add('adress', TextType::class, [
             'label' => 'Adresse'
             ])
+        ->add('gps', TextType::class, [
+            'label' => false,
+            'required' => false,
+            'attr' => array('style' => 'visibility : hidden; width : 0%')
+            ])
         // ->add('city', TextType::class, [
         //     'label' => 'Ville'
         //     ])
@@ -58,8 +64,10 @@ class UserType extends AbstractType
         //         'min' => 5,
         //         'max' => 5,])]
         //     ])
-        ->add('avatar', UrlType::class, [
+        ->add('avatar', FileType::class, [
             'label' => 'Avatar',
+            'data_class' => null,
+            'required' => false,
             'required' => false,
             ])
         ->add('username', TextType::class, [

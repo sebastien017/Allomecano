@@ -44,13 +44,19 @@ class GarageType extends AbstractType
             ->add('distance', IntegerType::class, [
                 'label' => 'Distance en kms'
             ])
-            // ->add('gps')
+            ->add('gps', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => array('style' => 'visibility : hidden; width : 0%')
+                ])
             ->add('service', EntityType::class, [
                 // looks for choices from this entity
                 'class' => Service::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true
             
                 // uses the User.username property as the visible option string
-                'choice_label' => 'name',
             
             ]);
         ;

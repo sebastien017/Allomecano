@@ -30,11 +30,13 @@
                 {{ form_row(form.adress, {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder' : 'Adresse'}}) }}
             </div>
             <div class="control has-icons-left mt-1">
-                {{ form_row(form.avatar, {'attr': {'class': 'input', 'placeholder' : 'Url de votre avatar'}}) }}
+                {{ form_row(form.avatar, {'attr': {'placeholder' : 'Url de votre avatar'}}) }}
             </div>
             <div class="control has-icons-left mt-1">
                 {{ form_row(form.password, {'attr': {'placeholder': 'Modification du mot de passe'}}) }}
             </div>
+
+            {{ form_row(form.gps) }}
 
             <div class="control has-icons-left mt-1">
                 <button class="button is-success mt-1">Enregistrer les modifications</button>
