@@ -6,27 +6,33 @@
 <section class="section section--garage">
 <div class="columns garage is-12 is-multiline has-text-centered">
     <div class="column garage-logo is-4">
-    Image
+    <img src="https://bulma.io/images/placeholders/96x96.png">
+    Logo
+    
     {% for image in garage.images %}
         {{image.url}}
     {% endfor %}
     </div>
     <div class="column garage-data is-4">
-    {{ garage.name }}
-    Nom du garage
+    <h1 class="title is-2">{{ garage.name }}</h1>
     </div>
     <div class="column garage-address is-4">
-    Adresse<br>
-    {{garage.adress}}
+    <br>
+    Adresse:
+    <div class="content is-small-2">{{garage.adress}}
     </div>
 </div>
 </section>
 
 <section class="section section--garage">
 <div class="columns garage is-12 has-text-centered">
+<div class="column garage-data is-4">
+<h1 class="title is-4">Services proposés par ce professionnel</h1>
+</div>
 {% for service in garage.service %}
-    <div class="column garage-service is-4">
-        {{service.name}}
+<div class="column garage-service is-4">
+      <p class="content is-small-1"></p>
+      {{service.name}}
    </div>
 {% endfor %}
 </div>
@@ -35,22 +41,19 @@
 <section class="section section--garage">
 <div class="columns garage is-12 has-text-centered">
     <div class="column garage-info is-4">
-    Texte présentation
-    <p> loremTexte présentation40 </p>
+    <p> {{garage.presentation}} </p>
     </div>
     <div class="column garage-info is-4">
+    
     {% for  visit in garage.visit %}
-
-    {{visit.time | date('H,i;s')}}
+    <p class="content is-small-3">Horaires:</p>
+    {{visit.time | date('H:i:s')}}
 
     {% endfor %}
-    Horaires
     
     </div>
-    <div class="column garage-info is-4">
-    Cartes et infos d'accès
+    <div id="map">
     </div>
-</div>
 </section>
 <section class="section section--garage">
 <div class="columns garage is-12 has-text-centered">
@@ -60,13 +63,38 @@
     </div>
     {% endfor %}
     <div class="column garage-review is-4">
-    Avis
+    
     </div>
     <div class="column garage-review is-4">
-    Avis
+    
     </div>
 </div>
 </div>
 </section>
 
+<script src="https://maps.google.com/maps/api/js?key=AIzaSyAa_XzBtUTRBtVf2yBNiqYhT1bvBJX_Xoo" type="text/javascript"></script>
+<script>
+var myLatlng = new google.maps.LatLng({{ zoomLatitude }}, {{ zoomLongitude }});
+map = new google.maps.Map(document.getElementById("map"), {
+		center: myLatlng,
+		zoom: 11,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		mapTypeControl: true,
+		scrollwheel: true,
+		mapTypeControlOptions: {
+			style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+		},
+			navigationControl: true,
+			navigationControlOptions: {
+			style: google.maps.NavigationControlStyle.ZOOM_PAN
+            }
+     });
+var marker = new google.maps.Marker({
+    position: myLatlng,
+    title:"Le garage se trouve ici"
+});
+
+// To add the marker to the map, call setMap();
+marker.setMap(map);
+</script>
 {% endblock %}
