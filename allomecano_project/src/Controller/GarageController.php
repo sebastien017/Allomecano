@@ -18,7 +18,20 @@ class GarageController extends AbstractController
     {
 
     $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
+
+    // Récupération des coordonnées gps
+    $gps = $garage->getGps();
+
+    // On retire les parenthèses
+    $gps = strtr($gps, array('(' => '', ')' => ''));
+
+    // Explode des coordonnées pour avoir un array de LAT et LNG
+    $gpsCoordsArray = explode(',', $gps, 2);
+    $latitude = $gpsCoordsArray[0];
+    $longitude = trim($gpsCoordsArray[1]);
         return $this->render('garage/garage.html.twig', [
+            'zoomLatitude' => $latitude,
+            'zoomLongitude' => $longitude,
             'garage' => $garage,
         ]);
     }

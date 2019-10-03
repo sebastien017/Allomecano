@@ -85,6 +85,11 @@ class Garage
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $presentation;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -311,12 +316,12 @@ class Garage
         return $this;
     }
 
-    public function getGps(): ?float
+    public function getGps(): ?string
     {
         return $this->gps;
     }
 
-    public function setGps(float $gps): self
+    public function setGps(string $gps): self
     {
         $this->gps = $gps;
 
@@ -331,6 +336,18 @@ class Garage
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPresentation(): ?string
+    {
+        return $this->presentation;
+    }
+
+    public function setPresentation(?string $presentation): self
+    {
+        $this->presentation = $presentation;
 
         return $this;
     }
