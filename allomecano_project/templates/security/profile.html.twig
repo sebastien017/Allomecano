@@ -5,6 +5,9 @@
 {% block body %}
 
 <h1>Hello {{ user.username }}</h1>
+{% if user.avatar %}
+<img src="{{ asset(user.avatar) }}" height="200" width="200">
+{% endif %}
 
 <a href="{{ path('profileEdit', {'id': user.id})}}">Modifier mes données</a>
 
