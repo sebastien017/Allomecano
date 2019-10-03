@@ -12,13 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class GarageController extends AbstractController
 {
     /**
-     * @Route("/garage/{id}", name="single_garage", methods={"GET"})
+     * @Route("/garage/{id}", name="garage", methods={"GET"})
      */
     public function showSingleGarage(Garage $garage)
     {
 
     $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
-        return $this->render('garage/single_garage.html.twig', [
+        return $this->render('garage/garage.html.twig', [
             'garage' => $garage,
         ]);
     }
