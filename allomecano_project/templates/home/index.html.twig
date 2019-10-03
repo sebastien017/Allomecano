@@ -6,7 +6,7 @@
 <section class="content-home">
   <div class="columns is-multiline is-mobile has-text-centered">
     <div class="column is-12 search">
-			<div class="column is-8 home-search">
+		<div class="column is-8 home-search">
 			<div class="column is-6 search--details">
 			<i class="fas fa-map-marked-alt mr-2"></i>Prendre rendez-vous chez un professionnel en mécanique
 			</div>
@@ -31,6 +31,5 @@
 	</div>
   </div>
 </section>
-
-<script src="https://maps.googleapis.com/maps/api/js?&language=fr&key=AIzaSyAa_XzBtUTRBtVf2yBNiqYhT1bvBJX_Xoo&libraries=places&callback=initAutocomplete" async defer></script>
+	{% include 'autocomplete/autocomplete.html.twig' %}
 {% endblock %}
