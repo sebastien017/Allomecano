@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Allomecano | Garage{% endblock %}
+
+{% block body %}
+<section class="section section--garage">
+<div class="columns garage is-12 is-multiline has-text-centered">
+    <div class="column garage-logo is-4">
+    Image
+    {% for image in garage.images %}
+        {{image.url}}
+    {% endfor %}
+    </div>
+    <div class="column garage-data is-4">
+    {{ garage.name }}
+    Nom du garage
+    </div>
+    <div class="column garage-address is-4">
+    Adresse<br>
+    {{garage.adress}}
+    </div>
+</div>
+</section>
+
+<section class="section section--garage">
+<div class="columns garage is-12 has-text-centered">
+{% for service in garage.service %}
+    <div class="column garage-service is-4">
+        {{service.name}}
+   </div>
+{% endfor %}
+</div>
+</section>
+
+<section class="section section--garage">
+<div class="columns garage is-12 has-text-centered">
+    <div class="column garage-info is-4">
+    Texte présentation
+    <p> loremTexte présentation40 </p>
+    </div>
+    <div class="column garage-info is-4">
+    {% for  visit in garage.visit %}
+
+    {{visit.time | date('H,i;s')}}
+
+    {% endfor %}
+    Horaires
+    
+    </div>
+    <div class="column garage-info is-4">
+    Cartes et infos d'accès
+    </div>
+</div>
+</section>
+<section class="section section--garage">
+<div class="columns garage is-12 has-text-centered">
+    {% for comment in garage.comments %}
+    <div class="column garage-review is-4">
+    {{comment.content}}
+    </div>
+    {% endfor %}
+    <div class="column garage-review is-4">
+    Avis
+    </div>
+    <div class="column garage-review is-4">
+    Avis
+    </div>
+</div>
+</div>
+</section>
+
+{% endblock %}
