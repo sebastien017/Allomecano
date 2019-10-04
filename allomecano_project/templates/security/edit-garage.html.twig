@@ -38,5 +38,6 @@
 {{ form_end(formGarage)}}
 <a href="{{ path('profile', {'id': app.user.id}) }}">Revenir à mon compte</a>
 </section>
+<script src="{{ asset('assets/js/formGarage.js') }}"></script>
 	{% include 'autocomplete/autocomplete.html.twig' %}
 {% endblock %}
