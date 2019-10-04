@@ -7,16 +7,17 @@
 <section class="section flex-1">
 <div class="columns is-12">
 <div class="column is-6">
+		<div class="is-sticky">
+			<div id="map">
+			</div>
+		</div>
+</div>
+<div class="column is-6">
 	{% for garage in garages  %}
-	<div class="search-garage-infos" data-name="{{ garage.name }}">
+	<div class="search-garage-infos" data-id="{{ garage.id }}">
 	{{ garage.adress }}
 	</div>
 	{% endfor %}
-</div>
-<div class="column is-6">
-<div id="map">
-	</div>
-</div>
 </div>
 </div>
 </section>
@@ -30,7 +31,7 @@
 <script>
 		map = new google.maps.Map(document.getElementById("map"), {
 		center: new google.maps.LatLng({{ zoomLatitude }}, {{ zoomLongitude }}),
-		zoom: 11,
+		zoom: 10,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		mapTypeControl: true,
 		scrollwheel: true,
@@ -43,6 +44,7 @@
 		}
 		});
 
+		// Mise en place de geocoder qui permet de récupérer les coordonnées gps par rapport à une adresse
 		geocoder = new google.maps.Geocoder();
 		var infowindow = new google.maps.InfoWindow();
 		// On parcourt l'objet garages
@@ -53,23 +55,52 @@
         		var latLng = {lat: results[0].geometry.location.lat (), lng: results[0].geometry.location.lng ()};
 
         		if (status == 'OK') 
-				{
-            		var marker = new google.maps.Marker({
+				{	
+					// Ajout du marqueur sur la map
+            		var marker{{ garage.id }} = new google.maps.Marker({
                 	position: latLng,
                 	map: map
             		});
+					// Ajout d'un evenement click sur la div dans le DOM
+					let garageDOM = document.body.querySelector('.search-garage-infos[data-id="{{ garage.id }}"]');
+					
+					garageDOM.addEventListener("mouseover", function()
+					{
+						marker{{ garage.id }}.setIcon('http://maps.google.com/mapfiles/ms/icons/purple-dot.png');
 
-					google.maps.event.addListener(marker, 'click', function(){
-        			//infowindow.close(); // Close previously opened infowindow
-       				//infowindow.setContent( );
-					//$('.section').find("[data-garage='" + {{ garage.name }} "']");
-					var element = document.body.querySelector('.search-garage-infos[data-name="{{ garage.name }}"]');
+						garageDOM.classList.add('borderIsBlue');
 
-					element.classList.add("backgroundIsBlue");
-					//var div = section.querySelector("[data-name='" + {{ garage.name }} + "']");
+						map.setCenter(new google.maps.LatLng(latLng));
 
-					console.log(element);
-        			//infowindow.open(map, marker);
+						map.setZoom(15);
+					});
+
+					garageDOM.addEventListener("mouseleave", function()
+					{
+						marker{{ garage.id }}.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+
+						garageDOM.classList.remove('borderIsBlue');
+
+						map.setCenter(new google.maps.LatLng({{ zoomLatitude }}, {{ zoomLongitude }}));
+
+						map.setZoom(10);
+					});  
+
+					// Ajout d'un evenement click sur le marqueur
+					google.maps.event.addListener(marker{{ garage.id }}, 'click', function(){
+        			// On cherche dans le DOM l'element en rapport avec l'id du garage actuel
+					var div = document.body.querySelector('.search-garage-infos[data-id="{{ garage.id }}"]');
+					// On cherche si un des élement dans le DOM possède déjà la classe
+					var elements = document.body.querySelectorAll('.search-garage-infos[data-id]').forEach(function (element)
+					{
+						element.classList.remove('borderIsBlue');
+					});
+					
+					// On ajoute une classe à l'element
+					div.classList.add("borderIsBlue");
+
+					// Animation : Scroll jusqu'à la div
+					div.scrollIntoView({ behavior: 'smooth' });
 					});
         		} 
 				else 
@@ -78,52 +109,9 @@
         		}
     		});
 		}
+
 		{% endfor %}
-
-  /*$("#map").gmap3({
-        center:[{{ zoomLatitude }}, {{ zoomLongitude }}],
-        zoom: 14,
-        mapTypeId : google.maps.MapTypeId.ROADMAP
-      })
-      .marker([
-        {% for garage in garages %}
-        	{address:"{{ garage.adress }}", options:{icon: "https://maps.google.com/mapfiles/marker_grey.png"}},
-	  	{% endfor %}
-	  ],
-            options:{
-              draggable: false
-            },
-            // Evénement de clic que sur le marqueur
-            events:{
-              click: function(marker, event, context){
-                var map = $(this).gmap3("get"),
-                  infowindow = $(this).gmap3({get:{name:"infowindow"}});
-                if (infowindow){
-                  infowindow.open(map, marker);
-                  infowindow.setContent(context.data);
-               //////////////
-                } else {
-                  $(this).gmap3({
-                    infowindow:{
-                      anchor:marker, 
-                      options:{content: context.data}
-                    }
-                  });
-              ///////////////
-                }
-              },
-
-            }
-          }
-        });
-
-		 // Overlay à utiliser : Créer une div avec un attr-id pour pouvoir le cibler avec jQuery
-
-   /*overlay:{
-        values: [
-            { latLng: [38.55240, -90.41710], data: "PRINTER01", options: { content: "<div>Whatever you want here!</div>" }  },
-            { address: "1234 E. Main Street, Springfield USA", data: "SERVER01", options: { content: "<div><i class='icon-reorder'></i></div>" } }
-        ],*/   
+		
 </script>
 
 {% endblock %}

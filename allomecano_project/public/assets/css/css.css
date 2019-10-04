@@ -154,10 +154,10 @@ body {
 #map {
     width: 400px;
     height: 400px;
+}
 
 .input, .select {
     padding-left: 9px;
-_
     margin-top: 0;
 }
 
@@ -165,8 +165,15 @@ _
     padding: 2em;
     border: solid 1px lightgray;
     border-radius: 3px;
+    margin-bottom: 0.5em;
 }
 
-.backgroundIsBlue {
+.borderIsBlue {
+    border-color: blue;
+}
 
+.is-sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
 }
