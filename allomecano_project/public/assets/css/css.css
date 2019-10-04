@@ -152,6 +152,17 @@ body {
 }
 
 #map {
-    width: 500px;
+    width: 400px;
     height: 400px;
+    margin-top: 0;
+}
+
+.search-garage-infos {
+    padding: 2em;
+    border: solid 1px lightgray;
+    border-radius: 3px;
+}
+
+.backgroundIsBlue {
+    background-color: blue;
 }

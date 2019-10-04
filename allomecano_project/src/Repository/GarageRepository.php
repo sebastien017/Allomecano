@@ -32,12 +32,7 @@ class GarageRepository extends ServiceEntityRepository
             ->getResult()
         ;
 
-        $classMetadataFactory = new ClassMetadataFactory(new YamlFileLoader('../Resources/config/serializer.yaml'));
-
-        $normalizer = new ObjectNormalizer($classMetadataFactory);
-        $serializer = new Serializer([$normalizer]);
-
-        return $results = $serializer->normalize($results, 'json', ['groups' => 'garage']);
+        return $results;
 
     }
 
