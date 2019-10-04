@@ -15,7 +15,7 @@ class ServiceSearchType extends AbstractType
         $builder
             ->add('name', EntityType::class, [
                 'class' => Service::class,
-                'choice_label' => 'name',
+                'placeholder' => '(Freinage, Vidange...)',
                 'label' => false
             ]);
             // ->add('price')
