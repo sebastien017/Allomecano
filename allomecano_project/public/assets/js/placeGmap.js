@@ -36,3 +36,64 @@ function fillInAddress() {
 
   codeAddress(document.getElementById('user_input_autocomplete_address').value);
 }
+
+
+var currentAddress = {
+  line_1: "",
+  line_2: "",
+  zipcode: "",
+  city: "",
+  country: "",
+  lat: "",
+  lng: "",
+  one_liner: ""
+};
+
+function fillInAddress() {
+  var place = this.autocomplete.getPlace();
+  // reset the address
+  currentAddress = {
+      line_1: "",
+      line_2: "",
+      zipcode: "",
+      city: "",
+      country: "",
+      lat: "",
+      lng: "",
+      one_liner: place.formatted_address
+  };
+  // store relevant info in currentAddress
+  var results = place.address_components.reduce(function(prev, current) {
+      prev[current.types[0]] = current['long_name'];
+      return prev;
+  }, {})
+  if (results.hasOwnProperty('route')) {
+      currentAddress.line_1 = results.route;
+  }
+  if (results.hasOwnProperty('street_number')) {
+      currentAddress.line_1 = results.street_number + " " + currentAddress.line_1;
+  }
+  if (results.hasOwnProperty('postal_code')) {
+      currentAddress.zipcode = results.postal_code;
+  }
+  if (results.hasOwnProperty('locality')) {
+      currentAddress.city = results.locality;
+  }
+  if (results.hasOwnProperty('country')) {
+      currentAddress.country = results.country;
+  }
+  currentAddress.lat = Number(place.geometry.location.lat()).toFixed(6);
+  currentAddress.lng = Number(place.geometry.location.lng()).toFixed(6);
+}
+
+$('#user_input_autocomplete_address').blur(function() {
+  var address = $('#user_input_autocomplete_address').val();
+  // we set a timeout to prevent conflicts between blur and place_changed events
+  var timeout = setTimeout(function() {
+      // release timeout
+      clearTimeout(timeout);
+      if (address !== currentAddress.one_liner) {
+          $('#user_input_autocomplete_address').val(currentAddress.one_liner);
+      }
+  }, 500);
+});

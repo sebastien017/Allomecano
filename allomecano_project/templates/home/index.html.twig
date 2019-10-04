@@ -15,7 +15,7 @@
 				{% form_theme searchForm 'home_layout.html.twig' %}
 				{{ form_start(searchForm)}}
 				<input id="gps-coord" name="gps" style="visibility : hidden; width : 0%"></input>
-     			<input class="input input--home" type="text" name ="address" id="user_input_autocomplete_address" placeholder="Votre adresse...">
+     			<input class="input input--home" autocomplete="off" required type="text" name ="address" id="user_input_autocomplete_address" placeholder="Votre adresse...">
             	{{ form_row(searchForm.name, {'attr': {'class': 'input input--home', 'name': 'service'}}) }}
 				<button type="submit" class="button is-success"><i class="fas fa-search mr-1"></i>Chercher</button>
 				{{ form_end(searchForm)}}
