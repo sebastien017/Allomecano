@@ -29,20 +29,14 @@ class GarageType extends AbstractType
                 ])
             // ->add('city')
             // ->add('postalCode')
-            ->add('email', EmailType::class, [
-                'label' => 'Email de votre garage',
-                'constraints' => [
-                    new NotBlank(),
-                    new Assert\Email()
-                    ]
-                ])
             // ->add('createdAt')
             // ->add('updatedAt')
             ->add('mobility', CheckboxType::class, [
-                
+                'required' => false
             ])
             ->add('distance', IntegerType::class, [
-                'label' => 'Distance en kms'
+                'label' => 'Distance en kms',
+                'required' => false
             ])
             ->add('gps', TextType::class, [
                 'label' => false,
