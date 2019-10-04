@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Service\FileUploadManager;
 
 class UserController extends AbstractController
 {
@@ -49,16 +50,21 @@ class UserController extends AbstractController
     /**
      * @Route("/signup", name="signup", methods={"GET", "POST"})
      */
-    public function signup(Request $request, UserPasswordEncoderInterface $encoder)
+    public function signup(Request $request, UserPasswordEncoderInterface $encoder, FileUploadManager $fileUploadManager)
     {
         $form = $this->createForm(UserType::class);
         $form->handleRequest($request);
+        
         // Traitement du formulaire si envoyé
         if ($form->isSubmitted() && $form->isValid()) {
             // On récupère les données du formulaire
             $user = $form->getData();
             // On ajout le ROLE_USER à notre utilisateur
             $user->setRoles(['ROLE_USER']);
+
+            $imagePath = $fileUploadManager->upload($form['avatar'], $user->getId());
+            $user->setAvatar($imagePath);
+
             // On doit encoder le mot de passe avant d'enregistrer l'utilisateur
             $plainPassword = $user->getPassword();
             $encodedPassword = $encoder->encodePassword($user, $plainPassword);
@@ -80,14 +86,17 @@ class UserController extends AbstractController
     /**
     * @Route("/profile/edit/{id}", name="profileEdit")
     */
-    public function editProfile(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
+    public function editProfile(Request $request, User $user, UserPasswordEncoderInterface $encoder, FileUploadManager $fileUploadManager): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $plainPassword = $user->getPassword();
             $encodedPassword = $encoder->encodePassword($user, $plainPassword);
             $user->setPassword($encodedPassword);
+            $imagePath = $fileUploadManager->upload($form['avatar'], $user->getId());
+            $user->setAvatar($imagePath);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('profile', ['id' => $user->getId()]);
         }
@@ -132,6 +141,7 @@ class UserController extends AbstractController
             if ($formGarage->isSubmitted() && $formGarage->isValid()){
                 $garage = $formGarage->getData();
                 $garage->setUser($user->setRoles(['ROLE_GARAGE']));
+                
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($garage); 
                 $em->flush();

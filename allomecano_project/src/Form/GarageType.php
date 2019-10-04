@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Garage;
+use App\Entity\Service;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -12,9 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use App\Entity\Service;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class GarageType extends AbstractType
 {
@@ -59,6 +59,7 @@ class GarageType extends AbstractType
                 // uses the User.username property as the visible option string
             
             ]);
+            
         ;
     }
 
