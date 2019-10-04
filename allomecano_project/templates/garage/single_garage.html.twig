@@ -25,40 +25,44 @@
 </section>
 
 <section class="section section--garage">
-<div class="columns garage is-12 has-text-centered">
-<div class="column garage-data is-4">
-<h1 class="title is-4">Services proposés par ce professionnel</h1>
+<div class="columns garage is-12 is-multiline has-text-centered">
+<div class="column garage-data is-12">
+<h1 class="title is-4">Services proposés par {{ garage.name }}</h1>
 </div>
 {% for service in garage.service %}
 <div class="column garage-service is-4">
       <p class="content is-small-1"></p>
-      {{service.name}}
+      {{ service.name }}
    </div>
 {% endfor %}
 </div>
 </section>
 
 <section class="section section--garage">
-<div class="columns garage is-12 has-text-centered">
-    <div class="column garage-info is-4">
-    <p> {{garage.presentation}} </p>
-    </div>
-    <div class="column garage-info is-4">
-    
-    {% for  visit in garage.visit %}
-    <p class="content is-small-3">Horaires:</p>
-    {{visit.time | date('H:i:s')}}
-
-    {% endfor %}
-    
-    </div>
-    <div id="map">
+    <div class="columns garage is-12 has-text-centered flex-between">
+        <div class="column garage-info is-4">
+            <p>{{ garage.presentation }}</p>
+        </div>
+        <div class="column garage-info is-4">
+            <div class="content is-small-3">Prochains rendez-vous disponibles :</div>
+            <div class="columns flex-between is-12 is-multiline">
+                {% for  visit in garage.visit %}
+                    <div class="garage column is-3 visit">
+                            <p>{{ visit.date | date('d/m') }}</p>
+                            <p>{{ visit.time | date('H \\h i')}}</p>
+                    </div>
+                {% endfor %}
+            </div>                
+            </div>
+        <div class="column garage-info is-4" id="map"></div>
     </div>
 </section>
+
 <section class="section section--garage">
 <div class="columns garage is-12 has-text-centered">
     {% for comment in garage.comments %}
     <div class="column garage-review is-4">
+    {{comment.rate}} -
     {{comment.content}}
     </div>
     {% endfor %}
