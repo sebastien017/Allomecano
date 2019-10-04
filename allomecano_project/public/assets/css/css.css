@@ -154,6 +154,10 @@ body {
 #map {
     width: 400px;
     height: 400px;
+
+.input, .select {
+    padding-left: 9px;
+_
     margin-top: 0;
 }
 
@@ -164,5 +168,5 @@ body {
 }
 
 .backgroundIsBlue {
-    background-color: blue;
+
 }
