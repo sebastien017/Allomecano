@@ -28,12 +28,6 @@ class Garage
      */
     private $adress;
 
-
-    /**
-     * @ORM\Column(type="string", length=320, nullable=true)
-     */
-    private $email;
-
     /**
      * @ORM\Column(type="datetime")
      */
@@ -138,18 +132,6 @@ class Garage
     public function setAdress(?string $adress): self
     {
         $this->adress = $adress;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(?string $email): self
-    {
-        $this->email = $email;
 
         return $this;
     }
