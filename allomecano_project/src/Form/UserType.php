@@ -35,7 +35,7 @@ class UserType extends AbstractType
                 new NotBlank(),
                 new Assert\Email()
                 ]
-        ])
+            ])
         ->add('phone', TelType::class, [
             'label' => 'Téléphone',
             'required' => true,

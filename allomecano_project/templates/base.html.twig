@@ -9,6 +9,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
         <link rel="stylesheet" href="{{ asset('assets/css/css.css') }}">
         {% endblock %}
+        {% block javascripts %}
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <script defer src="{{ asset('assets/js/menu.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bulma-steps@2.2.1/dist/js/bulma-steps.js"></script> 
+        <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        {% endblock %}
     </head>
     <body>
     	<header>
@@ -75,14 +82,6 @@
             </div>
 		</div>
         </section>
-        {% endblock %}
-        {% block javascripts %}
-        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-	      <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-        <script defer src="{{ asset('assets/js/menu.js') }}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bulma-steps@2.2.1/dist/js/bulma-steps.js"></script> 
         {% endblock %}
     </body>
 </html>

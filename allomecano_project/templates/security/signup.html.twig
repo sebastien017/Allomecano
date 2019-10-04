@@ -9,36 +9,36 @@
         <div class="columns is-centered">
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
     {{ form_start(form) }}
-        <div class="control has-icons-left">
-            <div class="control has-icons-left mt-1">
+        <div class="control">
+            <div class="control">
                 {{ form_row(form.firstname, {'attr': {'class': 'input', 'placeholder' : 'Prénom', 'autofocus' : ''}}) }}
             </div>
-            <div class="control has-icons-left mt-1">
+            <div class="control">
                 {{ form_row(form.lastname, {'attr': {'class': 'input', 'placeholder' : 'Nom'}}) }}
             </div>
-            <div class="control has-icons-left mt-1">
+            <div class="control">
                 {{ form_row(form.username, {'attr': {'class': 'input', 'placeholder' : 'Pseudo'}}) }}
             </div>
-            <div class="control has-icons-left mt-1">
+            <div class="control">
                 {{ form_row(form.email, {'attr': {'class': 'input', 'placeholder' : 'utilisateur@mail.com'}}) }}
             </div>
-            <div class="control has-icons-left mt-1">
+            <div class="control">
                 {{ form_row(form.phone, {'attr': {'class': 'input', 'placeholder' : 'N° de téléphone'}}) }}
             </div>
-            <div class="control has-icons-left mt-1">
-                {{ form_row(form.adress, {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder' : 'Adresse'}}) }}
+            <div class="control">
+                {{ form_row(form.adress, {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder' : 'Adresse','oninvalid' : 'this.setCustomValidity(\'Merci de choisir une ville dans la liste déroulante\')', 'oninput' : 'setCustomValidity(\'\')'}}) }}
             </div>
-            <div class="control has-icons-left mt-1">
+            <div class="control">
                 {{ form_row(form.avatar, {'attr': {'placeholder' : 'Url de votre avatar'}}) }}
             </div>
-            <div class="control has-icons-left mt-1">
+            <div class="control">
                 {{ form_row(form.password, {'attr': {'placeholder': 'Modification du mot de passe'}}) }}
             </div>
 
                 {{ form_row(form.gps) }}
             
             
-        <button class="button is-success mt-1">S'enregistrer</button>
+        <button class="button is-success mt-1" id="button">S'enregistrer</button>
 
     {{ form_end(form) }}
 
