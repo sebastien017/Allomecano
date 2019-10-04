@@ -90,6 +90,11 @@ class Garage
      */
     private $presentation;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $avatar;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -348,6 +353,18 @@ class Garage
     public function setPresentation(?string $presentation): self
     {
         $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
