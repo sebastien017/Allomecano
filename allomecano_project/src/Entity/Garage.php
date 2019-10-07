@@ -107,6 +107,22 @@ class Garage
        
     }
 
+    /**
+     * Permet d'obtenir la moyenne globale des notes pour cette annonce
+     *
+     * @return float
+     */
+    public function getAvgRatings()
+    {
+        $sum = array_reduce($this->comments->toArray(), function($total, $comment) {
+            return $total + $comment->getRate();
+        }, 0);
+
+        if(count($this->comments ) > 0 ) return $sum /count($this->comments);
+
+        return 0;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

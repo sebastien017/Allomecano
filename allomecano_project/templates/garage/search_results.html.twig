@@ -14,9 +14,14 @@
 </div>
 <div class="column is-6">
 	{% for garage in garages  %}
-	<div class="search-garage-infos" data-id="{{ garage.id }}">
-	{{ garage.adress }}
-	</div>
+		<div class="search-garage-infos" data-id="{{ garage.id }}">
+		<h3>{{ garage.name }}</h3>
+	{% if garage.comments|length > 0 %}
+		<p>Note moyenne sur {{ garage.comments|length }} avis :</p>
+		{% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
+	{% endif %}
+		<p>{{ garage.adress }}</p>
+		</div>
 	{% endfor %}
 </div>
 </div>
