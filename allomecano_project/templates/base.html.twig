@@ -55,6 +55,13 @@
 							<a href="{{ path('profile', {'id': app.user.id }) }}" class="button is-primary"> 
                 <strong><i class="fas fa-user-circle mr-1"></i>Mon compte</strong>
               </a> 
+              {% if app.request.get('_route') != 'edit_planning' %}
+                {% if is_granted('ROLE_GARAGE') == true %}
+                  <a href="{{ path('edit_planning', {'id': app.user.garage.id }) }}" class="button is-light">
+                    <i class="fas fa-sign-in-alt mr-1"></i>Modifier mes disponibilités
+                  </a>
+                {% endif %}
+              {% endif %}
               {% if is_granted('ROLE_GARAGE') == false %}
                 <a href="{{ path('signup_garage', {'id': app.user.id }) }}" class="button is-light">
                     <i class="fas fa-sign-in-alt mr-1"></i>Inscription garage
