@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Allomecano | Historique de vos rendez-vous.{% endblock %}
+
+{% block body %}
+<h2>{{ user.firstname }} {{ user.lastname }}</h2>
+
+
+{% for visit in user.visit %}
+{{ visit.garage.name }}<br>
+{{ visit.date|date('d/m/Y') }}<br>
+{{ visit.service.name }} {{ visit.service.price }} euros
+{% for comment in user.comment %}
+    <p>{{ comment.rate }}</p>
+    <p>{{ comment.content }}</p>
+{% endfor %}
+    
+{% endfor %}
+    {{ dump(user.comment) }}
+
+
+    {{ form_start(formComment) }}
+    {{ form_row(formComment.rate) }}
+    {{ form_row(formComment.content) }}
+
+        <button class="button is-success mt-1" id="button">Commentez</button>
+
+    {{ form_end(formComment) }}
+
+{% endblock %}
