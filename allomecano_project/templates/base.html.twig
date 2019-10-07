@@ -6,6 +6,7 @@
 	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	    <title>{% block title %}Allomecano{% endblock %}</title>
         {% block stylesheets %}
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
         <link rel="stylesheet" href="{{ asset('assets/css/css.css') }}">
         {% endblock %}
@@ -54,9 +55,11 @@
 							<a href="{{ path('profile', {'id': app.user.id }) }}" class="button is-primary"> 
                 <strong><i class="fas fa-user-circle mr-1"></i>Mon compte</strong>
               </a> 
-              <a href="{{ path('signup_garage', {'id': app.user.id }) }}" class="button is-light">
-                <i class="fas fa-sign-in-alt mr-1"></i>Inscription garage
-              </a>
+              {% if is_granted('ROLE_GARAGE') == false %}
+                <a href="{{ path('signup_garage', {'id': app.user.id }) }}" class="button is-light">
+                    <i class="fas fa-sign-in-alt mr-1"></i>Inscription garage
+                </a>
+              {% endif %}
               <a href="{{ path('logout') }}" class="button is-light">
                 <i class="fas fa-sign-in-alt mr-1"></i>Déconnexion
               </a>
