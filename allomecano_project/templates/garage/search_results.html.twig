@@ -4,8 +4,11 @@
 
 {% block body %}
 
-<section class="section flex-1">
-<div class="columns is-12">
+<section class="section flex-1 no-padding-top">
+<div class="columns is-12 is-multiline has-text-centered">
+<div class="column is-12 is-vcentered is-size-5">
+<i class="fas fa-search-location mr-1"></i>Résultats à proximité de {{ address }}
+</div>
 <div class="column is-6">
 		<div class="is-sticky">
 			<div id="map">
@@ -69,6 +72,7 @@
 					// Ajout d'un evenement click sur la div dans le DOM
 					let garageDOM = document.body.querySelector('.search-garage-infos[data-id="{{ garage.id }}"]');
 					
+					// Evenement mouseover sur les div
 					garageDOM.addEventListener("mouseover", function()
 					{
 						marker{{ garage.id }}.setIcon('http://maps.google.com/mapfiles/ms/icons/purple-dot.png');
@@ -80,6 +84,7 @@
 						map.setZoom(15);
 					});
 
+					// Evenement mouseleave sur les div
 					garageDOM.addEventListener("mouseleave", function()
 					{
 						marker{{ garage.id }}.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');

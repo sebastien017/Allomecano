@@ -60,12 +60,13 @@ class GarageController extends AbstractController
         $service_search = $request->request->get('service_search');
         $serviceID = $service_search['name'];
 
-        $garagesJson = $this->getDoctrine()->getRepository(Garage::class)->getGarages();
+        $garages = $this->getDoctrine()->getRepository(Garage::class)->getGarages();
       
         return $this->render('garage/search_results.html.twig', [
              'zoomLatitude' => $latitude,
              'zoomLongitude' => $longitude,
-             'garages' => $garagesJson
+             'garages' => $garages,
+             'address' => $address
         ]);
         
         $services = $this->getDoctrine()->getRepository(Service::class);
