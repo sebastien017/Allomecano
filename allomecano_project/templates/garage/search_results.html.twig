@@ -17,11 +17,14 @@
 </div>
 <div class="column is-6">
 	{% for garage in garages  %}
-	<div class="search-garage-infos" data-id="{{ garage.id }}">
-	<div class="mb-1"><i class="fas fa-address-book mr-1"></i> {{ garage.name }}</div>
-	<div class="mb-1"><i class="fas fa-map-marker-alt mr-1"></i> {{ garage.adress }}</div>
-	<div><a href="{{ path('single_garage', { id: garage.id }) }}" class="button is-success"><i class="fas fa-external-link-square-alt mr-1"></i>Prendre rendez-vous chez ce profesionnel</a></div>
-	</div>
+		<div class="search-garage-infos" data-id="{{ garage.id }}">
+		<h3>{{ garage.name }}</h3>
+	{% if garage.comments|length > 0 %}
+		<p>Note moyenne sur {{ garage.comments|length }} avis :</p>
+		{% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
+	{% endif %}
+		<p>{{ garage.adress }}</p>
+		</div>
 	{% endfor %}
 </div>
 </div>

@@ -11,6 +11,10 @@
     width: 17em;
 }
 
+span.rating i {
+    color: goldenrod;
+}
+
 /* Gère la taille des input sur la home page, si on est en dessous des 768px, les input passent à 100% en largeur */
 @media screen and (max-width: 768px) 
 {
