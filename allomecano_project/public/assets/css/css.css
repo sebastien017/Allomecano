@@ -177,3 +177,20 @@ body {
     position: sticky;
     top: 0;
 }
+
+.visit {
+    margin: 0.1em;
+    padding: 0;
+    display: flex;
+}
+
+.flex-between {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
+}
+
+.visit p {
+    margin: 0;
+    padding: 0;
+}
