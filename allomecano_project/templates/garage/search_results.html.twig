@@ -52,7 +52,8 @@
 			style: google.maps.NavigationControlStyle.ZOOM_PAN
 		}
 		});
-
+		// Variable détenant le dernier objet marker cliqué via la (map) ou du DOM (div search-garage-infos) mouseover
+		let lastMarker;
 		// Mise en place de geocoder qui permet de récupérer les coordonnées gps par rapport à une adresse
 		geocoder = new google.maps.Geocoder();
 		var infowindow = new google.maps.InfoWindow();
@@ -74,6 +75,7 @@
       					url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
     				}
             		});
+
 					// On sélectionne la div dans le DOM correspondant au même id
 					let garageDOM = document.body.querySelector('.search-garage-infos[data-id="{{ garage.id }}"]');
 					
@@ -82,24 +84,27 @@
 					{
 						marker{{ garage.id }}.setIcon('http://maps.google.com/mapfiles/ms/icons/purple-dot.png');
 
+						// Le dernier marqueur reprend son icone d'origine
+						if (lastMarker !== undefined && lastMarker !== marker{{ garage.id }})
+						{
+							lastMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+						}
+
+						// On remplit le lastMarker avec l'objet marker actuel
+						lastMarker = marker{{ garage.id }};
+
+						// On récupère les élements dans le DOM contenant la class search-garage-infos et on supprime les bordures éventuelles déjà présentes
+						var elements = document.body.querySelectorAll('.search-garage-infos[data-id]').forEach(function (element)
+						{
+							element.classList.remove('borderIsBlue');
+						});
+				
 						garageDOM.classList.add('borderIsBlue');
 
 						map.setCenter(new google.maps.LatLng(latLng));
 
 						map.setZoom(15);
 					});
-
-					// Evenement mouseleave sur les div
-					garageDOM.addEventListener("mouseleave", function()
-					{
-						marker{{ garage.id }}.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
-
-						garageDOM.classList.remove('borderIsBlue');
-
-						map.setCenter(new google.maps.LatLng({{ zoomLatitude }}, {{ zoomLongitude }}));
-
-						map.setZoom(10);
-					});  
 
 					// Ajout d'un evenement click sur le marqueur
 					google.maps.event.addListener(marker{{ garage.id }}, 'click', function(){
@@ -110,6 +115,18 @@
 					{
 						element.classList.remove('borderIsBlue');
 					});
+
+					// On change de couleur le marqueur cliqué
+					marker{{ garage.id }}.setIcon('http://maps.google.com/mapfiles/ms/icons/purple-dot.png');
+
+					// Le dernier marqueur reprend son icone d'origine
+					if (lastMarker !== undefined && lastMarker !== marker{{ garage.id }})
+					{
+						lastMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+					}
+
+					// On remplit le lastMarker avec l'objet marker actuel
+					lastMarker = marker{{ garage.id }};
 					
 					// On ajoute une classe à l'element
 					div.classList.add("borderIsBlue");
