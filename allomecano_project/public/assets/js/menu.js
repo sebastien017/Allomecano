@@ -3,6 +3,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Gestion des steps (confirmation rendez-vous)
     bulmaSteps.attach();
 
+    // Ajout de l'événement sur l'anchor-search de la page d'accueil
+    $('.anchor-search').click(function() {
+      // Animation scroll -> .content-home
+      $('html, body').animate({
+        scrollTop: $('.content-home').offset().top
+      }, 1200); 
+      // Focus de l'input permettant de saisir l'adresse
+      $( ".input--home-address" ).focus();
+    });
+
     // Récupération de tous les éléments "navbar-burger"
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
   
