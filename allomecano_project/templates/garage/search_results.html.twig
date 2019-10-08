@@ -24,7 +24,7 @@
 		{% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
 	{% endif %}
 		<p>{{ garage.adress }}</p>
-		<a href="{{ path('single_garage', {id: garage.id }) }}" class="button is-success mt-1"><i class="fas fa-external-link-alt mr-1"></i> Prendre rendez-vous chez ce professionnel</a>
+		<a href="{{ path('single_garage', {id: garage.id }) }}" class="button is-success mt-1"><i class="fas fa-external-link-alt mr-1"></i> Prendre rendez-vous</a>
 		</div>
 	{% endfor %}
 </div>
@@ -68,9 +68,13 @@
 					// Ajout du marqueur sur la map
             		var marker{{ garage.id }} = new google.maps.Marker({
                 	position: latLng,
-                	map: map
+                	map: map,
+					scaledSize: new google.maps.Size(38, 38),
+					icon: {
+      					url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+    				}
             		});
-					// Ajout d'un evenement click sur la div dans le DOM
+					// On sélectionne la div dans le DOM correspondant au même id
 					let garageDOM = document.body.querySelector('.search-garage-infos[data-id="{{ garage.id }}"]');
 					
 					// Evenement mouseover sur les div

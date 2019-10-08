@@ -71,7 +71,7 @@ span.rating i {
 
 .about-us {
     color: white;
-    padding-top: 2em;
+    padding: 2em;
 }
 
 .footer {
@@ -109,7 +109,7 @@ body {
 }
 
 .mb-5 {
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
 
 .mb-1 {
@@ -212,7 +212,7 @@ body {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: 62px;
+    width: 58px;
     height: 25px;
     display: inline-block;
     position: relative;
@@ -280,3 +280,15 @@ body {
 .mt-5 {
     margin-top: 1em;
 }
+
+.mt-10 {
+    margin-top: 2em;
+}
+
+.home-details {
+    border: 1px solid lightgrey;
+    padding: 0.3em;
+    border-radius: 3px;
+    height: 15.523em;
+}
+
