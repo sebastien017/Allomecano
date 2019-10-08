@@ -1,10 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PlanningController!{% endblock %}
+{% block title %}Edition du planning{% endblock %}
 
 {% block body %}
 
-    <section class ="section">Saisir mes disponibilités</section>
+    <section class="is-primary is-fullheight">
+    <div class="hero-body is-primary">
+        <div class="container">
+        <div class="columns is-centered">
+        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+        <h3>Ajouter des disponibilités</h3>
+
     {{ form_start(form) }}
         <div class="control">
             <div class="control">
@@ -16,4 +22,5 @@
         <button class="button is-success mt-1" id="button">Ajouter une disponibilité</button>
 
     {{ form_end(form) }}
+    </section>
 {% endblock %}

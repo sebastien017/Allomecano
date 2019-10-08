@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Service\FileUploadManager;
 
 class UserController extends AbstractController
@@ -131,7 +133,7 @@ class UserController extends AbstractController
     /**
      * @Route("/signup/garage/{id}", name="signup_garage", methods={"GET", "POST"})
      */
-    public function signupGarage(User $user, Request $request)
+    public function signupGarage(User $user, Request $request, TokenStorageInterface $ts)
     {
         $garage = new Garage;
         $formGarage = $this->createForm(GarageType::class, $garage);
@@ -145,6 +147,9 @@ class UserController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($garage); 
                 $em->flush();
+                $ts->setToken(
+                    new PostAuthenticationGuardToken($user, 'main', $user->getRoles())
+                );
                 // On redirige l'utilisateur sur la page de login
                 return $this->redirectToRoute('profile', ['id' => $user->getId()]);
             }
