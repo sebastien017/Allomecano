@@ -24,7 +24,7 @@
 		{% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
 	{% endif %}
 		<p>{{ garage.adress }}</p>
-		<a href="{{ path('single_garage', {id: garage.id }) }}" class="button is-success mt-1"><i class="fas fa-external-link-alt mr-1"></i> Prendre rendez-vous chez ce profesionnel</a>
+		<a href="{{ path('single_garage', {id: garage.id }) }}" class="button is-success mt-1"><i class="fas fa-external-link-alt mr-1"></i> Prendre rendez-vous chez ce professionnel</a>
 		</div>
 	{% endfor %}
 </div>
