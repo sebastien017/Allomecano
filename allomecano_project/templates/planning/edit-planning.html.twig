@@ -23,4 +23,24 @@
 
     {{ form_end(form) }}
     </section>
+
+    
+    <section class="is-primary is-fullheight">
+    <div class="hero-body is-primary">
+        <div class="container">
+        <div class="columns is-centered">
+        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+        <h3>Mes disponibilités à venir :</h3>
+        {% for visit in garage.visit %}
+        {% if date() < date(visit.date) %}
+        <p> {{ visit.date | date('d/m/Y') }} {{ visit.time | date('H \\h i') }} </p>
+            <form method="post" action="{{ path('visit_delete', {'id': visit.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ visit.id) }}">
+                <button class="button is-danger is-small">Annuler</button>
+            </form>
+        {% endif %}
+        {% endfor %}
+    </section>
+    
 {% endblock %}
