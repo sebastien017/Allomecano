@@ -73,25 +73,26 @@ class PlanningController extends AbstractController
     /**
      * @Route("/reservation/{id}", name="reservation_history", methods={"GET", "POST"})
      */
-    public function reservationHistroy(Request $request, User $user, ObjectManager $em)
+    public function reservationHistroy(Request $request, Visit $visit, ObjectManager $em)
     {
+        $visit = $this->getDoctrine()->getRepository(Visit::class)->find($visit);
+        
         $comment = new Comment();
-
         $garage = new Garage();
 
         $formComment = $this->createForm(CommentType::class, $comment);
         $formComment->handleRequest($request);
         if($formComment->isSubmitted() && $formComment->isValid()) {
-            $comment->setGarage($this->getUser()->getGarage());
-            $comment->setRate($comment->getRate());
+            $comment->setGarage($visit->getGarage());
             $comment->setUser($this->getUser());
             $em->persist($comment);
             $em->flush();
+            return $this->redirectToRoute('reservation_history',['id' => $visit->getId()]);
             
         }
-        $user = $this->getDoctrine()->getRepository(User::class)->find($user);
         return $this->render('planning/reservation-history.html.twig', [
-            'user' => $user,
+            'visit' => $visit,
+            'garage' => $garage,
             'formComment' => $formComment->createView()
         ]);
     }
