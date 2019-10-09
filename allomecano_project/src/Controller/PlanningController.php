@@ -5,12 +5,16 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Visit;
 use App\Entity\Garage;
+use App\Entity\Comment;
 use App\Form\VisitType;
+use App\Form\CommentType;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 class PlanningController extends AbstractController
 {
@@ -83,6 +87,33 @@ class PlanningController extends AbstractController
     {
         return $this->render('planning/reservation-success.html.twig', [
             'controller_name' => 'PlanningController',
+        ]);
+    }
+
+    /**
+     * @Route("/reservation/{id}", name="reservation_history", methods={"GET", "POST"})
+     */
+    public function reservationHistroy(Request $request, Visit $visit, ObjectManager $em)
+    {
+        $visit = $this->getDoctrine()->getRepository(Visit::class)->find($visit);
+        
+        $comment = new Comment();
+        $garage = new Garage();
+
+        $formComment = $this->createForm(CommentType::class, $comment);
+        $formComment->handleRequest($request);
+        if($formComment->isSubmitted() && $formComment->isValid()) {
+            $comment->setGarage($visit->getGarage());
+            $comment->setUser($this->getUser());
+            $em->persist($comment);
+            $em->flush();
+            return $this->redirectToRoute('reservation_history',['id' => $visit->getId()]);
+            
+        }
+        return $this->render('planning/reservation-history.html.twig', [
+            'visit' => $visit,
+            'garage' => $garage,
+            'formComment' => $formComment->createView()
         ]);
     }
 

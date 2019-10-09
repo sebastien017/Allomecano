@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Allomecano | Historique de vos rendez-vous.{% endblock %}
+
+{% block body %}
+<h2>{{ visit.garage.name }} {{ visit.date|date('d/m/Y') }}</h2>
+
+{{ visit.service.name }} {{ visit.service.price }} euros
+
+    {# {% for comment in visit.garage.comments %} #}
+{% if date() > date(visit.date) %}
+    {% set comment = visit.garage.commentFromUser(app.user) %}
+            {% if comment is not null %}
+        <p>Note : {% include 'partials/rating.html.twig' with {'rating': comment.rate } %}</p>
+        <p>{{ comment.content }}</p>
+    {# {% endfor %} #}
+    
+    {# {{ dump(visit.garage) }} #}
+    {% else %}
+<h1><strong>Votre avis compte !</strong></h1>
+    {{ form_start(formComment) }}
+    {{ form_row(formComment.rate) }}
+    {{ form_row(formComment.content) }}
+
+        <button class="button is-success mt-1" id="button">Donnez votre avis</button>
+
+    {{ form_end(formComment) }}
+    {% endif %}
+
+{% else %}
+<p>Vous pourrez noter votre prestation et donner votre avis lorsque la date de votre rendez-vous sera passée.</p>
+{% endif %}
+
+{% endblock %}

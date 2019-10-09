@@ -5,9 +5,21 @@
 {% block body %}
 
 <h1>Hello {{ user.username }}</h1>
+<h2>{{ user.firstname }} {{ user.lastname }}</h2>
+<p>{{ user.email }}</p>
+<p>{{ user.phone }}</p>
+<p>{{ user.adress }}</p>
+
 {% if user.avatar %}
 <img src="{{ asset(user.avatar) }}" height="200" width="200">
 {% endif %}
+
+{% for visit in user.visit %}
+<a href="{{ path('reservation_history', {'id': visit.id } ) }}">{{ visit.garage.name }}</a><br>
+{# {{ visit.date|date('d/m/Y') }}<br>
+{{ visit.service.name }} {{ visit.service.price }} euros. #}
+    
+{% endfor %}
 
 <a href="{{ path('profileEdit', {'id': user.id})}}">Modifier mes données</a>
 

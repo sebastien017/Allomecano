@@ -174,7 +174,7 @@ class UserController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($garage); 
                 $em->flush();
-                // On redirige l'utilisateur sur la page de login
+                
                 return $this->redirectToRoute('profile', ['id' => $garage->getUser()->getId()]);
             }
         return $this->render('security/edit-garage.html.twig', [

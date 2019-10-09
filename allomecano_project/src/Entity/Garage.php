@@ -123,6 +123,19 @@ class Garage
         return 0;
     }
 
+    /**
+     * Permet de récupérer le commentaire d'un utilisateur par rapport à un garage
+     *
+     * @param User $user
+     * @return Comment|null
+     */
+    public function getCommentFromUser(User $user){
+        foreach($this->comments as $comment) {
+            if($comment->getUser() === $user) return $comment;
+        }
+        return null;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
