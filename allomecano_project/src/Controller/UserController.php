@@ -15,6 +15,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use App\Service\FileUploadManager;
 
 class UserController extends AbstractController
@@ -122,6 +123,9 @@ class UserController extends AbstractController
     public function delete(User $user, Request $request)
     {
         if($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token'))) {
+            $session = $this->get('session');
+            $session = new Session();
+            $session->invalidate();
             $em = $this->getDoctrine()->getManager();
             $em->remove($user);
             $em->flush();
@@ -174,7 +178,7 @@ class UserController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($garage); 
                 $em->flush();
-                
+
                 return $this->redirectToRoute('profile', ['id' => $garage->getUser()->getId()]);
             }
         return $this->render('security/edit-garage.html.twig', [
