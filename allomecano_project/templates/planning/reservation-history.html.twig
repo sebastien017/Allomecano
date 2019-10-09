@@ -12,7 +12,9 @@
     {% set comment = visit.garage.commentFromUser(app.user) %}
             {% if comment is not null %}
         <p>Note : {% include 'partials/rating.html.twig' with {'rating': comment.rate } %}</p>
-        <p>{{ comment.content }}</p>
+        <blockquote>
+            {{ comment.content }}
+        <blockquote>
     {# {% endfor %} #}
     
     {# {{ dump(visit.garage) }} #}
