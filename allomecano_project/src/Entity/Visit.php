@@ -27,7 +27,7 @@ class Visit
     private $time;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $reservationDate;
 
