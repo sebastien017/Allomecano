@@ -4,35 +4,42 @@
 
 {% block body %}
 
-<h1>Hello {{ user.username }}</h1>
-<h2>{{ user.firstname }} {{ user.lastname }}</h2>
-<p>{{ user.email }}</p>
-<p>{{ user.phone }}</p>
-<p>{{ user.adress }}</p>
+<div class="columns is-12 is-multiline is-mobile">
+    <div class="column is-8 is-vcentered has-text-centered">
+    <h1 class="is-size-4 mb-1"><i class="fas fa-address-card mr-1"></i>Mon profil</h1>
+    <h1 class="is-size-5">Bienvenue {{ user.username }}</h1>
+    {% if user.avatar %}
+    <img class="mt-1" src="{{ asset(user.avatar) }}" height="100" width="100">
+    {% else %}
+    <div class="avatar" style="font-size: 75px;"><i class="fas fa-user-circle"></i></div>
+    Aucun avatar
+    {% endif %}
+    <div class="column is-8 is-vcentered mt-1">
+    <h1 class="is-size-5 mb-1"><i class="fas fa-id-badge mr-1"></i>Mes coordonnées</h1>
+    <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+    <p>{{ user.email }}</p>
+    <p>{{ user.phone }}</p>
+    <p>{{ user.adress }}</p>
+    </div>
+    {% for visit in user.visit %}
+    <a href="{{ path('reservation_history', {'id': visit.id } ) }}">{{ visit.garage.name }}</a><br>
+    {# {{ visit.date|date('d/m/Y') }}<br>
+    {{ visit.service.name }} {{ visit.service.price }} euros. #}
+        
+    {% endfor %}
+    <a href="{{ path('profileEdit', {'id': user.id})}}" class="button is-info"><i class="fas fa-user-edit mr-1"></i>Modifier mes données</a>
 
-{% if user.avatar %}
-<img src="{{ asset(user.avatar) }}" height="200" width="200">
-{% endif %}
+    {% if is_granted('ROLE_GARAGE') %}
+        <br><a href="{{ path('garageEdit', {'id': app.user.id, 'garage': app.user.garage.id})}}" class="button is-warning mt-1"><i class="fas fa-car mr-1"></i>Modifier les données de mon garage</a>
+    {% endif %}
 
-{% for visit in user.visit %}
-<a href="{{ path('reservation_history', {'id': visit.id } ) }}">{{ visit.garage.name }}</a><br>
-{# {{ visit.date|date('d/m/Y') }}<br>
-{{ visit.service.name }} {{ visit.service.price }} euros. #}
-    
-{% endfor %}
+    <div class="mt-1 is-vcentered">
+        <form action="{{ path('delete_user', {id: user.id})}}" method="post" style="display: inline-block">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id)}}">
+            <button class="button is-danger mt-1"><i class="fas fa-trash-alt mr-1"></i>Supprimer mon compte</button>
+        </form>
+    </div>
+</div>
 
-<a href="{{ path('profileEdit', {'id': user.id})}}">Modifier mes données</a>
-
-{% if is_granted('ROLE_GARAGE') %}
-    <a href="{{ path('garageEdit', {'id': app.user.id, 'garage': app.user.garage.id})}}">Modifier les données de mon garage</a>
-{% endif %}
-
-<div class="control has-icons-left mt-1">
-
-    <form action="{{ path('delete_user', {id: user.id})}}" method="post" style="display: inline-block" onsubmit="return confirm('Etes-vous sur de vouloir supprimer votre profil ?');">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id)}}">
-        <button class="button is-danger mt-1">Supprimer mon compte</button>
-    </form>
-    
 </div>
 {% endblock %}
