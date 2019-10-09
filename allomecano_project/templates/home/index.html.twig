@@ -15,7 +15,7 @@
 				{% form_theme searchForm 'home_layout.html.twig' %}
 				{{ form_start(searchForm)}}
 				<input id="gps-coord" name="gps" style="visibility : hidden; width : 0%"></input>
-     			<input class="input input--home" autocomplete="off" required="required" oninvalid="setCustomValidity('Merci de choisir une ville dans la liste')"
+     			<input class="input input--home input--home-address" autocomplete="off" required="required" oninvalid="setCustomValidity('Merci de choisir une ville dans la liste')"
  				oninput="setCustomValidity('')" type="text" name ="address" id="user_input_autocomplete_address" placeholder="Votre adresse...">
             	{{ form_row(searchForm.name, {'attr': {'class': 'input input--home', 'name': 'service'}}) }}
 				<button type="submit" class="button is-success" id="button"><i class="fas fa-search mr-1"></i>Chercher</button>
@@ -24,11 +24,51 @@
 		</div>
 	  </div>
 	</div>
-	<div class="columns is-12 is-multiline about-us has-text-centered">
-	<div class="column is-12"><i class="fas fa-info-circle mr-1"></i>Qui sommes-nous ?<br><br></div>
-			<div class="column is-12">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed consequuntur non ducimus excepturi, nihil delectus vitae maiores, molestiae rerum architecto expedita fuga inventore quam obcaecati quod corrupti. Unde velit accusamus vitae, cumque, temporibus voluptate nihil provident tempore dolorum est maxime rem, eaque delectus similique modi asperiores et repellat at cupiditate beatae. Ratione, voluptatem explicabo ab dolores sit velit nihil corporis nesciunt possimus eos quos quaerat animi iure neque quia deleniti. Aliquam temporibus asperiores quos dolore laborum, expedita in blanditiis, commodi dignissimos vero harum reiciendis sit? Quos voluptate eligendi corrupti praesentium enim quibusdam quasi dolores atque! Provident est nisi, iure deleniti eligendi vitae laudantium. Saepe nam voluptate mollitia. Pariatur ut quos quis praesentium iste, mollitia aliquid sapiente placeat? Vitae aliquid recusandae fugit enim? Ullam quas pariatur odit totam quasi neque cumque nisi. Explicabo quos ipsum quaerat voluptates culpa laboriosam aperiam dignissimos nesciunt nemo non ducimus reprehenderit beatae qui, ipsa omnis, ex voluptas iure minus numquam reiciendis. Recusandae deserunt ad facilis et repudiandae. Reiciendis maxime minus eligendi tenetur necessitatibus numquam tempora amet eum adipisci dolor nisi, hic illum! Dolor odit neque vitae eum error. Esse pariatur ab itaque architecto labore nulla molestias magni, at aut optio? Sint, temporibus ratione corporis iste eaque libero, in facere earum rem at voluptas quam atque veritatis eligendi quibusdam. Eum laboriosam sint exercitationem in quibusdam. Dolore, reprehenderit nostrum! Reprehenderit, veniam laboriosam harum praesentium nemo voluptatem sapiente, aut magnam, dolores alias tempora commodi?
+	<div class="column is-12 is-multiline about-us has-text-centered">
+			<div class="column is-12"><i class="fas fa-info-circle mr-1"></i>Qui sommes-nous ?<br>
+			<p class="mt-5 mb-5">Allomecano vous met en relation avec des professionnels de la mécanique partout en France</p>
 			</div>
+			<div class="columns is-12 is-multiline">
+				<div class="column is-4">
+				 <div class="steps home-details">
+					<div class="step-item">
+						<div class="step-marker mt-5">1</div>
+						<div class="step-details">
+							<p class="step-title mt-10 mb-5"><i class="fab fa-searchengin mr-1"></i>Rechercher</p>
+							<p class="mt-1 mb-5">
+							Rechercher des professionnels en mécanique autour de vous
+							</p>
+							<a class="button is-primary anchor-search mb-5"><i class="fas fa-search-location mr-1"></i></i>Démarrer</a>
+							</p>
+						</div>
+					 </div>
+					</div>
+				</div>
+				<div class="column is-4">
+				 <div class="steps home-details">
+					 <div class="step-item">
+						<div class="step-marker mt-5">2</div>
+						<div class="step-details">
+							<p class="step-title mt-10 mb-5"><i class="fas fa-mouse-pointer mr-1"></i>Choisir</p>
+							<p class="mb-5">Choisissez le garage dans lequel vous souhaitez prendre rendez-vous et choisissez l'horaire
+							</p>
+						</div>
+					 </div>
+					</div>
+				</div>
+				<div class="column is-4">
+				 <div class="steps home-details">
+					<div class="step-item">
+						<div class="step-marker mt-5">3</div>
+						<div class="step-details">
+							<p class="step-title mt-10 mb-5"><i class="fas fa-clipboard-check mr-1"></i>Confirmation</p>
+							<p class="mb-5">Le professionnel reçoit votre demande et vous recevez une confirmation du rendez-vous par e-mail
+							</p>
+						</div>
+					 </div>
+					</div>
+				</div>
+		</div>
 	</div>
   </div>
 </section>
