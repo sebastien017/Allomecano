@@ -11,6 +11,10 @@
     width: 17em;
 }
 
+span.rating i {
+    color: goldenrod;
+}
+
 /* Gère la taille des input sur la home page, si on est en dessous des 768px, les input passent à 100% en largeur */
 @media screen and (max-width: 768px) 
 {
@@ -67,7 +71,7 @@
 
 .about-us {
     color: white;
-    padding-top: 2em;
+    padding: 2em 2em 0.75em 2em;
 }
 
 .footer {
@@ -105,7 +109,7 @@ body {
 }
 
 .mb-5 {
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
 
 .mb-1 {
@@ -162,7 +166,7 @@ body {
 }
 
 .search-garage-infos {
-    padding: 2em;
+    padding: 1em;
     border: solid 1px lightgray;
     border-radius: 3px;
     margin-bottom: 0.5em;
@@ -345,3 +349,129 @@ header h1
     color:#000;
     text-align: center;
 }
+
+.control--mobile input[type=checkbox], input[type=radio] {
+    float: left;
+    position : relative ;
+    width : 40px;
+    height : 20px;
+    background-color: #eee;
+    border-radius: 20px;
+}
+
+.toggle {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 58px;
+    height: 25px;
+    display: inline-block;
+    position: relative;
+    border-radius: 50px;
+    overflow: hidden;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: #707070;
+    transition: background-color ease 0.3s;
+    float: left;
+  }
+
+  .field-switch {
+      height: 45px;
+  }
+
+  .field-switch label {
+      margin-left: 15px;
+  }
+  
+  .toggle:before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 2;
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    font: 10px/28px Helvetica;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-indent: -25px;
+    word-spacing: 37px;
+    color: #fff;
+    text-shadow: -1px -1px rgba(0,0,0,0.15);
+    white-space: nowrap;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    transition: all cubic-bezier(0.3, 1.5, 0.7, 1) 0.3s;
+  }
+  
+  .toggle:checked {
+    background-color: #4CD964;
+  }
+  
+  .toggle:checked:before {
+    left: 32px;
+  }
+
+.control {
+    margin-bottom: 0.4em;
+}
+
+.service-choice {
+    margin-top: 0.3em;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0 !important;
+}
+
+.mt-5 {
+    margin-top: 1em;
+}
+
+.mt-10 {
+    margin-top: 2em;
+}
+
+.home-details {
+    border: 1px solid lightgrey;
+    padding: 0.3em;
+    border-radius: 3px;
+    height: 15.523em;
+}
+
+.professional-wanted {
+    color: white;
+    border: solid 1px lightgray;
+    border-radius: 3px;
+    margin: 0 1.2em 1.2em 1.2em;
+    height: 19em;
+    top: 1em;
+    margin-bottom: 2em;
+    background-image: url('/assets/img/professional-wanted.png');
+    background-position: center center;
+}
+
+.professionnal-services {
+    top: -3%;
+    background-color: #00d1b2;
+    color: #FFFFFF;
+    font-weight: bold;
+    border-radius: 3px;
+    border: 1px solid blanchedalmond;
+}
+
+.service {
+    margin-top: 2em;
+    padding: 0.6em;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    background-color: #ffffff;
+    opacity: 0.8;
+    color: #3c4f76;
+    font-weight: bold;
+}
+

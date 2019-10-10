@@ -7,17 +7,20 @@ use App\Entity\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Visit;
+use App\Entity\Comment;
 
 
 class GarageController extends AbstractController
 {
     /**
-     * @Route("/garage/{id}", name="single_garage", methods={"GET"})
+     * @Route("/garage/{id}", name="single_garage", methods={"GET", "POST"})
      */
     public function showSingleGarage(Garage $garage)
     {
 
     $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
+    $visit = $this->getDoctrine()->getRepository(Visit::class)->find($garage);
 
     // Récupération des coordonnées gps
     $gps = $garage->getGps();
@@ -33,6 +36,7 @@ class GarageController extends AbstractController
             'zoomLatitude' => $latitude,
             'zoomLongitude' => $longitude,
             'garage' => $garage,
+            'visit' => $visit,
         ]);
     }
 
@@ -56,12 +60,13 @@ class GarageController extends AbstractController
         $service_search = $request->request->get('service_search');
         $serviceID = $service_search['name'];
 
-        $garagesJson = $this->getDoctrine()->getRepository(Garage::class)->getGarages();
+        $garages = $this->getDoctrine()->getRepository(Garage::class)->getGarages();
       
         return $this->render('garage/search_results.html.twig', [
              'zoomLatitude' => $latitude,
              'zoomLongitude' => $longitude,
-             'garages' => $garagesJson
+             'garages' => $garages,
+             'address' => $address
         ]);
         
         $services = $this->getDoctrine()->getRepository(Service::class);

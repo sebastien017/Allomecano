@@ -4,8 +4,11 @@
 
 {% block body %}
 
-<section class="section flex-1">
-<div class="columns is-12">
+<section class="section flex-1 no-padding-top">
+<div class="columns is-12 is-multiline has-text-centered">
+<div class="column is-12 is-vcentered is-size-5">
+<i class="fas fa-search-location mr-1"></i>Résultats à proximité de {{ address }}
+</div>
 <div class="column is-6">
 		<div class="is-sticky">
 			<div id="map">
@@ -14,9 +17,15 @@
 </div>
 <div class="column is-6">
 	{% for garage in garages  %}
-	<div class="search-garage-infos" data-id="{{ garage.id }}">
-	{{ garage.adress }}
-	</div>
+		<div class="search-garage-infos" data-id="{{ garage.id }}">
+		<h3>{{ garage.name }}</h3>
+	{% if garage.comments|length > 0 %}
+		<p>Note moyenne sur {{ garage.comments|length }} avis :</p>
+		{% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
+	{% endif %}
+		<p>{{ garage.adress }}</p>
+		<a href="{{ path('single_garage', {id: garage.id }) }}" class="button is-success mt-1"><i class="fas fa-external-link-alt mr-1"></i> Prendre rendez-vous</a>
+		</div>
 	{% endfor %}
 </div>
 </div>
@@ -43,7 +52,8 @@
 			style: google.maps.NavigationControlStyle.ZOOM_PAN
 		}
 		});
-
+		// Variable détenant le dernier objet marker cliqué via la (map) ou du DOM (div search-garage-infos) mouseover
+		let lastMarker;
 		// Mise en place de geocoder qui permet de récupérer les coordonnées gps par rapport à une adresse
 		geocoder = new google.maps.Geocoder();
 		var infowindow = new google.maps.InfoWindow();
@@ -59,32 +69,42 @@
 					// Ajout du marqueur sur la map
             		var marker{{ garage.id }} = new google.maps.Marker({
                 	position: latLng,
-                	map: map
+                	map: map,
+					scaledSize: new google.maps.Size(38, 38),
+					icon: {
+      					url: "{{ asset('assets/img/wrench.png') }}"
+    				}
             		});
-					// Ajout d'un evenement click sur la div dans le DOM
+
+					// On sélectionne la div dans le DOM correspondant au même id
 					let garageDOM = document.body.querySelector('.search-garage-infos[data-id="{{ garage.id }}"]');
 					
+					// Evenement mouseover sur les div
 					garageDOM.addEventListener("mouseover", function()
 					{
-						marker{{ garage.id }}.setIcon('http://maps.google.com/mapfiles/ms/icons/purple-dot.png');
+						marker{{ garage.id }}.setIcon('{{ asset('assets/img/wrench-blue.png') }}');
 
+						// Le dernier marqueur reprend son icone d'origine
+						if (lastMarker !== undefined && lastMarker !== marker{{ garage.id }})
+						{
+							lastMarker.setIcon('{{ asset('assets/img/wrench.png') }}');
+						}
+
+						// On remplit le lastMarker avec l'objet marker actuel
+						lastMarker = marker{{ garage.id }};
+
+						// On récupère les élements dans le DOM contenant la class search-garage-infos et on supprime les bordures éventuelles déjà présentes
+						var elements = document.body.querySelectorAll('.search-garage-infos[data-id]').forEach(function (element)
+						{
+							element.classList.remove('borderIsBlue');
+						});
+				
 						garageDOM.classList.add('borderIsBlue');
 
 						map.setCenter(new google.maps.LatLng(latLng));
 
 						map.setZoom(15);
 					});
-
-					garageDOM.addEventListener("mouseleave", function()
-					{
-						marker{{ garage.id }}.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
-
-						garageDOM.classList.remove('borderIsBlue');
-
-						map.setCenter(new google.maps.LatLng({{ zoomLatitude }}, {{ zoomLongitude }}));
-
-						map.setZoom(10);
-					});  
 
 					// Ajout d'un evenement click sur le marqueur
 					google.maps.event.addListener(marker{{ garage.id }}, 'click', function(){
@@ -95,6 +115,18 @@
 					{
 						element.classList.remove('borderIsBlue');
 					});
+
+					// On change de couleur le marqueur cliqué
+					marker{{ garage.id }}.setIcon('{{ asset('assets/img/wrench-blue.png') }}');
+
+					// Le dernier marqueur reprend son icone d'origine
+					if (lastMarker !== undefined && lastMarker !== marker{{ garage.id }})
+					{
+						lastMarker.setIcon('{{ asset('assets/img/wrench.png') }}');
+					}
+
+					// On remplit le lastMarker avec l'objet marker actuel
+					lastMarker = marker{{ garage.id }};
 					
 					// On ajoute une classe à l'element
 					div.classList.add("borderIsBlue");
