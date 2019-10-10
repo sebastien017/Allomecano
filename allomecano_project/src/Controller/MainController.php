@@ -64,4 +64,13 @@ class MainController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+    /**
+     * @Route("/presentation", name="presentation", methods={"GET"})
+     */
+    public function showPresentation()
+    {
+        return $this->render('home/presentation.html.twig', [
+            'controller_name' => 'HomeController', 
+        ]);
+    }
 }
