@@ -1,9 +1,5 @@
 easy_admin:
    site_name: "Allo'Mecano"
-
-   formats:
-        date: 'd/m/Y'
-        time: 'h:i A e'
        
    design:
         brand_color: '#1ABC9C'
@@ -41,5 +37,5 @@ easy_admin:
       Visit:
             class: App\Entity\Visit
             list:
-                fields: ['id', {property: 'date', label: 'Date de rendez-vous'}, {property: 'time', label: 'Heure de rendez-vous'}, {property: 'reservation date', label: 'Date de réservation'}, {property: 'created at', label: 'Date de création'}, 'user', 'garage', 'service']
+                fields: ['id', 'user', {property: 'date', label: 'Date de rendez-vous'}, {property: 'time', label: 'Heure de rendez-vous'}, {property: 'reservation date', label: 'Date de réservation'}, {property: 'created at', label: 'Date de création'}, 'garage', 'service']
 
