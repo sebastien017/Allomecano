@@ -48,7 +48,7 @@ class GarageType extends AbstractType
                 'class' => Service::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-                'expanded' => true
+                'expanded' => true,
             
                 // uses the User.username property as the visible option string
             

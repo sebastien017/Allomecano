@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Allomecano | Modifier mes informations{% endblock %}
+{% block title %}Allomecano | Modifier mes informations (Garage){% endblock %}
 
 {% block body %}
 
@@ -23,7 +23,7 @@
         {{ form_row(formGarage.distance, {'attr': {'class': 'input'}}) }}
     </div>
     <div class="control">
-        {{ form_row(formGarage.service) }}
+        {{ form_row(formGarage.service)}}
     </div>
 
     {{ form_row(formGarage.gps) }}

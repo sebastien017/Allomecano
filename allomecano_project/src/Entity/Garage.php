@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GarageRepository")
@@ -101,10 +102,39 @@ class Garage
 
     public function __toString()
     {
-         $this->name = $name;
-         $this->images = $images;
-         $this->service = $service;
+         return $this->name;
+        //  $this->images = $images;
+        //  $this->service = $service;
        
+    }
+
+    /**
+     * Permet d'obtenir la moyenne globale des notes pour cette annonce
+     *
+     * @return float
+     */
+    public function getAvgRatings()
+    {
+        $sum = array_reduce($this->comments->toArray(), function($total, $comment) {
+            return $total + $comment->getRate();
+        }, 0);
+
+        if(count($this->comments ) > 0 ) return $sum /count($this->comments);
+
+        return 0;
+    }
+
+    /**
+     * Permet de récupérer le commentaire d'un utilisateur par rapport à un garage
+     *
+     * @param User $user
+     * @return Comment|null
+     */
+    public function getCommentFromUser(User $user){
+        foreach($this->comments as $comment) {
+            if($comment->getUser() === $user) return $comment;
+        }
+        return null;
     }
 
     public function getId(): ?int

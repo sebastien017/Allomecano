@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Service;
+use App\Entity\User;
 use App\Form\ServiceSearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,12 +16,14 @@ class MainController extends AbstractController
      */
     public function home(Request $request)
     {
+        $user = new User;
         $services = $this->getDoctrine()->getRepository(Service::class)->findAll();
         $form = $this->createForm(ServiceSearchType::class);
         $form->handleRequest($request);
 
         return $this->render('home/index.html.twig', [
             'services' => $services,
+            'user' => $user,
             'searchForm' => $form->createView(),
         ]);
     }

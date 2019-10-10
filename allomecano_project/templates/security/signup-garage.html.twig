@@ -17,21 +17,29 @@
     <div class="control">
         {{ form_row(formGarage.adress  , {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder': 'Adresse de votre garage'}}) }}
     </div>
-    <div class="control" onchange="affiche_bloc();">
+    <div class="control control--mobile" onchange="affiche_bloc();">
         {{ form_row(formGarage.mobility, {'label': 'Cochez si vous êtes mobile'}) }}
     </div>
     <div id="form-distance" class="control">
         {{ form_row(formGarage.distance, {'attr': {'class': 'input'}}) }}
     </div>
-    <div class="control">
-        {{ form_row(formGarage.service) }}
+    <div class="control service-choice mt-5">
+    <p class="mb-1">Choisir vos services :</p>
+        {# {{ form_row(formGarage.service) }} #}
+        {% for ServiceField in formGarage.service %}
+                <div class="field-switch no-margin-bottom">
+                {{ form_row(ServiceField, { 'attr' : { 'class' : 'toggle', 'checked' : 'checked' }}) }}
+                </div>
+        {% endfor %}
     </div>
 
+    <div style="display: none;">
     {{ form_row(formGarage.gps) }}
+     </div>
 
     <button class="button is-success mt-1" id="button">S'enregistrer</button>
-
-{{ form_end(formGarage)}}
+    
+    {{ form_end(formGarage)}}
 
 </section>
 

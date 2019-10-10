@@ -27,7 +27,7 @@ class Visit
     private $time;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $reservationDate;
 
@@ -58,6 +58,7 @@ class Visit
 
     public function __construct()
     {
+
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }

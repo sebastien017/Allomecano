@@ -15,6 +15,7 @@
 | `/reservation`| `GET & POST` | `PlaningController`| `showPlaningByGarage` | Réservation de mon rdv| Choix de la date |--|
 | `/reservation/confirm`| `GET & POST` | `PlaningController` | `validatePlaning` | Confirmation de mon rdv | Validation de la prise de rdv |--|
 | `/reservation/success`| `GET & POST` | `PlaningController` | `reservationSuccess`| Récapitulatif de mon rdv | Récapitulatif et confirmation de la prise de rdv |--|
+| `/profile/history`| `GET & POST` | `PlanningController` | `reservationHistory` | Edition du profil | Mise à jour du profil |--|
 | `/contact` | `GET & POST` | `MainController` | `showContactForm` | Contact | Formulaire de contact |--|
 | `/mentions-legales`| `GET` | `MainController` | `showLegalMentions` | Mentions légales | Mentions légales |--|
 | `/a-propos` | `GET` | `MainController` | `aboutUs`| A propos de nous | Affichage des informations des dev |--|
