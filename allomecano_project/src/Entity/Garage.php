@@ -102,9 +102,9 @@ class Garage
 
     public function __toString()
     {
-         $this->name = $name;
-         $this->images = $images;
-         $this->service = $service;
+         return $this->name;
+        //  $this->images = $images;
+        //  $this->service = $service;
        
     }
 
