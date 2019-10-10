@@ -51,7 +51,7 @@
             <div class="columns flex-between is-12 is-multiline">
                 {% for  visit in garage.visit %}
                     <div class="garage column is-3 visit">
-                            <p>{{ visit.date | date('d/m') }}</p>
+                            <p>{{ visit.date | date('d/m') }} </p>
                             <p>{{ visit.time | date('H \\h i')}}</p>
                     </div>
                 {% endfor %}

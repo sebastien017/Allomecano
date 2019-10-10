@@ -82,16 +82,16 @@ class UserType extends AbstractType
                 'minMessage' => 'Votre nom d\'utilisateur doit être au minimum de {{ limit }} caractères',
             'maxMessage' => 'Votre nom d\'utilisateur doit être au maximum de {{ limit }} caractères'])]
             ])
-        ->add('roles', CollectionType::class, [
-            'entry_type'   => ChoiceType::class,
-            'entry_options'  => [
-                'multiple' => false,
-                'label' => false,
-                'choices' => [
-                    'User' => 'ROLE_USER',
-                    'Admin' => 'ROLE_ADMIN',
-                    'Moderateur' => 'ROLE_MODERATEUR',
-            ]]])
+        // ->add('roles', CollectionType::class, [
+        //     'entry_type'   => ChoiceType::class,
+        //     'entry_options'  => [
+        //         'multiple' => false,
+        //         'label' => false,
+        //         'choices' => [
+        //             'User' => 'ROLE_USER',
+        //             'Admin' => 'ROLE_ADMIN',
+        //             'Moderateur' => 'ROLE_MODERATEUR',
+        //     ]]])
         ->add('password', RepeatedType::class, [
             'type' => PasswordType::class,
             'invalid_message' => 'Les mots de passe des deux champs doivent être identiques',
