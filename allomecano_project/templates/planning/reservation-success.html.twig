@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Allomecano | Résumé de ma réservation{% endblock %}
+
+{% block body %}
+
+<section class="section">
+<ul class="steps">
+  <li class="step-item is-completed is-success">
+    <div class="step-marker">
+      <span class="icon">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+    <div class="step-details is-primary is-completed">
+      <p class="step-title">Choisir un professionnel</p>
+      <p>Je choisis le professionnel qui s'occuper de mon véhicule.</p>
+    </div>
+  </li>
+  <li class="step-item is-success is-completed">
+    <div class="step-marker">
+      <span class="icon">
+        <i class="fa fa-check"></i>
+      </span>
+    </div>
+    <div class="step-details">
+      <p class="step-title">Choisir un créneau horaire</p>
+      <p>Je choisis le créneau horaire de mon futur rdv.</p>
+    </div>
+  </li>
+  <li class="step-item is-completed is-success">
+    <div class="step-marker">
+      <span class="icon">
+        <i class="fa fa-flag"></i>
+      </span>
+    </div>
+    <div class="step-details">
+      <p class="step-title">Confirmer mon rdv</p>
+      <p>Un résumé de mes choix apparaît, si tout est ok je peux valider mon choix.</p>
+    </div>
+  </li>
+</ul>
+</section>
+
+{% endblock %}

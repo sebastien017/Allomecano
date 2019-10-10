@@ -3,40 +3,112 @@
 {% block title %}Allomecano | Réservation{% endblock %}
 
 {% block body %}
-
-<section class="section section--reservation">
-<div class="columns is-12 is-multiline has-text-centered">
-    <div class="column reservation-infos is-6">
-    Nom du garage<br>
-    *****<br>
-    Adresse
+<section class="section">
+<ul class="steps">
+  <li class="step-item is-completed is-success">
+    <div class="step-marker">
+      <span class="icon">
+        <i class="fa fa-check"></i>
+      </span>
     </div>
-    <div class="column reservation is-6">
-    Prendre mon rendez-vous
+    <div class="step-details is-primary is-completed">
+      <p class="step-title">Choisir un professionnel</p>
+      <p>Je choisis le professionnel qui s'occuper de mon véhicule.</p>
+    </div>
+  </li>
+  <li class="step-item is-info is-completed">
+    <div class="step-marker"></div>
+    <div class="step-details">
+      <p class="step-title">Choisir un créneau horaire</p>
+      <p>Je choisis le créneau horaire de mon futur rdv.</p>
+    </div>
+  </li>
+  <li class="step-item is-primary">
+    <div class="step-marker">
+      <span class="icon">
+        <i class="fa fa-flag"></i>
+      </span>
+    </div>
+    <div class="step-details">
+      <p class="step-title">Confirmer mon rdv</p>
+      <p>Un résumé de mes choix apparaît, si tout est ok je peux valider.</p>
+    </div>
+  </li>
+</ul>
+</section>
+
+<section class="section section--garage">
+<div class="columns garage is-12 is-multiline has-text-centered">
+    <div class="column garage-logo is-4">
+    <img src="https://bulma.io/images/placeholders/96x96.png">
+    Logo
+    
+    {% for image in garage.images %}
+        {{image.url}}
+    {% endfor %}
+    </div>
+    <div class="column garage-data is-4">
+    <h2 class="title is-3">{{ garage.name }}</h2>
+        <p>Note globale donnée par nos utilisateurs</p>
+        <small>Moyenne calculée sur {{ garage.comments|length }} avis.</small>
+        {% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
+    </div>
+    <div class="column garage-address is-4">
+    <br>
+    Adresse:
+    <div class="content is-small-2">{{garage.adress}}
     </div>
 </div>
 </section>
 
+{# {% for  visit in garage.visit %}
 <div class="columns is-multiline is-12 has-text-centered">
     <div class="column reservation-infos is-12">
-        <i class="fas fa-chevron-circle-left mr-1"></i>Les prochains rendez-vous<i class="fas fa-chevron-circle-right ml-1"></i>
+        <i class="fas fa-chevron-circle-left mr-1"></i>{{ visit.date | date('d/m') }}<i class="fas fa-chevron-circle-right ml-1"></i>
+        <div class"garage is-vcentered" id"{{ visit.id }}"> {{ visit.time | date('H \\h i')}}</div>
+                    </div>
     </div>
 </div>
-    <div class="column is-12 has-text-centered is-vcentered is-mobile">
-        <div class="columns reservation-dates is-12 has-text-centered is-vcentered is-mobile">
-            <div class="column is-one-third">
-            Lundi xx/10<br><br>
-            13h
-            </div>
-            <div class="column is-one-third">
-            Mardi xx/10<br><br>
-            15h
-            </div>
-            <div class="column is-one-third">
-            Mercredi xx/10<br><br>
-            9h
-            </div>
+{% endfor %} #}
+
+{% for  visit in garage.visit %}
+<div class="columns is-multiline is-12 has-text-centered">
+    <div class="column reservation-infos is-12">
+        <i class="fas fa-chevron-circle-left mr-1"></i>{{ visit.date | date('d/m') }}<i class="fas fa-chevron-circle-right ml-1"></i>
+        <div class="radios">
+            <input type="radio" name="rGroup" value="1" id="r1" checked="checked" />
+            
+        <label class="radio" for="r1"><div class"garage is-vcentered" id"{{ visit.id }}"> {{ visit.time | date('H \\h i')}}</div></label>
         </div>
     </div>
+</div>
+{% endfor %}
+
+{% if not app.user %}
+	<div class="buttons is-vcentered">
+		<a href="{{ path('app_login') }}" class="button is-light"> 
+            <strong><i class="fas fa-sign-in-alt mr-1"></i>Se connecter pour confirmer mon rdv</strong>
+        </a> 
+	</div>
+{% endif %}
+{% if app.user %}
+    <div class="buttons is-vcentered">
+        <a href="{{ path('reservation_confirm', {id: garage.id }) }}" class="button is-primary">
+            <i class="fas fa-check mr-1"></i>Finaliser ma prise de rdv
+        </a>
+	</div>
+{% endif %}
+
+{# <div class="radios">
+    <input type="radio" name="rGroup" value="1" id="r1" checked="checked" />
+    <label class="radio" for="r1"></label>
+    
+    <input type="radio" name="rGroup" value="2" id="r2" />
+    <label class="radio" for="r2"></label>
+    
+    <input type="radio" name="rGroup" value="3" id="r3" />
+    <label class="radio" for="r3"></label>
+</div> #}
+
    
 {% endblock %}
