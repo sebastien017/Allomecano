@@ -93,7 +93,7 @@ class PlanningController extends AbstractController
     /**
      * @Route("/reservation/{id}", name="reservation_history", methods={"GET", "POST"})
      */
-    public function reservationHistroy(Request $request, Visit $visit, ObjectManager $em)
+    public function reservationHistory(Request $request, Visit $visit, ObjectManager $em)
     {
         $visit = $this->getDoctrine()->getRepository(Visit::class)->find($visit);
         

@@ -58,6 +58,7 @@ class Visit
 
     public function __construct()
     {
+
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }
