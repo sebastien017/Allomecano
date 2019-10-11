@@ -67,9 +67,18 @@ class PlanningController extends AbstractController
     {
         $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
 
+        $visite = $this->getDoctrine()->getRepository(Visit::class)->findByDate($garage);
+
+        // $datesSorted = [];
+        // foreach($dates as $date) {
+	    // $datesSorted[visite.date] = $date;
+        // }
+
         return $this->render('planning/reservation.html.twig', [
             'controller_name' => 'PlanningController',
-            'garage' => $garage
+            'garage' => $garage,
+            'visite' => $visite,
+            // 'datesSorted' => $datesSorted
         ]);
     }
 
