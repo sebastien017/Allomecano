@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-
 use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -68,8 +67,8 @@ class Garage
      * @ORM\ManyToMany(targetEntity="App\Entity\Service", inversedBy="garages")
      */
     private $service;
-    
 
+    
     /**
      * @ORM\Column(type="string")
      */
@@ -118,9 +117,7 @@ class Garage
         $sum = array_reduce($this->comments->toArray(), function($total, $comment) {
             return $total + $comment->getRate();
         }, 0);
-
         if(count($this->comments ) > 0 ) return $sum /count($this->comments);
-
         return 0;
     }
 
@@ -150,7 +147,6 @@ class Garage
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -162,7 +158,6 @@ class Garage
     public function setAdress(?string $adress): self
     {
         $this->adress = $adress;
-
         return $this;
     }
 
@@ -174,7 +169,6 @@ class Garage
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -186,7 +180,6 @@ class Garage
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
@@ -303,10 +296,10 @@ class Garage
                 $visit->setGarage(null);
             }
         }
-
+        
         return $this;
     }
-
+    
     /**
      * @return Collection|Service[]
      */
@@ -314,70 +307,70 @@ class Garage
     {
         return $this->service;
     }
-
+    
     public function addService(Service $service): self
     {
         if (!$this->service->contains($service)) {
             $this->service[] = $service;
         }
-
+        
         return $this;
     }
-
+    
     public function removeService(Service $service): self
     {
         if ($this->service->contains($service)) {
             $this->service->removeElement($service);
         }
-
+        
         return $this;
     }
-
+    
     public function getGps(): ?string
     {
         return $this->gps;
     }
-
+    
     public function setGps(string $gps): self
     {
         $this->gps = $gps;
-
+        
         return $this;
     }
-
+    
     public function getUser(): ?User
     {
         return $this->user;
     }
-
+    
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
+        
         return $this;
     }
-
+    
     public function getPresentation(): ?string
     {
         return $this->presentation;
     }
-
+    
     public function setPresentation(?string $presentation): self
     {
         $this->presentation = $presentation;
-
+        
         return $this;
     }
-
+    
     public function getAvatar(): ?string
     {
         return $this->avatar;
     }
-
+    
     public function setAvatar(?string $avatar): self
     {
         $this->avatar = $avatar;
-
+        
         return $this;
     }
 }

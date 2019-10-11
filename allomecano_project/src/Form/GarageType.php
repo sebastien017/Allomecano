@@ -4,12 +4,14 @@ namespace App\Form;
 
 use App\Entity\Garage;
 use App\Entity\Service;
+use App\Form\GarageImagesType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -23,10 +25,10 @@ class GarageType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de votre garage'
-                ])
+            ])
             ->add('adress', TextType::class, [
                 'label' => 'Adresse de votre garage'
-                ])
+            ])
             // ->add('city')
             // ->add('postalCode')
             // ->add('createdAt')
@@ -34,6 +36,12 @@ class GarageType extends AbstractType
             ->add('mobility', CheckboxType::class, [
                 'required' => false
             ])
+            ->add('avatar', FileType::class, [
+                'label' => 'Avatar',
+                'data_class' => null,
+                'required' => false,
+                'required' => false,
+                ])
             ->add('distance', IntegerType::class, [
                 'label' => 'Distance en kms',
                 'required' => false
@@ -42,19 +50,20 @@ class GarageType extends AbstractType
                 'label' => false,
                 'required' => false,
                 'attr' => array('style' => 'visibility : hidden; width : 0%')
-                ])
+            ])
             ->add('service', EntityType::class, [
                 // looks for choices from this entity
                 'class' => Service::class,
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-            
-                // uses the User.username property as the visible option string
-            
+            ])
+            ->add('images', FileType::class, [
+                'multiple' => true,
+                'required' => false,
+                'mapped' => false
             ]);
-            
-        ;
+                // uses the User.username property as the visible option string;
     }
 
     public function configureOptions(OptionsResolver $resolver)

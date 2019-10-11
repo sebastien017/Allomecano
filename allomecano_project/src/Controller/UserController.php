@@ -6,17 +6,19 @@ use App\Entity\User;
 use App\Entity\Garage;
 use App\Form\UserType;
 use App\Form\GarageType;
+use App\Service\FileUploadManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
-use App\Service\FileUploadManager;
+use App\Entity\Image;
 
 class UserController extends AbstractController
 {
@@ -137,7 +139,7 @@ class UserController extends AbstractController
     /**
      * @Route("/signup/garage/{id}", name="signup_garage", methods={"GET", "POST"})
      */
-    public function signupGarage(User $user, Request $request, TokenStorageInterface $ts)
+    public function signupGarage(User $user, Request $request, TokenStorageInterface $ts, FileUploadManager $fileUploadManager)
     {
         $garage = new Garage;
         $formGarage = $this->createForm(GarageType::class, $garage);
@@ -145,12 +147,40 @@ class UserController extends AbstractController
 
 
             if ($formGarage->isSubmitted() && $formGarage->isValid()){
+                $em = $this->getDoctrine()->getManager();
+
                 $garage = $formGarage->getData();
                 $garage->setUser($user->setRoles(['ROLE_GARAGE']));
+
+                // $files = $request->files->get('garage')['images'];
+                $imagePath = $fileUploadManager->upload($formGarage['avatar'], $garage->getId());
+                $garage->setAvatar($imagePath);
+
+                /**
+                 * @var UploadedFile $file
+                 */
+                foreach ($files as $file) {
+                    $image = new Image();
+
+                    $filename = md5(uniqid()) . '.' .$file->guessExtension();
+                    $image->setFilename($filename);
+
+                    $image->setUrl('/uploads/'.$filename);
+
+                    $file->move(
+                        $this->getParameter('uploads'),$filename
+                    );
+
+                    $image->setGarage($garage);
+                    $garage->addImage($image);
+
+                    $em->persist($image);
+                }
                 
-                $em = $this->getDoctrine()->getManager();
                 $em->persist($garage); 
+
                 $em->flush();
+
                 $ts->setToken(
                     new PostAuthenticationGuardToken($user, 'main', $user->getRoles())
                 );
@@ -167,7 +197,7 @@ class UserController extends AbstractController
     * @Route("/edit/{id}/garage/{garage}", name="garageEdit")
     * @ParamConverter("garage", options={"mapping": {"id": "user_id", "garage": "id"}})
     */
-    public function editGarage(Request $request, Garage $garage): Response
+    public function editGarage(Request $request, Garage $garage, FileUploadManager $fileUploadManager): Response
     {
         // $user = new User;
         $formGarage = $this->createForm(GarageType::class, $garage);
@@ -176,6 +206,8 @@ class UserController extends AbstractController
 
             if ($formGarage->isSubmitted() && $formGarage->isValid()){
                 $em = $this->getDoctrine()->getManager();
+                $imagePath = $fileUploadManager->upload($formGarage['avatar'], $garage->getId());
+                $garage->setAvatar($imagePath);
                 $em->persist($garage); 
                 $em->flush();
 

@@ -31,21 +31,17 @@
         </span>
         </p>
     </div>
-
     <div class="control control--mobile" onchange="affiche_bloc();">
         {{ form_row(formGarage.mobility, {'label': 'Cochez si vous êtes mobile'}) }}
     </div>
-
-    <div id="form-distance" class="inline">
-        <p>{{ form_label(formGarage.distance) }}</p>
-        <p class="control has-icons-left has-icons-right">
-        {{ form_widget(formGarage.distance, {'attr': {'class': 'input'}}) }}
-            <span class="icon is-small is-left">
-            <i class="fas fa-shoe-prints"></i>
-        </span>
-        </p>
+    <div id="form-distance" class="control">
+        {{ form_row(formGarage.distance, {'attr': {'class': 'input'}}) }}
+    </div><div class="control">
+        {{ form_row(formGarage.avatar) }}
     </div>
-
+    <div class="control">
+        {{ form_row(formGarage.images) }}
+    </div>
     <div class="control service-choice mt-5">
     <p class="mb-1"><i class="fas fa-briefcase mr-1"></i>Choisir vos services :</p>
         {# {{ form_row(formGarage.service) }} #}
