@@ -4,41 +4,106 @@
 
 {% block body %}
     <section class="is-primary is-fullheight">
-    <div class="hero-body is-primary">
+    <div class="hero-body is-primary no-padding-top">
         <div class="container">
         <div class="columns is-centered">
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+        <h1 class="is-size-4 mb-5 has-text-centered"><i class="fas fa-user-circle mr-1"></i>Créer un compte</h1>
     {{ form_start(form) }}
         <div class="control">
-            <div class="control">
-                {{ form_row(form.firstname, {'attr': {'class': 'input', 'placeholder' : 'Prénom', 'autofocus' : ''}}) }}
-            </div>
-            <div class="control">
-                {{ form_row(form.lastname, {'attr': {'class': 'input', 'placeholder' : 'Nom'}}) }}
-            </div>
-            <div class="control">
-                {{ form_row(form.username, {'attr': {'class': 'input', 'placeholder' : 'Pseudo'}}) }}
-            </div>
-            <div class="control">
-                {{ form_row(form.email, {'attr': {'class': 'input', 'placeholder' : 'utilisateur@mail.com'}}) }}
-            </div>
-            <div class="control">
-                {{ form_row(form.phone, {'attr': {'class': 'input', 'placeholder' : 'N° de téléphone'}}) }}
-            </div>
-            <div class="control">
-                {{ form_row(form.adress, {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder' : 'Adresse','oninvalid' : 'this.setCustomValidity(\'Merci de choisir une ville dans la liste déroulante\')', 'oninput' : 'setCustomValidity(\'\')'}}) }}
-            </div>
-            <div class="control">
-                {{ form_row(form.avatar, {'attr': {'placeholder' : 'Url de votre avatar'}}) }}
-            </div>
-            <div class="control">
-                {{ form_row(form.password, {'attr': {'placeholder': 'Modification du mot de passe'}}) }}
+
+            <div class="inline">
+                <p>{{ form_label(form.firstname) }}</p>
+                <p class="control has-icons-left has-icons-right">
+                {{ form_widget(form.firstname, {'attr': {'class': 'input', 'placeholder' : 'Prénom', 'autofocus' : ''}}) }}
+                <span class="icon is-small is-left">
+                <i class="fas fa-id-card-alt"></i>
+                </span>
+                </p>
             </div>
 
-                {{ form_row(form.gps) }}
+             <div class="inline">
+                <p>{{ form_label(form.lastname) }}</p>
+                <p class="control has-icons-left has-icons-right">
+                {{ form_widget(form.lastname, {'attr': {'class': 'input', 'placeholder' : 'Nom'}}) }}
+                <span class="icon is-small is-left">
+                <i class="fas fa-id-card-alt"></i>
+                </span>
+                </p>
+            </div>
+
+            <div class="inline">
+                <p>{{ form_label(form.username) }}</p>
+                <p class="control has-icons-left has-icons-right">
+                {{ form_widget(form.username, {'attr': {'class': 'input', 'placeholder' : 'Pseudo'}}) }}
+                <span class="icon is-small is-left">
+                <i class="fas fa-user-circle"></i>
+                </span>
+                </p>
+            </div>
+
+            <div class="inline">
+                <p>{{ form_label(form.email) }}</p>
+                <p class="control has-icons-left has-icons-right">
+                {{ form_widget(form.email, {'attr': {'class': 'input', 'placeholder' : 'utilisateur@mail.com'}}) }}
+                <span class="icon is-small is-left">
+                <i class="fas fa-at"></i>
+                </span>
+                </p>
+            </div>
+
+            <div class="inline">
+                <p>{{ form_label(form.phone) }}</p>
+                <p class="control has-icons-left has-icons-right">
+                {{ form_widget(form.phone, {'attr': {'class': 'input', 'placeholder' : 'N° de téléphone'}}) }}
+                <span class="icon is-small is-left">
+                <i class="fas fa-phone"></i>
+                </span>
+                </p>
+            </div>
+
+            <div class="inline">
+                <p>{{ form_label(form.adress) }}</p>
+                <p class="control has-icons-left has-icons-right">
+                {{ form_widget(form.adress, {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder' : 'Adresse','oninvalid' : 'this.setCustomValidity(\'Merci de choisir une ville dans la liste déroulante\')', 'oninput' : 'setCustomValidity(\'\')'}}) }}
+                <span class="icon is-small is-left">
+                <i class="fas fa-map-marker-alt"></i>
+                </span>
+                </p>
+            </div>
+
+            <div class="inline">
+                <p>{{ form_label(form.avatar) }}</p>
+                <p class="control">
+                {{ form_widget(form.avatar, {'attr': {'placeholder' : 'Url de votre avatar'}}) }}
+                </p>
+            </div>
+
+            <div class="inline">
+                <p>{{ form_label(form.password.first) }}</p>
+                <p class="control has-icons-left has-icons-right">
+                {{ form_widget(form.password.first, {'attr': {'class': 'input', 'placeholder' : '*********'}}) }}
+                <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+                </span>
+                </p>
+            </div>
+
+            <div class="inline">
+                <p>{{ form_label(form.password.second) }}</p>
+                <p class="control has-icons-left has-icons-right">
+                {{ form_widget(form.password.second, {'attr': {'class': 'input', 'placeholder' : '*********'}}) }}
+                <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+                </span>
+                </p>
+            </div>
+
+            <div style="display: none;">
+            {{ form_widget(form.gps) }}
+            </div>     
             
-            
-        <button class="button is-success mt-1" id="button">S'enregistrer</button>
+        <button class="button is-success mt-1" id="button"><i class="fas fa-check mr-1"></i>S'enregistrer</button>
 
     {{ form_end(form) }}
 

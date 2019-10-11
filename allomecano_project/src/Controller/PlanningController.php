@@ -61,22 +61,31 @@ class PlanningController extends AbstractController
     }
 
     /**
-     * @Route("/reservation", name="reservation", methods={"GET", "POST"})
+     * @Route("/reservation/{id}", name="reservation", methods={"GET", "POST"})
      */
-    public function showPlanningByGarage()
+    public function showPlanningByGarage(Request $request, Garage $garage)
     {
+        $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
+
+        $visite = $this->getDoctrine()->getRepository(Visit::class)->findByDate($garage);
+
         return $this->render('planning/reservation.html.twig', [
             'controller_name' => 'PlanningController',
+            'garage' => $garage,
+            'visite' => $visite,
+            // 'datesSorted' => $datesSorted
         ]);
     }
 
     /**
-     * @Route("/reservation/confirm", name="reservation_confirm", methods={"GET", "POST"})
+     * @Route("/reservation/{id}/confirm", name="reservation_confirm", methods={"GET", "POST"})
      */
-    public function validatePlanning()
+    public function validatePlanning(Request $request, Garage $garage)
     {
+        $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
         return $this->render('planning/reservation-confirm.html.twig', [
             'controller_name' => 'PlanningController',
+            'garage' => $garage
         ]);
     }
 

@@ -4,6 +4,37 @@
 
 {% block body %}
 
+<section class="section">
+<ul class="steps">
+  <li class="step-item is-info">
+    <div class="step-marker">
+    </div>
+    <div class="step-details is-info is-completed">
+      <p class="step-title">Choisir un professionnel</p>
+      <p>Je choisis le professionnel qui s'occuper de mon véhicule.</p>
+    </div>
+  </li>
+  <li class="step-item is-info">
+    <div class="step-marker"></div>
+    <div class="step-details">
+      <p class="step-title">Choisir un créneau horaire</p>
+      <p>Je choisis le créneau horaire de mon futur rdv.</p>
+    </div>
+  </li>
+  <li class="step-item is-primary">
+    <div class="step-marker">
+      <span class="icon">
+        <i class="fa fa-flag"></i>
+      </span>
+    </div>
+    <div class="step-details">
+      <p class="step-title">Confirmer mon rdv</p>
+      <p>Un résumé de mes choix apparaît, si tout est ok je peux valider.</p>
+    </div>
+  </li>
+</ul>
+</section>
+
 <section class="section flex-1 no-padding-top">
 <div class="columns is-12 is-multiline has-text-centered">
 <div class="column is-12 is-vcentered is-size-5">
@@ -24,7 +55,7 @@
 		{% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
 	{% endif %}
 		<p>{{ garage.adress }}</p>
-		<a href="{{ path('single_garage', {id: garage.id }) }}" class="button is-success mt-1"><i class="fas fa-external-link-alt mr-1"></i> Prendre rendez-vous</a>
+		<a href="{{ path('reservation', {id: garage.id }) }}" class="button is-success mt-1"><i class="fas fa-external-link-alt mr-1"></i> Prendre rendez-vous</a>
 		</div>
 	{% endfor %}
 </div>
