@@ -4,27 +4,50 @@
 
 {% block body %}
     <section class="is-primary is-fullheight">
-    <div class="hero-body is-primary">
+    <div class="hero-body is-primary no-padding-top">
         <div class="container">
         <div class="columns is-centered">
-        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-        
+        <div class="column is-5-tablet is-6-desktop is-3-widescreen">
+        <h1 class="is-size-4 mb-5 has-text-centered"><i class="fas fa-wrench mr-1"></i>S'inscrire en tant que professionnel</h1>
+
 {{ form_start(formGarage)}}
 
-    <div class="control">
-        {{ form_row(formGarage.name, {'attr': {'placeholder': 'Nom de votre garage', 'class': 'input',}}) }}
+    <div class="inline">
+        <p>{{ form_label(formGarage.name) }}</p>
+        <p class="control has-icons-left has-icons-right">
+        {{ form_widget(formGarage.name, {'attr': {'placeholder': 'Nom de votre garage', 'class': 'input',}}) }}
+            <span class="icon is-small is-left">
+            <i class="fas fa-car"></i>
+        </span>
+        </p>
     </div>
-    <div class="control">
-        {{ form_row(formGarage.adress  , {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder': 'Adresse de votre garage'}}) }}
+
+    <div class="inline">
+        <p>{{ form_label(formGarage.adress) }}</p>
+        <p class="control has-icons-left has-icons-right">
+        {{ form_widget(formGarage.adress, {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder': 'Adresse de votre garage'}}) }}
+            <span class="icon is-small is-left">
+            <i class="fas fa-map-marker-alt"></i>
+        </span>
+        </p>
     </div>
+
     <div class="control control--mobile" onchange="affiche_bloc();">
         {{ form_row(formGarage.mobility, {'label': 'Cochez si vous êtes mobile'}) }}
     </div>
-    <div id="form-distance" class="control">
-        {{ form_row(formGarage.distance, {'attr': {'class': 'input'}}) }}
+
+    <div id="form-distance" class="inline">
+        <p>{{ form_label(formGarage.distance) }}</p>
+        <p class="control has-icons-left has-icons-right">
+        {{ form_widget(formGarage.distance, {'attr': {'class': 'input'}}) }}
+            <span class="icon is-small is-left">
+            <i class="fas fa-shoe-prints"></i>
+        </span>
+        </p>
     </div>
+
     <div class="control service-choice mt-5">
-    <p class="mb-1">Choisir vos services :</p>
+    <p class="mb-1"><i class="fas fa-briefcase mr-1"></i>Choisir vos services :</p>
         {# {{ form_row(formGarage.service) }} #}
         {% for ServiceField in formGarage.service %}
                 <div class="field-switch no-margin-bottom">
@@ -39,7 +62,7 @@
 
     <button class="button is-success mt-1" id="button">S'enregistrer</button>
     
-    {{ form_end(formGarage)}}
+{{ form_end(formGarage)}}
 
 </section>
 
