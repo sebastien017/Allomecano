@@ -8,9 +8,10 @@ use App\Entity\Garage;
 use App\Entity\Comment;
 use App\Form\VisitType;
 use App\Form\CommentType;
+use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,22 +71,38 @@ class PlanningController extends AbstractController
         $visite = $this->getDoctrine()->getRepository(Visit::class)->findByDate($garage);
 
         return $this->render('planning/reservation.html.twig', [
-            'controller_name' => 'PlanningController',
             'garage' => $garage,
             'visite' => $visite,
-            // 'datesSorted' => $datesSorted
         ]);
     }
 
     /**
-     * @Route("/reservation/{id}/confirm", name="reservation_confirm", methods={"GET", "POST"})
+     * @Route("/reservation/{id}/confirm/", name="reservation_confirm", methods={"GET", "POST"})
+     *
      */
     public function validatePlanning(Request $request, Garage $garage)
     {
+        // Récupération de l'ID de la visit envoyée en POST
+        $visitId = $request->request->get('visit_id');
+
+        // Initialisation de la session
+        $session =$request->getSession();
+        // Ajout des informations récupérées en POST dans la session
+        $session->set('cart', $request->request->all());
+
+        $cart = $session->get('cart', []);
+        $cart[$visitId] =1;
+
+
+        // dd($session->get('cart')['visit_id']);
+
+        $visit = $this->getDoctrine()->getRepository(Visit::class)->find($session->get('cart')['visit_id']);
+
         $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
         return $this->render('planning/reservation-confirm.html.twig', [
-            'controller_name' => 'PlanningController',
-            'garage' => $garage
+            'garage' => $garage,
+            'visitId' => $visitId,
+            'visit' => $visit
         ]);
     }
 
