@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 namespace DoctrineMigrations;
-
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
@@ -32,4 +31,5 @@ final class Version20191003092642 extends AbstractMigration
 
         $this->addSql('ALTER TABLE garage DROP presentation');
     }
+    
 }

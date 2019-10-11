@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,6 +19,7 @@ class Image
 
     /**
      * @ORM\Column(type="text")
+     *
      */
     private $url;
 
@@ -35,6 +37,12 @@ class Image
      * @ORM\ManyToOne(targetEntity="App\Entity\Garage", inversedBy="images")
      */
     private $garage;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * 
+     */
+    private $filename;
 
     public function __construct()
     {
@@ -96,6 +104,18 @@ class Image
     public function setGarage(?Garage $garage): self
     {
         $this->garage = $garage;
+
+        return $this;
+    }
+
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    public function setFilename(string $filename): self
+    {
+        $this->filename = $filename;
 
         return $this;
     }
