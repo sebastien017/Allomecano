@@ -244,10 +244,6 @@ body
    
     font-family: Arial, sans-serif;
 }
-header
-{
-    padding: 30px 0;
-}
 header h1
 {
     font-size: 40px;
@@ -492,4 +488,8 @@ header h1
 
 .radios input[type=radio]:checked + .radio {
     background-color: #00d1b2;
+}
+
+.inline {
+    margin-bottom: 0.3em;
 }
