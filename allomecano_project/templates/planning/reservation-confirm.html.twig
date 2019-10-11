@@ -42,4 +42,11 @@
 </ul>
 </section>
 
+{% dump(visit) %}
+<form action="">
+<p> RDV le : {{ visit.date | date('d/m/Y') }} </p>
+<p> A : {{ visit.time | date('H \\h i') }}  </p>
+<p> avec : {{ visit.garage.name }} </p>
+</form>
+
 {% endblock %}

@@ -34,4 +34,20 @@ class VisitRepository extends ServiceEntityRepository
         ;
         return $qb->getQuery()->getResult();
     }
+
+         /**
+      * @param Garage $garage
+      * @return Visit[]
+      */
+    
+      public function saveVisit()
+      {
+          $qb = $this->createQueryBuilder('v')
+              ->update('v.user_id = :currentUser')
+              ->from
+              ->add('orderBy','v.date ASC, v.time ASC')
+  
+          ;
+          return $qb->getQuery()->getResult();
+      }
 }
