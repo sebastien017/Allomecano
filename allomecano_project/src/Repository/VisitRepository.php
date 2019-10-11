@@ -19,32 +19,19 @@ class VisitRepository extends ServiceEntityRepository
         parent::__construct($registry, Visit::class);
     }
 
-    // /**
-    //  * @return Visit[] Returns an array of Visit objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @param Garage $garage
+      * @return Visit[]
+      */
+    
+    public function findByDate($garage)
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('v')
+            ->where('v.garage = :myGarage')
+            ->setParameter('myGarage', $garage)
+            ->add('orderBy','v.date ASC, v.time ASC')
 
-    /*
-    public function findOneBySomeField($value): ?Visit
-    {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
         ;
+        return $qb->getQuery()->getResult();
     }
-    */
 }
