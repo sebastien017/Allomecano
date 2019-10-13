@@ -42,14 +42,22 @@ class UserController extends AbstractController
     /**
      * @Route("/profile/{id}", name="profile", methods={"GET"})
      */
-    public function profile(User $user)
+    public function profile(Request $request, User $user)
     {
         $garage = new Garage;
 
-        return $this->render('security/profile.html.twig', [
-            'user' => $user,
-            'garage' => $garage
+        // Si l'id de l'utilisateur dans la route ne correspond pas à l'user qui est connecté, on ne l'autorise pas à afficher le profil
+        if ($this->getUser()->getId() == $request->get('id'))
+        {
+            return $this->render('security/profile.html.twig', [
+                'user' => $user,
+                'garage' => $garage
             ]);
+        }
+        else {
+            // L'id de l'utilisateur connecté ne correspond pas, on redirige l'user à l'accueil
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
@@ -93,22 +101,30 @@ class UserController extends AbstractController
     */
     public function editProfile(Request $request, User $user, UserPasswordEncoderInterface $encoder, FileUploadManager $fileUploadManager): Response
     {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
+         // Si l'id de l'utilisateur dans la route ne correspond pas à l'user qui est connecté, on ne l'autorise pas à modifier le profil
+         if ($this->getUser()->getId() == $request->get('id'))
+         {
+            $form = $this->createForm(UserType::class, $user);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $plainPassword = $user->getPassword();
-            $encodedPassword = $encoder->encodePassword($user, $plainPassword);
-            $user->setPassword($encodedPassword);
-            $imagePath = $fileUploadManager->upload($form['avatar'], $user->getId());
-            $user->setAvatar($imagePath);
-            $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('profile', ['id' => $user->getId()]);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $plainPassword = $user->getPassword();
+                $encodedPassword = $encoder->encodePassword($user, $plainPassword);
+                $user->setPassword($encodedPassword);
+                $imagePath = $fileUploadManager->upload($form['avatar'], $user->getId());
+                $user->setAvatar($imagePath);
+                $this->getDoctrine()->getManager()->flush();
+                return $this->redirectToRoute('profile', ['id' => $user->getId()]);
+            }
+            return $this->render('security/edit-profile.html.twig', [
+                'user' => $user,
+                'form' => $form->createView(),
+            ]);
         }
-        return $this->render('security/edit-profile.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
+        else {
+            // L'id de l'utilisateur connecté ne correspond pas, on redirige l'user à l'accueil
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
@@ -124,15 +140,23 @@ class UserController extends AbstractController
      */
     public function delete(User $user, Request $request)
     {
-        if($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token'))) {
-            $session = $this->get('session');
-            $session = new Session();
-            $session->invalidate();
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($user);
-            $em->flush();
+        // Si l'id de l'utilisateur dans la route ne correspond pas à l'user qui est connecté, on ne l'autorise pas à supprimer le compte
+        if ($this->getUser()->getId() == $request->get('id'))
+        {
+            if($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token'))) {
+                $session = $this->get('session');
+                $session = new Session();
+                $session->invalidate();
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($user);
+                $em->flush();
+            }
+            return $this->redirectToRoute('home');
         }
-        return $this->redirectToRoute('home');
+        else {
+            // L'id de l'utilisateur connecté ne correspond pas, on redirige l'user à l'accueil
+            return $this->redirectToRoute('home');
+        }
     }
 
 
@@ -141,9 +165,12 @@ class UserController extends AbstractController
      */
     public function signupGarage(User $user, Request $request, TokenStorageInterface $ts, FileUploadManager $fileUploadManager)
     {
-        $garage = new Garage;
-        $formGarage = $this->createForm(GarageType::class, $garage);
-        $formGarage->handleRequest($request);
+        // Vérification si l'utilisateur qui s'inscrit en tant que garage est bien identique à l'id de l'user connecté
+        if ($this->getUser()->getId() == $request->get('id'))
+        {
+            $garage = new Garage;
+            $formGarage = $this->createForm(GarageType::class, $garage);
+            $formGarage->handleRequest($request);
 
 
             if ($formGarage->isSubmitted() && $formGarage->isValid()){
@@ -191,6 +218,11 @@ class UserController extends AbstractController
         return $this->render('security/signup-garage.html.twig', [
                 'formGarage' => $formGarage->createView()
         ]);
+        }
+        else {
+            // L'id de l'utilisateur connecté ne correspond pas, on redirige l'user à l'accueil
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
@@ -199,10 +231,12 @@ class UserController extends AbstractController
     */
     public function editGarage(Request $request, Garage $garage, FileUploadManager $fileUploadManager): Response
     {
-        // $user = new User;
-        $formGarage = $this->createForm(GarageType::class, $garage);
-        $formGarage->handleRequest($request);
-
+        // Si l'id de l'utilisateur dans la route ne correspond pas à l'user qui est connecté, on ne l'autorise pas à éditer le profil
+        if ($this->getUser()->getId() == $request->get('id'))
+        {
+            // $user = new User;
+            $formGarage = $this->createForm(GarageType::class, $garage);
+            $formGarage->handleRequest($request);
 
             if ($formGarage->isSubmitted() && $formGarage->isValid()){
                 $em = $this->getDoctrine()->getManager();
@@ -213,9 +247,15 @@ class UserController extends AbstractController
 
                 return $this->redirectToRoute('profile', ['id' => $garage->getUser()->getId()]);
             }
-        return $this->render('security/edit-garage.html.twig', [
+
+         return $this->render('security/edit-garage.html.twig', [
             'garage' => $garage,
             'formGarage' => $formGarage->createView(),
-        ]);
+         ]);
+        }
+        else {
+            // L'id de l'utilisateur connecté ne correspond pas, on redirige l'user à l'accueil
+            return $this->redirectToRoute('home');
+        }
     }
 }
