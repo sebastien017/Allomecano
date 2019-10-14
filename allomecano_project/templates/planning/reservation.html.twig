@@ -67,10 +67,10 @@
   <div class="columns is-multiline is-12 has-text-centered">
     <div class="column reservation-infos is-12">
     {% for visit in visite %}
-      {% if visit.date | date('d/m/Y') != date_memo %}
-        <i class="fas fa-chevron-circle-left mr-1"></i>{{ visit.date | date('d/m/Y') }}<i class="fas fa-chevron-circle-right ml-1"></i>
-        {% set date_memo = visit.date | date('d/m/Y') %}
-        {% endif %}
+        {% if visit.date | date('d/m/Y') != date_memo %}
+          <i class="fas fa-chevron-circle-left mr-1"></i>{{ visit.date | date('d/m/Y') }}<i class="fas fa-chevron-circle-right ml-1"></i>
+          {% set date_memo = visit.date | date('d/m/Y') %}
+          {% endif %}
         <div class="radios">
             <input type="radio" name="visit_id" value="{{ visit.id }}" id="{{ visit.id }}"/>
         <label class="radio" for="{{ visit.id }}">

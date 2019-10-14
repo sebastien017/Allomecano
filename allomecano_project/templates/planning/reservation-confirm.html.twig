@@ -42,20 +42,19 @@
 </ul>
 </section>
 
-{% dump(visit) %}
-{% dump(service) %}
-
-<form action="">
 <p> RDV le : {{ visit.date | date('d/m/Y') }} </p>
 <p> A : {{ visit.time | date('H \\h i') }}  </p>
 <p> avec : {{ visit.garage.name }} </p>
 <p>Pour : {{ service.name }}</p>
 <p>Tarif de la préstation : {{ service.price }}€</p>
-<button href="{{ path('reservation_success') }}" class="button is-primary is-vcentered">
-  <i class="fas fa-check mr-1"></i>Confirmer mon rdv
-</button>
-</form>
 
-{# {{ form(formVisit, {action: path('reservation_success')}) }} #}
+
+
+{{ form_start(form)}}
+  {{ form_widget(form, { 'attr': {'class': 'is-hidden'}}) }}
+  <button class="button is-primary is-vcentered">
+    <i class="fas fa-check mr-1"></i>Confirmer mon rdv
+  </button>
+{{ form_end(form)}}
 
 {% endblock %}
