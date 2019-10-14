@@ -2,13 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Garage;
 use App\Entity\Service;
+use App\Entity\Visit;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Visit;
-use App\Entity\Comment;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 
 
 class GarageController extends AbstractController
@@ -43,7 +45,7 @@ class GarageController extends AbstractController
 /**
      * @Route("/garages/", name="show_garage_by_service_gps", methods={"POST"})
      */
-    public function showGarageByServiceAndGps(Request $request)
+    public function showGarageByServiceAndGps(Request $request, SessionInterface $session)
     {
         // Récupération de l'adresse
         $address = $request->request->get('address');
@@ -59,6 +61,14 @@ class GarageController extends AbstractController
         // ID du service
         $service_search = $request->request->get('service_search');
         $serviceID = $service_search['name'];
+
+        $cart = $session->get('service', []);
+        $cart[$serviceID] =1;
+
+        // Enregistrement du service selectionné en session
+        $session->set('service', $serviceID);
+
+        // dd($session->get('service'));
 
         $garages = $this->getDoctrine()->getRepository(Garage::class)->getGarages();
       

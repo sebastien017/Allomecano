@@ -14,18 +14,18 @@ class VisitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date', DateType::class, [
-                'widget' => 'single_text'
-            ])
-            ->add('time', TimeType::class, [
-                'widget' => 'single_text'
-            ])
-            // ->add('reservationDate')
+            // ->add('date', DateType::class, [
+            //     'widget' => 'single_text'
+            // ])
+            // ->add('time', TimeType::class, [
+            //     'widget' => 'single_text'
+            // ])
+             ->add('reservationDate')
             // ->add('createdAt')
             // ->add('updatedAt')
-            // ->add('user')
+             ->add('user')
             // ->add('garage')
-            // ->add('service')
+             ->add('service')
         ;
     }
 
