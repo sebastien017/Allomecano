@@ -170,6 +170,7 @@ body {
     border: solid 1px lightgray;
     border-radius: 3px;
     margin-bottom: 0.5em;
+    position: relative;
 }
 
 .borderIsBlue {
@@ -492,4 +493,10 @@ header h1
 
 .inline {
     margin-bottom: 0.3em;
+}
+
+.distance-garage {
+    top: 0.3em;
+    left: 0.3em;
+    position: absolute;
 }

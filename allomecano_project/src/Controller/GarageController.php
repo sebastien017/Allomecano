@@ -70,7 +70,7 @@ class GarageController extends AbstractController
 
         // dd($session->get('service'));
 
-        $garages = $this->getDoctrine()->getRepository(Garage::class)->getGarages();
+        $garages = $this->getDoctrine()->getRepository(Garage::class)->getGarages($latitude, $longitude);
       
         return $this->render('garage/search_results.html.twig', [
              'zoomLatitude' => $latitude,

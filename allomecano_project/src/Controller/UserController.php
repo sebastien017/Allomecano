@@ -181,6 +181,15 @@ class UserController extends AbstractController
                 $garage = $formGarage->getData();
                 $garage->setUser($user->setRoles(['ROLE_GARAGE']));
 
+                // Récupération coordonnées gps
+                $gps = $garage->getGps();
+                $gps = strtr($gps, array('(' => '', ')' => ''));
+
+                // Explode des coordonnées gps
+                $gpsCoordsArray = explode(',', $gps, 2);
+                $garage->setLat($gpsCoordsArray[0]); 
+                $garage->setLng($gpsCoordsArray[1]);
+
                 // $files = $request->files->get('garage')['images'];
                 $imagePath = $fileUploadManager->upload($formGarage['avatar'], $garage->getId());
                 $garage->setAvatar($imagePath);
