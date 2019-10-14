@@ -20,6 +20,30 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PlanningController extends AbstractController
 {
+
+    /**
+     * @Route("/reservation/success", name="reservation_success", methods={"GET", "POST"})
+     */
+    public function reservationSuccess(SessionInterface $session)
+    {
+        $visitId = $session->get('visit_id');
+
+        // Récupération des informations de visit depuis la bdd
+        $visit = $this->getDoctrine()->getRepository(Visit::class)->find($visitId);
+
+        $service = $visit->getService();
+
+        // Récupération des informations de visit depuis la bdd
+        // $service = $this->getDoctrine()->getRepository(Service::class)->find($serviceId);
+
+        // dd($service);
+        return $this->render('planning/reservation-success.html.twig', [
+            'visit' => $visit,
+            'service' => $service,
+            'controller_name' => 'PlanningController',
+        ]);
+    }
+
     /**
      * @Route("/reservation/success", name="reservation_success", methods={"GET", "POST"})
      */
@@ -82,6 +106,7 @@ class PlanningController extends AbstractController
     //     $visite = $this->getDoctrine()->getRepository(Visit::class)->findByDate($garage); 
 
 
+
     //     // dd($session->get('service'));
 
     //     return $this->render('planning/reservation.html.twig', [
@@ -90,20 +115,36 @@ class PlanningController extends AbstractController
     //     ]);
     // }
 
+        return $this->render('planning/reservation.html.twig', [
+            'garage' => $garage,
+            'visite' => $visite,
+        ]);
+    }
+
+
     /**
      * @Route("/reservation/{id}/confirm/", name="reservation_confirm", methods={"GET", "POST"})
      *
      */
     public function validatePlanning(Request $request, Garage $garage, SessionInterface $session)
     {
-        // Récupération de l'ID de la visit envoyée en POST
-        $visitId = $request->request->get('visit_id');
+        // Soit l'ID vient du form showPlanningByGarage
+        //   - et on le stocke en session
+        // soit il arrive de la session
+        //   - on le récupère de la session
+        if ($visitId = $request->request->get('visit_id')) {
+            // On stocke en session
+            $session->set('visit_id', $visitId);
+        } else {
+            // On lit la session
+            $visitId = $session->get('visit_id');
+        }
 
         // Enregistrement des informations récupérées en POST dans la session
-        $session->set('cart', $request->request->all());
+        // $session->set('cart', $request->request->all());
 
-        $cart = $session->get('cart', []);
-        $cart[$visitId] =1;
+        // $cart = $session->get('cart', []);
+        // $cart[$visitId] =1;
 
         $selectedService = $session->get('service');
 
@@ -114,8 +155,20 @@ class PlanningController extends AbstractController
         // Récupération des informations de visit depuis la bdd
         $visit = $this->getDoctrine()->getRepository(Visit::class)->find($visitId);
 
+
+        // Récupération des informations de garage depuis la bdd
+        $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
+
+        // Récupération de l'id de l'user qui prends le rdv
+        $currentUser = $this->getUser();
+
+        // On ajoute les infos à l'objet Visit
+        $visit->setService($service)->setUser($currentUser)->setReservationDate(new \DateTime);
+
         // Création du formulaire associé à $visit pour préremplir les champs du formulaire
         $form = $this->createForm(VisitType::class, $visit);
+
+        // $form->get('service')->setData($selectedService);
 
         // On relie les données reçues en POST avec le formulaire
         $form->handleRequest($request);
@@ -127,16 +180,21 @@ class PlanningController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($visit);
             $em->flush();
+            return $this->redirectToRoute('reservation_success');
+            // dd('success');
         }
 
         return $this->render('planning/reservation-confirm.html.twig', [
             'garage' => $garage,
             'visitId' => $visitId,
             'visit' => $visit,
-            'cart' => $cart,
             'service' => $service,
+
             'form' => $form,
             'formVisit' => $form->createView(),
+
+            'form' => $form->createView(),
+
         ]);
     }
 
