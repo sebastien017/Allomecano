@@ -28,6 +28,7 @@ class VisitRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('v')
             ->where('v.garage = :myGarage')
+            ->andWhere('v.user IS NULL')
             ->setParameter('myGarage', $garage)
             ->add('orderBy','v.date ASC, v.time ASC')
 
