@@ -87,6 +87,21 @@ class PlanningController extends AbstractController
     }
 
     /**
+     * @Route("/reservation/{id}", name="reservation", methods={"GET", "POST"})
+     */
+    public function showPlanningByGarage(Request $request, Garage $garage, SessionInterface $session)
+    {
+        $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
+
+        $visite = $this->getDoctrine()->getRepository(Visit::class)->findByDate($garage); 
+
+        return $this->render('planning/reservation.html.twig', [
+            'garage' => $garage,
+            'visite' => $visite,
+        ]);
+    }
+
+    /**
      * @Route("/reservation/{id}/confirm/", name="reservation_confirm", methods={"GET", "POST"})
      *
      */
@@ -157,7 +172,7 @@ class PlanningController extends AbstractController
     }
 
     /**
-     * @Route("/reservation/{id}", name="reservation_history", methods={"GET", "POST"})
+     * @Route("/reservation/history/{id}", name="reservation_history", methods={"GET", "POST"})
      */
     public function reservationHistory(Request $request, Visit $visit, ObjectManager $em)
     {
