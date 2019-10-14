@@ -45,16 +45,6 @@ class PlanningController extends AbstractController
     }
 
     /**
-     * @Route("/reservation/success", name="reservation_success", methods={"GET", "POST"})
-     */
-    public function reservationSuccess()
-    {
-        return $this->render('planning/reservation-success.html.twig', [
-            'controller_name' => 'PlanningController',
-        ]);
-    }
-
-    /**
      * @Route("/planning/{id}/", name="edit_planning", methods={"GET", "POST", "DELETE"})
      */
     public function editPlanning(Garage $garage, Request $request)
@@ -96,24 +86,15 @@ class PlanningController extends AbstractController
         return $this->redirectToRoute('edit_planning',['id' => $visit->getGarage()->getId()]);
     }
 
-    // /**
-    //  * @Route("/reservation/{id}", name="reservation", methods={"GET", "POST"})
-    //  */
-    // public function showPlanningByGarage(Request $request, Garage $garage, SessionInterface $session)
-    // {
-    //     $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
 
-    //     $visite = $this->getDoctrine()->getRepository(Visit::class)->findByDate($garage); 
+    /**
+     * @Route("/reservation/{id}", name="reservation", methods={"GET", "POST"})
+     */
+    public function showPlanningByGarage(Request $request, Garage $garage, SessionInterface $session)
+    {
+        $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
 
-
-
-    //     // dd($session->get('service'));
-
-    //     return $this->render('planning/reservation.html.twig', [
-    //         'garage' => $garage,
-    //         'visite' => $visite,
-    //     ]);
-    // }
+        $visite = $this->getDoctrine()->getRepository(Visit::class)->findByDate($garage); 
 
         return $this->render('planning/reservation.html.twig', [
             'garage' => $garage,
@@ -139,12 +120,6 @@ class PlanningController extends AbstractController
             // On lit la session
             $visitId = $session->get('visit_id');
         }
-
-        // Enregistrement des informations récupérées en POST dans la session
-        // $session->set('cart', $request->request->all());
-
-        // $cart = $session->get('cart', []);
-        // $cart[$visitId] =1;
 
         $selectedService = $session->get('service');
 
@@ -189,17 +164,12 @@ class PlanningController extends AbstractController
             'visitId' => $visitId,
             'visit' => $visit,
             'service' => $service,
-
-            'form' => $form,
             'formVisit' => $form->createView(),
-
-            'form' => $form->createView(),
-
         ]);
     }
 
     /**
-     * @Route("/reservation/history/{id}", name="reservation_history", methods={"GET", "POST"})
+     * @Route("/reservation/history", name="reservation_history", methods={"GET", "POST"})
      */
     public function reservationHistory(Request $request, Visit $visit, ObjectManager $em)
     {
@@ -224,5 +194,4 @@ class PlanningController extends AbstractController
             'formComment' => $formComment->createView()
         ]);
     }
-
 }
