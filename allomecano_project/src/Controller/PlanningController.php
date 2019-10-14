@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Service;
 use App\Entity\User;
 use App\Entity\Visit;
 use App\Entity\Garage;
@@ -15,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PlanningController extends AbstractController
 {
@@ -51,7 +52,7 @@ class PlanningController extends AbstractController
     /**
      * @Route("/visit/delete/{id}", name="visit_delete", methods={"DELETE"})
      */
-    public function deletePlanning(Request $request, Visit $visit): Response
+    public function deletePlanning(Request $request, Visit $visit, SessionInterface $session): Response
     {
         if ($this->isCsrfTokenValid('delete'.$visit->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -64,11 +65,14 @@ class PlanningController extends AbstractController
     /**
      * @Route("/reservation/{id}", name="reservation", methods={"GET", "POST"})
      */
-    public function showPlanningByGarage(Request $request, Garage $garage)
+    public function showPlanningByGarage(Request $request, Garage $garage, SessionInterface $session)
     {
         $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
 
-        $visite = $this->getDoctrine()->getRepository(Visit::class)->findByDate($garage);
+        $visite = $this->getDoctrine()->getRepository(Visit::class)->findByDate($garage); 
+
+
+        // dd($session->get('service'));
 
         return $this->render('planning/reservation.html.twig', [
             'garage' => $garage,
@@ -80,29 +84,52 @@ class PlanningController extends AbstractController
      * @Route("/reservation/{id}/confirm/", name="reservation_confirm", methods={"GET", "POST"})
      *
      */
-    public function validatePlanning(Request $request, Garage $garage)
+    public function validatePlanning(Request $request, Garage $garage, SessionInterface $session)
     {
         // Récupération de l'ID de la visit envoyée en POST
         $visitId = $request->request->get('visit_id');
 
-        // Initialisation de la session
-        $session =$request->getSession();
-        // Ajout des informations récupérées en POST dans la session
+        // Enregistrement des informations récupérées en POST dans la session
         $session->set('cart', $request->request->all());
 
         $cart = $session->get('cart', []);
         $cart[$visitId] =1;
 
+        $selectedService = $session->get('service');
 
+        // Récupération des informations de service depuis la bdd
+        $service = $this->getDoctrine()->getRepository(Service::class)->find($selectedService);
         // dd($session->get('cart')['visit_id']);
 
-        $visit = $this->getDoctrine()->getRepository(Visit::class)->find($session->get('cart')['visit_id']);
+        // Récupération des informations de visit depuis la bdd
+        $visit = $this->getDoctrine()->getRepository(Visit::class)->find($visitId);
 
+        // Récupération des informations de garage depuis la bdd
         $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
+
+        // Création du formulaire associé à $visit pour préremplir les champs du formulaire
+        $form = $this->createForm(VisitType::class, $visit);
+
+        // On relie les données reçues en POST avec le formulaire
+        $form->handleRequest($request);
+
+        // Il est nécessaire de persister les données
+        // …mais on ne le fait que si le formulaire a été envoyé et que les données dedans sont valides
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Les conditions sont remplies : on peut persister les données !
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($visit);
+            $em->flush();
+        }
+
         return $this->render('planning/reservation-confirm.html.twig', [
             'garage' => $garage,
             'visitId' => $visitId,
-            'visit' => $visit
+            'visit' => $visit,
+            'cart' => $cart,
+            'service' => $service,
+            'form' => $form,
+            'formVisit' => $form->createView(),
         ]);
     }
 
