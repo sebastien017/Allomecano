@@ -37,6 +37,12 @@
 </section>
 
 <section class="section section--garage">
+{% for image in garage.images %}
+    <img src="{{ asset( image.url ) }}" alt="image" width="400">
+{% endfor %}
+</section>
+
+<section class="section section--garage">
 <div class="columns garage is-12 is-multiline has-text-centered">
 <div class="column garage-data is-12">
 <h1 class="title is-4">Services proposés par {{ garage.name }}</h1>
@@ -49,10 +55,6 @@
 {% endfor %}
 </div>
 </section>
-
-{% for image in garage.images %}
-    <img src="{{ asset( image.url) }}" alt="image">
-{% endfor %}
 
 <section class="section section--garage">
     <div class="columns garage is-12 has-text-centered flex-between">

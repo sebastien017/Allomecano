@@ -120,6 +120,19 @@ class UserController extends AbstractController
     {
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
+    /**
+     * @Route("/image/delete/{id}", name="delete_image")
+     */
+    public function deleteImage(Image $image, Request $request)
+    {
+        if($this->isCsrfTokenValid('delete' . $image->getId(), $request->get('_token'))) {
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($image);
+            $em->flush();
+        }
+        return $this->redirectToRoute('profile', ['id' => $this->getUser()->getId()]);
+    }
 
      /**
      * @Route("/profile/delete/{id}", name="delete_user")
@@ -154,23 +167,24 @@ class UserController extends AbstractController
                 $garage = $formGarage->getData();
                 $garage->setUser($user->setRoles(['ROLE_GARAGE']));
 
-                // $files = $request->files->get('garage')['images'];
                 $imagePath = $fileUploadManager->upload($formGarage['avatar'], $garage->getId());
                 $garage->setAvatar($imagePath);
-
+                
+                $files = $request->files->get('garage')['images'];
+                
                 /**
                  * @var UploadedFile $file
                  */
                 foreach ($files as $file) {
                     $image = new Image();
 
-                    $filename = md5(uniqid()) . '.' .$file->guessExtension();
+                    $filename = md5(uniqid()) . '.' . $file->guessExtension();
                     $image->setFilename($filename);
 
-                    $image->setUrl('/uploads/'.$filename);
+                    $image->setUrl('/uploads/' . $filename);
 
                     $file->move(
-                        $this->getParameter('uploads'),$filename
+                        $this->getParameter('uploads') ,$filename
                     );
 
                     $image->setGarage($garage);
@@ -210,6 +224,28 @@ class UserController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $imagePath = $fileUploadManager->upload($formGarage['avatar'], $garage->getId());
                 $garage->setAvatar($imagePath);
+                $files = $request->files->get('garage')['images'];
+                
+                /**
+                 * @var UploadedFile $file
+                 */
+                foreach ($files as $file) {
+                    $image = new Image();
+
+                    $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                    $image->setFilename($filename);
+
+                    $image->setUrl('/uploads/' . $filename);
+
+                    $file->move(
+                        $this->getParameter('uploads') ,$filename
+                    );
+
+                    $image->setGarage($garage);
+                    $garage->addImage($image);
+
+                    $em->persist($image);
+                }
                 $em->persist($garage); 
                 $em->flush();
 
@@ -220,4 +256,5 @@ class UserController extends AbstractController
             'formGarage' => $formGarage->createView(),
         ]);
     }
+
 }

@@ -60,8 +60,8 @@ class GarageType extends AbstractType
             ])
             ->add('images', FileType::class, [
                 'multiple' => true,
-                'required' => false,
-                'mapped' => false
+                'mapped' => false,
+                'required' => false
             ]);
                 // uses the User.username property as the visible option string;
     }

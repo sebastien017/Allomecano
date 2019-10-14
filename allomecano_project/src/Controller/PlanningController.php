@@ -21,6 +21,16 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class PlanningController extends AbstractController
 {
     /**
+     * @Route("/reservation/success", name="reservation_success", methods={"GET", "POST"})
+     */
+    public function reservationSuccess()
+    {
+        return $this->render('planning/reservation-success.html.twig', [
+            'controller_name' => 'PlanningController',
+        ]);
+    }
+
+    /**
      * @Route("/planning/{id}/", name="edit_planning", methods={"GET", "POST", "DELETE"})
      */
     public function editPlanning(Garage $garage, Request $request)
@@ -62,23 +72,23 @@ class PlanningController extends AbstractController
         return $this->redirectToRoute('edit_planning',['id' => $visit->getGarage()->getId()]);
     }
 
-    /**
-     * @Route("/reservation/{id}", name="reservation", methods={"GET", "POST"})
-     */
-    public function showPlanningByGarage(Request $request, Garage $garage, SessionInterface $session)
-    {
-        $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
+    // /**
+    //  * @Route("/reservation/{id}", name="reservation", methods={"GET", "POST"})
+    //  */
+    // public function showPlanningByGarage(Request $request, Garage $garage, SessionInterface $session)
+    // {
+    //     $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
 
-        $visite = $this->getDoctrine()->getRepository(Visit::class)->findByDate($garage); 
+    //     $visite = $this->getDoctrine()->getRepository(Visit::class)->findByDate($garage); 
 
 
-        // dd($session->get('service'));
+    //     // dd($session->get('service'));
 
-        return $this->render('planning/reservation.html.twig', [
-            'garage' => $garage,
-            'visite' => $visite,
-        ]);
-    }
+    //     return $this->render('planning/reservation.html.twig', [
+    //         'garage' => $garage,
+    //         'visite' => $visite,
+    //     ]);
+    // }
 
     /**
      * @Route("/reservation/{id}/confirm/", name="reservation_confirm", methods={"GET", "POST"})
@@ -103,9 +113,6 @@ class PlanningController extends AbstractController
 
         // Récupération des informations de visit depuis la bdd
         $visit = $this->getDoctrine()->getRepository(Visit::class)->find($visitId);
-
-        // Récupération des informations de garage depuis la bdd
-        $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
 
         // Création du formulaire associé à $visit pour préremplir les champs du formulaire
         $form = $this->createForm(VisitType::class, $visit);
@@ -134,17 +141,7 @@ class PlanningController extends AbstractController
     }
 
     /**
-     * @Route("/reservation/success", name="reservation_success", methods={"GET", "POST"})
-     */
-    public function reservationSuccess()
-    {
-        return $this->render('planning/reservation-success.html.twig', [
-            'controller_name' => 'PlanningController',
-        ]);
-    }
-
-    /**
-     * @Route("/reservation/{id}", name="reservation_history", methods={"GET", "POST"})
+     * @Route("/reservation/history/{id}", name="reservation_history", methods={"GET", "POST"})
      */
     public function reservationHistory(Request $request, Visit $visit, ObjectManager $em)
     {
