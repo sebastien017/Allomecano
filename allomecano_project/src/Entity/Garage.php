@@ -89,6 +89,16 @@ class Garage
      */
     private $avatar;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lng;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -371,6 +381,30 @@ class Garage
     {
         $this->avatar = $avatar;
         
+        return $this;
+    }
+
+    public function getLat(): ?string
+    {
+        return $this->lat;
+    }
+
+    public function setLat(?string $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?string
+    {
+        return $this->lng;
+    }
+
+    public function setLng(string $lng): self
+    {
+        $this->lng = $lng;
+
         return $this;
     }
 }
