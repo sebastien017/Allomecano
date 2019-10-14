@@ -21,18 +21,33 @@
     <p>{{ user.phone }}</p>
     <p>{{ user.adress }}</p>
     </div>
+    {% if is_granted('ROLE_GARAGE') %}
+        <table class="mt-2 is-vcentered">
+            <th>Image(s) de mon garage</th>
+            {% for image in user.garage.images %}
+                <tr>
+                    <td><img src="{{ asset(image.url)}}" width="80" ></td>
+                    <td>
+                        <form action="{{ path('delete_image', {id: image.id})}}" method="post" style="display: inline-block">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id)}}">
+                        <button class="button is-danger mt-1"><i class="fas fa-trash-alt mr-1"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
     {% for visit in user.visit %}
     <a href="{{ path('reservation_history', {'id': visit.id } ) }}">{{ visit.garage.name }}</a><br>
     {# {{ visit.date|date('d/m/Y') }}<br>
     {{ visit.service.name }} {{ visit.service.price }} euros. #}
-        
+    
     {% endfor %}
     <a href="{{ path('profileEdit', {'id': user.id})}}" class="button is-info"><i class="fas fa-user-edit mr-1"></i>Modifier mes données</a>
 
     {% if is_granted('ROLE_GARAGE') %}
         <br><a href="{{ path('garageEdit', {'id': app.user.id, 'garage': app.user.garage.id})}}" class="button is-warning mt-1"><i class="fas fa-car mr-1"></i>Modifier les données de mon garage</a>
     {% endif %}
-
     <div class="mt-1 is-vcentered">
         <form action="{{ path('delete_user', {id: user.id})}}" method="post" style="display: inline-block">
             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id)}}">
