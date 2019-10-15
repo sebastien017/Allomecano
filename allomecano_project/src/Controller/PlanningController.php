@@ -131,7 +131,6 @@ class PlanningController extends AbstractController
         // Récupération des informations de visit depuis la bdd
         $visit = $this->getDoctrine()->getRepository(Visit::class)->find($visitId);
 
-
         // Récupération des informations de garage depuis la bdd
         $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
 
