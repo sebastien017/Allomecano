@@ -30,7 +30,7 @@ class GarageRepository extends ServiceEntityRepository
     {
         $em = $this->getEntityManager();
 
-        $sql = "SELECT *, 6342 * 2 * 
+        $sql = "SELECT *, 6371 * 2 * 
         ASIN(SQRT( POWER(SIN(($lat - lat)*pi()/180/2),2)
         +COS($lat*pi()/180 )*COS(lng*pi()/180)
         *POWER(SIN(($lng-lng)*pi()/180/2),2))) 
@@ -54,8 +54,7 @@ class GarageRepository extends ServiceEntityRepository
         $stmt->execute();
     
         return $stmt->getResult();
-
-       
+ 
     }
 
     // /**
