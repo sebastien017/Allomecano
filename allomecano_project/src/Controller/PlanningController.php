@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\Visit;
 use App\Entity\Garage;
 use App\Entity\Comment;
+use App\Form\EditVisitType;
 use App\Form\VisitType;
 use App\Form\CommentType;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -53,7 +54,7 @@ class PlanningController extends AbstractController
         $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
         $visit = new Visit;
         
-        $form = $this->createForm(VisitType::class);
+        $form = $this->createForm(EditVisitType::class);
         $form->handleRequest($request);
 
 
@@ -164,7 +165,7 @@ class PlanningController extends AbstractController
             'visitId' => $visitId,
             'visit' => $visit,
             'service' => $service,
-            'formVisit' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
