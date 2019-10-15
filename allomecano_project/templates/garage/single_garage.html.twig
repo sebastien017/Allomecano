@@ -3,6 +3,9 @@
 {% block title %}Allomecano | Garage{% endblock %}
 
 {% block body %}
+<div class="buttons is-vcentered">
+<button onclick="goBack()" class="button is-link mt-1"><i class="fas fa-backward mr-1"></i>Retour au choix du professionnel</button>
+</div>
 <section class="section section--garage">
 <div class="columns garage is-12 is-multiline has-text-centered">
     <div class="column garage-logo is-4">
@@ -50,7 +53,7 @@
 {% for service in garage.service %}
 <div class="column garage-service is-4">
       <p class="content is-small-1"></p>
-      {{ service.name }}
+      {{ service.name }} - {{ service.price }}€
    </div>
 {% endfor %}
 </div>
@@ -64,14 +67,17 @@
         <div class="column garage-info is-4">
             <div class="content is-small-3">Prochains rendez-vous disponibles :</div>
             <div class="columns flex-between is-12 is-multiline">
-                {% for  visit in garage.visit %}
-                    <div class="garage column is-3 visit">
-                            <p>{{ visit.date | date('d/m') }} </p>
-                            <p>{{ visit.time | date('H \\h i')}}</p>
-                    </div>
+                {% set date_memo = null %}
+                {% for visit in garage.visit %}
+                    {% if visit.date | date('d/m/Y') != date_memo %}
+                        <div class="column garage">{{ visit.date | date('d/m/Y') }}
+                        {% set date_memo = visit.date | date('d/m/Y') %}
+                    {% endif %}
+                            <div class="garage is-vcentered" id="{{ visit.id }}">{{ visit.time | date('H \\h i')}}</div>
+                        </div>
                 {% endfor %}
-            </div>                
             </div>
+        </div>
         <div class="column garage-info is-4" id="map"></div>
     </div>
 </section>
@@ -126,5 +132,11 @@ var marker = new google.maps.Marker({
 
 // To add the marker to the map, call setMap();
 marker.setMap(map);
+</script>
+
+<script>
+function goBack() {
+  window.history.back();
+}
 </script>
 {% endblock %}

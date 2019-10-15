@@ -72,7 +72,7 @@
           {% set date_memo = visit.date | date('d/m/Y') %}
           {% endif %}
         <div class="radios">
-            <input type="radio" name="visit_id" value="{{ visit.id }}" id="{{ visit.id }}"/>
+            <input type="radio" required name="visit_id" value="{{ visit.id }}" id="{{ visit.id }}"/>
         <label class="radio" for="{{ visit.id }}">
         <div class="garage is-vcentered" id="{{ visit.id }}">{{ visit.time | date('H \\h i')}}</div></label>
         </div>
