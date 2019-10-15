@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\Visit;
 use App\Entity\Garage;
 use App\Entity\Comment;
+use App\Form\EditVisitType;
 use App\Form\VisitType;
 use App\Form\CommentType;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -53,7 +54,7 @@ class PlanningController extends AbstractController
         $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
         $visit = new Visit;
         
-        $form = $this->createForm(VisitType::class);
+        $form = $this->createForm(EditVisitType::class);
         $form->handleRequest($request);
 
 
@@ -86,6 +87,7 @@ class PlanningController extends AbstractController
         return $this->redirectToRoute('edit_planning',['id' => $visit->getGarage()->getId()]);
     }
 
+
     /**
      * @Route("/reservation/{id}", name="reservation", methods={"GET", "POST"})
      */
@@ -94,10 +96,6 @@ class PlanningController extends AbstractController
         $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
 
         $visite = $this->getDoctrine()->getRepository(Visit::class)->findByDate($garage); 
-
-
-
-        // dd($session->get('service'));
 
         return $this->render('planning/reservation.html.twig', [
             'garage' => $garage,
@@ -123,12 +121,6 @@ class PlanningController extends AbstractController
             // On lit la session
             $visitId = $session->get('visit_id');
         }
-
-        // Enregistrement des informations récupérées en POST dans la session
-        // $session->set('cart', $request->request->all());
-
-        // $cart = $session->get('cart', []);
-        // $cart[$visitId] =1;
 
         $selectedService = $session->get('service');
 
@@ -174,12 +166,11 @@ class PlanningController extends AbstractController
             'visit' => $visit,
             'service' => $service,
             'form' => $form->createView(),
-
         ]);
     }
 
     /**
-     * @Route("/reservation/history/{id}", name="reservation_history", methods={"GET", "POST"})
+     * @Route("/reservation/history", name="reservation_history", methods={"GET", "POST"})
      */
     public function reservationHistory(Request $request, Visit $visit, ObjectManager $em)
     {
@@ -204,5 +195,4 @@ class PlanningController extends AbstractController
             'formComment' => $formComment->createView()
         ]);
     }
-
 }
