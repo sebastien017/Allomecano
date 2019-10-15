@@ -15,12 +15,17 @@
             <div class="field">
             {# Affiche les erreurs #}
             {% if error %}
-            <article class="error">
-            <div class="alert alert-danger">
-                {{ error.messageKey|trans(error.messageData, 'security') }}
-            </div>
-            </article>
+              <article class="error">
+                <div class="alert alert-danger">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+              </article>
             {% endif %}
+            {% for message in app.flashes('success') %}
+              <div class="notification is-primary">
+                  {{ message }}
+              </div>
+            {% endfor %}
 
             <form method="post">
 

@@ -6,6 +6,11 @@
 
 <div class="columns is-12 is-multiline is-mobile flex-1">
     <div class="column is-8 is-vcentered has-text-centered">
+    {% for message in app.flashes('success') %}
+        <div class="notification is-primary">
+            {{ message }}
+        </div>
+    {% endfor %}
     <h1 class="is-size-4 mb-1"><i class="fas fa-address-card mr-1"></i>Mon profil</h1>
     <h1 class="is-size-5">Bienvenue {{ user.username }}</h1>
     {% if user.avatar %}
@@ -22,6 +27,7 @@
     <p>{{ user.adress }}</p>
     </div>
     {% if is_granted('ROLE_GARAGE') %}
+        {% if user.garage.images|length > 0 %}
         <table class="mt-2 is-vcentered">
             <th>Image(s) de mon garage</th>
             {% for image in user.garage.images %}
@@ -36,6 +42,7 @@
                 </tr>
             {% endfor %}
         </table>
+        {% endif %}
     {% endif %}
     {% for visit in user.visit %}
     <a href="{{ path('reservation_history', {'id': visit.id } ) }}">{{ visit.garage.name }}</a><br>
@@ -44,6 +51,9 @@
     
     {% endfor %}
     <a href="{{ path('profileEdit', {'id': user.id})}}" class="button is-info"><i class="fas fa-user-edit mr-1"></i>Modifier mes données</a>
+
+
+    <a href="{{ path('profile_password')}}" class="button is-info"><i class="fas fa-user-edit mr-1"></i>Modifier mon mot de passe</a>
 
     {% if is_granted('ROLE_GARAGE') %}
         <br><a href="{{ path('garageEdit', {'id': app.user.id, 'garage': app.user.garage.id})}}" class="button is-warning mt-1"><i class="fas fa-car mr-1"></i>Modifier les données de mon garage</a>

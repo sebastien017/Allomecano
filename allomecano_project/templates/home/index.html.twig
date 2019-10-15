@@ -3,6 +3,13 @@
 {% block title %}Allomecano | Accueil{% endblock %}
 
 {% block body %}
+
+{% for message in app.flashes('success') %}
+    <div class="notification is-primary">
+        {{ message }}
+    </div>
+{% endfor %}
+
 <section class="content-home">
   <div class="columns is-multiline is-mobile has-text-centered">
     <div class="column is-12 search">

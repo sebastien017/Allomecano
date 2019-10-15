@@ -9,7 +9,7 @@ easy_admin:
           - { entity: 'Image' }
           - { entity: 'Service' }
           - { entity: 'Utilisateur' }
-          - { entity: 'Visit' }
+        #   - { entity: 'Visit' }
           - { label: 'Accueil', url: 'http://127.0.0.1:8001', rel: 'home' }
 
    entities:
@@ -34,8 +34,8 @@ easy_admin:
             class: App\Entity\User
             list:
                 fields: ['id', {property: 'username', label: 'Pseudo'}, {property: 'firstname', label: 'Prénom'}, {property: 'lastname', label: 'Nom'}, {property: 'roles', label: 'Rôle'}, {property: 'phone', label: 'Téléphone'}, {property: 'adress', label: 'Adresse'}]
-      Visit:
-            class: App\Entity\Visit
-            list:
-                fields: ['id', 'user', {property: 'date', label: 'Date de rendez-vous'}, {property: 'time', label: 'Heure de rendez-vous'}, {property: 'reservation date', label: 'Date de réservation'}, {property: 'created at', label: 'Date de création'}, 'garage', 'service']
+    #   Visit:
+    #         class: App\Entity\Visit
+    #         list:
+    #             fields: ['id', 'user', {property: 'date', label: 'Date de rendez-vous'}, {property: 'time', label: 'Heure de rendez-vous'}, {property: 'reservation date', label: 'Date de réservation'}, {property: 'created at', label: 'Date de création'}, 'garage', 'service']
 
