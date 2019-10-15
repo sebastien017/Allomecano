@@ -3,17 +3,22 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Garage;
 use App\Entity\Image;
+use App\Entity\Garage;
 use App\Form\UserType;
 use App\Form\GarageType;
+use App\Form\AccountType;
+use App\Entity\PasswordUpdate;
+use App\Form\PasswordUpdateType;
 use App\Service\FileUploadManager;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -39,6 +44,50 @@ class UserController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    }
+
+    /**
+     * @Route("/profile/update-password", name="profile_password")
+     * 
+     * @return Response
+     */
+    public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder) {
+
+        $passwordUpdate = new PasswordUpdate();
+
+        $user = $this->getUser();
+
+        $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if(password_verify($passwordUpdate->getOldPassword(), $user->getPassword())) {
+                $form->get('oldPassword')->addError(new FormError("Le mot de passe que vous avez tapé n'est pas votre mot de passe actuel !"));
+            } else {
+                $newPassword = $passwordUpdate->getNewPassword();
+                $password = $encoder->encodePassword($user, $newPassword);
+
+                $user->setPassword($password);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+
+                $this->addFlash(
+                    'success',
+                    "Votre mot de passe a bien été modifié !"
+                );
+                
+                return $this->redirectToRoute('profile', ['id' => $user->getId()]);
+
+            }
+        }
+        
+        return $this->render('security/password.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -89,6 +138,11 @@ class UserController extends AbstractController
             $em->persist($user);
 
             $em->flush();
+
+            $this->addFlash(
+                'success',
+                "Inscription terminée, vous pouvez vous connecter !"
+            );
             // On redirige l'utilisateur sur la page de login
             return $this->redirectToRoute('app_login');
         }
@@ -106,16 +160,20 @@ class UserController extends AbstractController
          // Si l'id de l'utilisateur dans la route ne correspond pas à l'user qui est connecté, on ne l'autorise pas à modifier le profil
          if ($this->getUser()->getId() == $request->get('id'))
          {
-            $form = $this->createForm(UserType::class, $user);
+            $form = $this->createForm(AccountType::class, $user);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $plainPassword = $user->getPassword();
-                $encodedPassword = $encoder->encodePassword($user, $plainPassword);
-                $user->setPassword($encodedPassword);
+                
                 $imagePath = $fileUploadManager->upload($form['avatar'], $user->getId());
                 $user->setAvatar($imagePath);
                 $this->getDoctrine()->getManager()->flush();
+
+                $this->addFlash(
+                    'success',
+                    "Votre profil a été mis à jour !"
+                );
+
                 return $this->redirectToRoute('profile', ['id' => $user->getId()]);
             }
             return $this->render('security/edit-profile.html.twig', [
@@ -165,6 +223,7 @@ class UserController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($user);
                 $em->flush();
+
             }
             return $this->redirectToRoute('home');
         }
@@ -234,6 +293,11 @@ class UserController extends AbstractController
                 
                 $em->persist($garage); 
 
+                $this->addFlash(
+                    'success',
+                    "Inscription de votre garage terminée !"
+                );
+
                 $em->flush();
 
                 $ts->setToken(
@@ -295,6 +359,11 @@ class UserController extends AbstractController
                 $em->persist($garage); 
                 $em->flush();
 
+                $this->addFlash(
+                    'success',
+                    "Votre profil garage a bien été mis à jour !"
+                );
+
                 return $this->redirectToRoute('profile', ['id' => $garage->getUser()->getId()]);
             }
 
@@ -302,6 +371,7 @@ class UserController extends AbstractController
             'garage' => $garage,
             'formGarage' => $formGarage->createView(),
          ]);
+         
         }
         else {
             // L'id de l'utilisateur connecté ne correspond pas, on redirige l'user à l'accueil
