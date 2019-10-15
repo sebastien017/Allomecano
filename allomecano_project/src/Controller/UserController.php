@@ -194,7 +194,6 @@ class UserController extends AbstractController
                 $garage = $formGarage->getData();
                 $garage->setUser($user->setRoles(['ROLE_GARAGE']));
 
-
                 // Récupération coordonnées gps
                 $gps = $garage->getGps();
                 $gps = strtr($gps, array('(' => '', ')' => ''));
@@ -292,6 +291,16 @@ class UserController extends AbstractController
 
                     $em->persist($image);
                 }
+
+                // Récupération coordonnées gps
+                $gps = $garage->getGps();
+                $gps = strtr($gps, array('(' => '', ')' => ''));
+
+                // Explode des coordonnées gps
+                $gpsCoordsArray = explode(',', $gps, 2);
+                $garage->setLat($gpsCoordsArray[0]); 
+                $garage->setLng($gpsCoordsArray[1]);
+                
                 $em->persist($garage); 
                 $em->flush();
 
