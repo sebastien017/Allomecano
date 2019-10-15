@@ -170,7 +170,7 @@ class PlanningController extends AbstractController
     }
 
     /**
-     * @Route("/reservation/history", name="reservation_history", methods={"GET", "POST"})
+     * @Route("/reservation/history/{id}", name="reservation_history", methods={"GET", "POST"})
      */
     public function reservationHistory(Request $request, Visit $visit, ObjectManager $em)
     {
