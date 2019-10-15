@@ -31,23 +31,23 @@ class VisitRepository extends ServiceEntityRepository
             ->andWhere('v.user IS NULL')
             ->setParameter('myGarage', $garage)
             ->add('orderBy','v.date ASC, v.time ASC')
-
         ;
         return $qb->getQuery()->getResult();
     }
 
-         /**
+     /**
       * @param Garage $garage
       * @return Visit[]
       */
     
-      public function saveVisit()
+      public function findByDateMaxResult($garage)
       {
           $qb = $this->createQueryBuilder('v')
-              ->update('v.user_id = :currentUser')
-              ->from
+              ->where('v.garage = :myGarage')
+              ->andWhere('v.user IS NULL')
+              ->setParameter('myGarage', $garage)
               ->add('orderBy','v.date ASC, v.time ASC')
-  
+            //   ->setMaxResults(6)
           ;
           return $qb->getQuery()->getResult();
       }

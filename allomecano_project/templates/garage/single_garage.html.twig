@@ -9,20 +9,15 @@
 <section class="section section--garage">
 <div class="columns garage is-12 is-multiline has-text-centered">
     <div class="column garage-logo is-4">
-
-    {% if garage.avatar is null %}
+        {% if garage.avatar is null %}
         <img src="{{"https://bulma.io/images/placeholders/96x96.png"}}">
-        Logo
-    {% else %}
+        {% else %}
         <img src="{{ asset( garage.avatar) }}">
-    {% endif %}
-    
-    {# {% for image in garage.images %}
-        <img src="{{ asset( image.url) }}" alt="image">
-    {% endfor %} #}
+        {% endif %}
     </div>
+
     <div class="column garage-data is-4">
-    <h1 class="title is-2">{{ garage.name }}</h1>
+    <h1 class="title is-2 blue-text">{{ garage.name }}</h1>
         <p>Note globale donnée par nos utilisateurs</p>
         {% if garage.comments|length > 0 %}
             <small>Moyenne calculée sur {{ garage.comments|length }} avis.</small>
@@ -40,15 +35,24 @@
 </section>
 
 <section class="section section--garage">
-{% for image in garage.images %}
-    <img src="{{ asset( image.url ) }}" alt="image" width="400">
-{% endfor %}
+<div class="columns garage is-12 is-multiline has-text-centered">
+<div class="column garage-data is-4 is-vcentered">
+    <div class="siema">
+        {% for image in garage.images %}
+        <div><img src="{{ asset( image.url ) }}" alt="image" width="400"></div>
+        {% endfor %}
+    </div>
+    <div class="is-vcentered">
+        <button class="prev button is-link mt-1 is-vcentered"><i class="fas fa-backward mr-1"></i></button>
+        <button class="next button is-link mt-1 is-vcentered"><i class="fas fa-forward mr-1"></i></button>
+    </div>
+</div>
 </section>
 
 <section class="section section--garage">
 <div class="columns garage is-12 is-multiline has-text-centered">
 <div class="column garage-data is-12">
-<h1 class="title is-4">Services proposés par {{ garage.name }}</h1>
+<h1 class="title is-4 blue-text">Liste des services proposés par : {{ garage.name }}</h1>
 </div>
 {% for service in garage.service %}
 <div class="column garage-service is-4">
@@ -64,22 +68,22 @@
         <div class="column garage-info is-4">
             <p>{{ garage.presentation }}</p>
         </div>
-        <div class="column garage-info is-4">
-            <div class="content is-small-3">Prochains rendez-vous disponibles :</div>
+    <div class="column garage-info is-4">
+        <div class="content is-small-3 blue-text-strong">Prochains rendez-vous disponibles :</div>
             <div class="columns flex-between is-12 is-multiline">
-                {% set date_memo = null %}
-                {% for visit in garage.visit %}
+                <div class="is-vcentered">
+                    {% set date_memo = null %}
+                    {% for visit in visitList %}
                     {% if visit.date | date('d/m/Y') != date_memo %}
-                        <div class="column garage">{{ visit.date | date('d/m/Y') }}
-                        {% set date_memo = visit.date | date('d/m/Y') %}
+                        <div class="date">{{ visit.date | date('d/m/Y') }}</div>
+                    {% set date_memo = visit.date | date('d/m/Y') %}
                     {% endif %}
-                            <div class="garage is-vcentered" id="{{ visit.id }}">{{ visit.time | date('H \\h i')}}</div>
-                        </div>
-                {% endfor %}
+                        <div>{{ visit.time | date('H \\h i')}}</div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-        <div class="column garage-info is-4" id="map"></div>
-    </div>
+    <div class="column garage-info is-4" id="map"></div>
 </section>
 
 {% if garage.comments|length > 0 %}
@@ -98,10 +102,8 @@
                 </div>
             {% endfor %}
                 <div class="column garage-review is-4">
-           
                 </div>
                 <div class="column garage-review is-4">
-                
                 </div>
         </div>
     </section>
@@ -127,7 +129,10 @@ map = new google.maps.Map(document.getElementById("map"), {
      });
 var marker = new google.maps.Marker({
     position: myLatlng,
-    title:"Le garage se trouve ici"
+    title:"Le garage se trouve ici",
+    icon: {
+      					url: "{{ asset('assets/img/wrench.png') }}"
+    				}
 });
 
 // To add the marker to the map, call setMap();
@@ -139,4 +144,14 @@ function goBack() {
   window.history.back();
 }
 </script>
+
+// Script du carroussel
+
+<script src="{{ asset('assets/js/siema/dist/siema.min.js') }}"></script>
+<script>
+const mySiema = new Siema();
+document.querySelector('.prev').addEventListener('click', () => mySiema.prev());
+document.querySelector('.next').addEventListener('click', () => mySiema.next());
+</script>
+
 {% endblock %}

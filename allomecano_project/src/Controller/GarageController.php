@@ -21,7 +21,7 @@ class GarageController extends AbstractController
     {
 
     $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
-    $visit = $this->getDoctrine()->getRepository(Visit::class)->find($garage);
+    $visitList = $this->getDoctrine()->getRepository(Visit::class)->findByDateMaxResult($garage);
 
     // Récupération des coordonnées gps
     $gps = $garage->getGps();
@@ -37,7 +37,7 @@ class GarageController extends AbstractController
             'zoomLatitude' => $latitude,
             'zoomLongitude' => $longitude,
             'garage' => $garage,
-            'visit' => $visit,
+            'visitList' => $visitList,
         ]);
     }
 

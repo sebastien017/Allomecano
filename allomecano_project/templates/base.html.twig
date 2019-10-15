@@ -59,8 +59,8 @@
               </a> 
               {% if app.request.get('_route') != 'edit_planning' %}
                 {% if is_granted('ROLE_GARAGE') == true %}
-                  <a href="{{ path('edit_planning', {'id': app.user.garage.id }) }}" class="button is-light">
-                    <i class="fas fa-sign-in-alt mr-1"></i>Modifier mes disponibilités
+                  <a href="{{ path('edit_planning', {'id': app.user.garage.id }) }}" class="button is-link">
+                    <i class="fas fa-calendar-check mr-1"></i>Modifier mes disponibilités
                   </a>
                 {% endif %}
               {% endif %}
