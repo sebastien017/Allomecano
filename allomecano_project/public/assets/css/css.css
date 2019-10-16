@@ -538,4 +538,8 @@ header h1
 
 .display-none {
     display: none;
-  }
+}
+
+.underline-green {
+    text-decoration: underline dotted #00d1b2;
+}
