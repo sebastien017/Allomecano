@@ -15,11 +15,16 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('content', TextareaType::class, [
-                'label' => 'Votre avis sur la prestation'
+                'label' => 'Votre avis sur la prestation',
+                'attr' => [
+                    'style' => 'height: 150px',
+                    'placeholder' => 'Votre avis sur la prestation.'
+                ]
             ])
             ->add('rate', IntegerType::class, [
                 'label' => 'Votre note sur 5 :',
                 'attr' => [
+                    'placeholder' => '1...2...3...4...5 !',
                     'min' => 0,
                     'max' => 5,
                     'step' => 1

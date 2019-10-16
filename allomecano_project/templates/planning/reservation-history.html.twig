@@ -3,37 +3,46 @@
 {% block title %}Allomecano | Historique de vos rendez-vous.{% endblock %}
 
 {% block body %}
-<div class="column is-5 is-vcentered mt-1">
-<h2>Récapitulatif de votre rendez-vous du <em>{{ visit.date|date('d/m/Y') }}</em> avec le garage <strong>{{ visit.garage.name }}</strong></h2>
-<p>Service effectué : {{ visit.service.name }}</p> 
-<p>Tarif : {{ visit.service.price }} &euro;</p>
 
 
-    {# {% for comment in visit.garage.comments %} #}
-{% if date() > date(visit.date) %}
-    {% set comment = visit.garage.commentFromUser(app.user) %}
-            {% if comment is not null %}
-        <p>Note : {% include 'partials/rating.html.twig' with {'rating': comment.rate } %}</p>
-        <blockquote>
-            {{ comment.content }}
-        <blockquote>
-    {# {% endfor %} #}
-    
-    {# {{ dump(visit.garage) }} #}
-    {% else %}
-<h1><strong>Votre avis compte !</strong></h1>
-    {{ form_start(formComment) }}
-    {{ form_row(formComment.rate) }}
-    {{ form_row(formComment.content) }}
+<section class="is-primary is-fullheight flex-1">
+    <div class="hero-body is-primary">
+        <div class="columns is-centered">
+            <div class="column is-5-tablet is-4-desktop is-3-widescreen">
 
-        <button class="button is-success mt-1" id="button">Donnez votre avis</button>
+                <h2>Récapitulatif de votre rendez-vous du <em>{{ visit.date|date('d/m/Y') }}</em> avec le garage <strong>{{ visit.garage.name }}</strong></h2>
+                <p>Service effectué : {{ visit.service.name }}</p> 
+                <p>Tarif : {{ visit.service.price }} &euro;</p><hr>
 
-    {{ form_end(formComment) }}
-    {% endif %}
 
-{% else %}
-<p>Vous pourrez noter votre prestation et donner votre avis lorsque la date de votre rendez-vous sera passée.</p>
-{% endif %}
+                    {# {% for comment in visit.garage.comments %} #}
+                {% if date() > date(visit.date) %}
+                    {% set comment = visit.garage.commentFromUser(app.user) %}
+                            {% if comment is not null %}
+                        <p>Note : {% include 'partials/rating.html.twig' with {'rating': comment.rate } %}</p>
+                        <blockquote>
+                            {{ comment.content }}
+                        <blockquote>
+                    {# {% endfor %} #}
+                    
+                    {# {{ dump(visit.garage) }} #}
+                            {% else %}
+                        <h1><strong>Votre avis compte !</strong></h1>
+                            {{ form_start(formComment) }}
+                            {{ form_row(formComment.rate, {'attr': {'class': 'input'}}) }}
+                            {{ form_row(formComment.content, {'attr': {'class': 'input'}}) }}
 
-</div>
+                                <button class="button is-success mt-1" id="button">Donnez votre avis</button>
+
+                            {{ form_end(formComment) }}
+                            {% endif %}
+
+                            {% else %}
+                            <p>Vous pourrez noter votre prestation et donner votre avis lorsque la date de votre rendez-vous sera passée.</p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

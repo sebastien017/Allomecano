@@ -575,7 +575,7 @@ img.profil {
 }
 
 table.is-vcentered {
-    margin: 1em;
+    margin: 1em auto;
 }
 
 .underline-green {

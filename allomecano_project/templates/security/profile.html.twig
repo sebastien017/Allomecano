@@ -27,8 +27,13 @@
     <p>{{ user.adress }}</p>
     </div>
     {% if is_granted('ROLE_GARAGE') %}
+    <div class="column is-8 is-vcentered mt-1">
+        <h1 class="is-size-5 mb-1"><i class="fas fa-id-badge mr-1"></i>Mes coordonnées Pro</h1>
+        <h2>{{ user.garage.name }}</h2>
+        <p>{{ user.adress }}</p>
+    </div>
         {% if user.garage.images|length > 0 %}
-        <table class="mt-2 is-vcentered">
+        <table class="is-vcentered">
             <th>Image(s) de mon garage</th>
             {% for image in user.garage.images %}
                 <tr>
@@ -94,6 +99,7 @@
 
     {% if is_granted('ROLE_GARAGE') %}
         <br><a href="{{ path('garageEdit', {'id': app.user.id, 'garage': app.user.garage.id})}}" class="button is-warning mt-1"><i class="fas fa-car mr-1"></i>Modifier les données de mon garage</a>
+        <a href="{{ path('single_garage', {'id': user.garage.id } ) }}" class="button is-warning mt-1"><i class="fas fa-car-crash mr-1"></i>Visualiser ma page garage</a>
     {% endif %}
     <div class="mt-1 is-vcentered">
         <form action="{{ path('delete_user', {id: user.id})}}" method="post" style="display: inline-block">
