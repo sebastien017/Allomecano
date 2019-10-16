@@ -581,3 +581,11 @@ table.is-vcentered {
 .underline-green {
     text-decoration: underline dotted #00d1b2;
 }
+
+.profil-picture {
+    width: 0.2em;
+}
+
+.logo-title {
+    font-family: 'Permanent Marker', cursive;
+}
