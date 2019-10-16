@@ -569,6 +569,15 @@ img.profil {
     display: none;
 }
 
+#table-rdv {
+    display: flex;
+    justify-content: center;
+}
+
+table.is-vcentered {
+    margin: 1em;
+}
+
 .underline-green {
     text-decoration: underline dotted #00d1b2;
 }

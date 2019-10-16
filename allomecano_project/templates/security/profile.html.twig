@@ -44,12 +44,49 @@
         </table>
         {% endif %}
     {% endif %}
+
+{% if user.visit|length > 0 %}
+<div id="table-rdv">
+    <table class="mt-2 is-vcentered">
+        <thead>
+            <th>Vos rendez-vous à venir</th>
+        </thead>
+        <tr>
+            <td>Garage(s) :</td>
+        </tr>
     {% for visit in user.visit %}
-    <a href="{{ path('reservation_history', {'id': visit.id } ) }}">{{ visit.garage.name }}</a><br>
-    {# {{ visit.date|date('d/m/Y') }}<br>
-    {{ visit.service.name }} {{ visit.service.price }} euros. #}
-    
+
+        {% if date() < visit.date %}
+            <tr>
+                <td><a href="{{ path('reservation_history', {'id': visit.id } ) }}">{{ visit.garage.name }}</a></td>
+            </tr>
+        {% endif %}
+
     {% endfor %}
+
+    </table>
+                
+    <table class="mt-2 is-vcentered">
+        <thead>
+            <th>Vos rendez-vous passés</th>
+        </thead>
+        <tr>
+            <td>Garage(s) :</td>
+        </tr>
+    {% for visit in user.visit %}
+
+        {% if date() > visit.date %}
+            <tr>
+                <td><a href="{{ path('reservation_history', {'id': visit.id } ) }}">{{ visit.garage.name }}</a></td>
+            </tr>
+        {% endif %}
+
+    {% endfor %}
+
+    </table>
+</div>
+{% endif %}
+
     <a href="{{ path('profileEdit', {'id': user.id})}}" class="button is-info"><i class="fas fa-user-edit mr-1"></i>Modifier mes données</a>
 
 
