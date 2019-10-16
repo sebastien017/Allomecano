@@ -78,12 +78,12 @@ class User implements UserInterface
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $comment;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Visit", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Visit", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $visit;
 
@@ -93,7 +93,7 @@ class User implements UserInterface
     private $gps;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Garage", mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Garage", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $garage;
 
