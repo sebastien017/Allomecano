@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .content-home {
     flex-grow: 1;
     background-color: #3C4F76;
@@ -481,7 +485,7 @@ header h1
 }
 
 .confirm-reservation{
-    background-color:#D0D0D0;
+    background-color:#F1F2F0;
     box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7); 
     padding : 0.5em;
     font-weight:bold;
@@ -503,7 +507,7 @@ header h1
 }
 
 .button-success {
-    margin-top: 10em;
+    margin-top: 0.5em;
 }
     
 .blue-text {
@@ -524,8 +528,33 @@ header h1
     background-color: #F1F2F0;
 }
 
-.disabled-click {
-    pointer-events: none;
+#container-card-profil {
+    margin: auto;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: auto;
+    margin: 1em auto;
+    padding: 1em;
+    margin-bottom: 2em;
+} 
+
+p.card-footer {
+    position: absolute;
+    padding: .8em;
+    bottom: 5%;
+    border-top: 1px solid lightgrey;
+}
+
+img.profil {
+    margin: 0;
+    padding: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
 }
 
 .reservation-next {
