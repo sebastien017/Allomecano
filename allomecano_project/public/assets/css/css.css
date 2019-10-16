@@ -466,7 +466,7 @@ header h1
     display: none;
 }
 
-.radios input[type=radio]:checked + .radio {
+.radios input[type=radio]:checked + .radio .garage {
     background-color: #00d1b2;
 }
 
@@ -504,6 +504,7 @@ header h1
 
 .button-success {
     margin-top: 10em;
+}
     
 .blue-text {
     color: #5D93B5;
