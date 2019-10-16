@@ -61,23 +61,43 @@
 </div>
 </section>
 
+<section class="section section--garage flex-1">
 {% set date_memo = null %}
+{% set id = 0 %}
 <form action="{{ path('reservation_confirm', {id: garage.id }) }}" method="POST">
   <div class="columns is-multiline is-12 has-text-centered">
     <div class="column reservation-infos is-12">
       {% for visit in visite %}
+      {% if (visit.date | date('d/m/Y') != date_memo) and date_memo != null %}
+      {% set id = id + 1 %}
+      </div>
+      {% endif %}
         {% if visit.date | date('d/m/Y') != date_memo %}
-          <i class="fas fa-chevron-circle-left mr-1"></i>{{ visit.date | date('d/m/Y') }}<i class="fas fa-chevron-circle-right ml-1"></i>
-          {% set date_memo = visit.date | date('d/m/Y') %}
+          {% if (visit.date | date('d/m/Y') == date_memo) and date_memo != null %}
+          </div>
+          {% else %}
+          {% if id == 0 %}
+          <div class="reservation--content" data-id="{{ id }}">
+          {% else %}
+          <div class="reservation--content display-none" data-id="{{ id }}">
           {% endif %}
-        <div class="radios">
-            <input type="radio" name="visit_id" value="{{ visit.id }}" id="{{ visit.id }}"/>
-              <label class="radio" for="{{ visit.id }}">
-                <div class="garage is-vcentered" id="{{ visit.id }}">{{ visit.time | date('H \\h i')}}</div>
-              </label>
-        </div>
+        {% endif %}
+        <div class="reservation-previous">
+          <i class="fas fa-ban mr-1"></i></div>{{ visit.date | date('d/m/Y') }}
+          <div class="reservation-next">
+          <i class="fas fa-chevron-circle-right ml-1"></i></div>
+          {% set date_memo = visit.date | date('d/m/Y') %}
+        {% endif %}
+          <div class="radios">
+              <input type="radio" name="visit_id" value="{{ visit.id }}" id="{{ visit.id }}"/>
+                <label class="radio" for="{{ visit.id }}">
+                  <div class="garage is-vcentered" id="{{ visit.id }}">{{ visit.time | date('H \\h i')}}
+                </label>
+          </div>
+          </div>
+           {% set date_memo = visit.date | date('d/m/Y') %}
       {% endfor %}
-    </div>
+    
   </div>
 
 {% if not app.user %}
@@ -88,13 +108,85 @@
 	</div>
 {% endif %}
 {% if app.user %}
-    <div class="buttons is-vcentered">
+    <div class="buttons is-vcentered mt-5">
         <button href="{{ path('reservation_confirm', {id: garage.id }) }}" class="button is-primary is-vcentered">
             <i class="fas fa-check mr-1"></i>Finaliser ma prise de rdv
         </button>
 	</div>
 {% endif %}
 </form>
+</section>
 
-   
+<script>
+
+  let currentDivID = 0;
+  let maxDivID = {{ id }};
+
+  $( ".reservation-previous" ).click(function() {
+    // On passe la current div en display: none;
+    $('.reservation--content[data-id="' + currentDivID + '"]').addClass('display-none');
+
+    // On décrémente currentDivID
+    currentDivID--;
+
+    // On bloque la currentDivID à 0 si on essaye de descendre en dessous de 0
+    if (currentDivID <= 0)
+    {
+      currentDivID = 0;
+    }
+
+    // On affiche la current div en supprimant le display: none;
+    $('.reservation--content[data-id="' + currentDivID + '"]').removeClass('display-none');
+
+     modifyLiImg();
+    
+  });
+
+  $( ".reservation-next" ).click(function() {
+
+    // On passe la current div en display: none;
+    $('.reservation--content[data-id="' + currentDivID + '"]').addClass('display-none');
+
+    // On incrémente currentDivID
+    currentDivID++;
+
+    // Si on dépasse le maxID on passe currentDivID à la valeur max
+    if (currentDivID >= maxDivID)
+    {
+      currentDivID = maxDivID;
+    }
+
+    // On affiche la current div en supprimant le display: none;
+    // On passe la current div en display: none;
+    $('.reservation--content[data-id="' + currentDivID + '"]').removeClass('display-none');
+
+    modifyLiImg();
+
+  });
+
+  function modifyLiImg() {
+
+    if (currentDivID == 0)
+    {
+    // On passe le bouton précédent en disabled
+      $( ".reservation-previous" ).html('<i class="fas fa-ban mr-1"></i>');
+    }
+    else {
+    // Le bouton prend sa forme d'origine
+      $( ".reservation-previous" ).html('<i class="fas reservation-previous fa-chevron-circle-left mr-1"></i>');
+    }
+
+    if (currentDivID >= maxDivID)
+    {
+    // On passe le bouton suivant en disabled
+      $( ".reservation-next" ).html('<i class="fas fa-ban mr-1"></i>');
+    }
+    else {
+    // Le bouton prend sa forme d'origine
+      $( ".reservation-next" ).html('<i class="fas fa-chevron-circle-right ml-1"></i>');
+    }
+  }
+
+</script>
+
 {% endblock %}

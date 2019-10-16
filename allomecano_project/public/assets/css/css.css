@@ -523,3 +523,19 @@ header h1
     border: 1px solid lightgray;
     background-color: #F1F2F0;
 }
+
+.disabled-click {
+    pointer-events: none;
+}
+
+.reservation-next {
+    display: inline;
+}
+
+.reservation-previous {
+    display: inline;
+}
+
+.display-none {
+    display: none;
+  }
