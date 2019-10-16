@@ -557,10 +557,6 @@ img.profil {
     border-radius: 50%;
 }
 
-.disabled-click {
-    pointer-events: none;
-}
-
 .reservation-next {
     display: inline;
 }
@@ -571,5 +567,8 @@ img.profil {
 
 .display-none {
     display: none;
-  }
+}
 
+.underline-green {
+    text-decoration: underline dotted #00d1b2;
+}

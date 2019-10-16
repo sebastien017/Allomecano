@@ -62,11 +62,14 @@
 </section>
 
 <section class="section section--garage flex-1">
+<div class="column is-6 is-size-4 is-vcentered has-text-centered underline-green">
+<i class="far fa-calendar-alt mr-1"></i>Choisir mon créneau horaire
+</div>
 {% set date_memo = null %}
 {% set id = 0 %}
 <form action="{{ path('reservation_confirm', {id: garage.id }) }}" method="POST">
   <div class="columns is-multiline is-12 has-text-centered">
-    <div class="column reservation-infos is-12">
+    <div class="column reservation-infos is-12 is-size-4">
 
       {% for visit in visite %}
       {% if (visit.date | date('d/m/Y') != date_memo) and date_memo != null %}
@@ -84,9 +87,9 @@
           {% endif %}
         {% endif %}
         <div class="reservation-previous">
-          <i class="fas fa-ban mr-1"></i></div>{{ visit.date | date('d/m/Y') }}
+          <i class="fas fa-ban mr-1"></i></div>{{ visit.date| date('d/m/Y') }}
           <div class="reservation-next">
-          <i class="fas fa-chevron-circle-right ml-1"></i></div>
+          <i class="fas fa-chevron-circle-right"></i></div>
           {% set date_memo = visit.date | date('d/m/Y') %}
         {% endif %}
           <div class="radios">
@@ -102,7 +105,7 @@
   </div>
 
 {% if not app.user %}
-	<div class="buttons is-vcentered">
+	<div class="buttons is-vcentered mt-5">
 		<a href="{{ path('app_login') }}" class="button is-light is-vcentered"> 
             <strong><i class="fas fa-sign-in-alt mr-1"></i>Se connecter pour confirmer mon rdv</strong>
     </a> 
@@ -159,7 +162,6 @@
     }
 
     // On affiche la current div en supprimant le display: none;
-    // On passe la current div en display: none;
     $('.reservation--content[data-id="' + currentDivID + '"]').removeClass('display-none');
 
     modifyLiImg();
@@ -181,11 +183,11 @@
     if (currentDivID >= maxDivID)
     {
     // On passe le bouton suivant en disabled
-      $( ".reservation-next" ).html('<i class="fas fa-ban mr-1"></i>');
+      $( ".reservation-next" ).html('<i class="fas fa-ban"></i>');
     }
     else {
     // Le bouton prend sa forme d'origine
-      $( ".reservation-next" ).html('<i class="fas fa-chevron-circle-right ml-1"></i>');
+      $( ".reservation-next" ).html('<i class="fas fa-chevron-circle-right"></i>');
     }
   }
 
