@@ -23,6 +23,16 @@
     </div>
 
     <div class="inline">
+        <p>{{ form_label(formGarage.presentation) }}</p>
+        <p class="control has-icons-left has-icons-right">
+        {{ form_widget(formGarage.presentation, {'attr': {'placeholder': 'Présentation de votre garage', 'class': 'input',}}) }}
+            <span class="icon is-small is-left">
+            <i class="fas fa-car"></i>
+        </span>
+        </p>
+    </div>
+
+    <div class="inline">
         <p>{{ form_label(formGarage.adress) }}</p>
         <p class="control has-icons-left has-icons-right">
         {{ form_widget(formGarage.adress, {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder': 'Adresse de votre garage'}}) }}
