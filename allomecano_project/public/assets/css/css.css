@@ -556,3 +556,20 @@ img.profil {
     height: 60px;
     border-radius: 50%;
 }
+
+.disabled-click {
+    pointer-events: none;
+}
+
+.reservation-next {
+    display: inline;
+}
+
+.reservation-previous {
+    display: inline;
+}
+
+.display-none {
+    display: none;
+  }
+
