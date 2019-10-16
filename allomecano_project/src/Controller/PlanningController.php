@@ -169,6 +169,20 @@ class PlanningController extends AbstractController
     }
 
     /**
+     * @Route("/history/garage/{id}", name="garage_history", methods={"GET", "POST"})
+     */
+    public function showReservationHistory(Request $request, Garage $garage, ObjectManager $em)
+    {
+        $garage = $this->getUser()->getGarage();
+        $visit = $this->getDoctrine()->getRepository(Visit::class)->findHistoryByGarage($garage);
+
+        return $this->render('planning/history.html.twig', [
+            'visit' => $visit,
+            'garage' => $garage,
+        ]);
+    }
+
+    /**
      * @Route("/reservation/history/{id}", name="reservation_history", methods={"GET", "POST"})
      */
     public function showSingleReservationHistory(Request $request, Visit $visit, ObjectManager $em)
