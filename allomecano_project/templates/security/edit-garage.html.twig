@@ -14,6 +14,9 @@
         {{ form_row(formGarage.name, {'attr': {'placeholder': 'Nom de votre garage', 'class': 'input',}}) }}
     </div>
     <div class="control">
+        {{ form_row(formGarage.presentation, {'attr': {'placeholder': 'Présentation de votre garage', 'class': 'input',}}) }}
+    </div>
+    <div class="control">
         {{ form_row(formGarage.adress  , {'id': 'user_input_autocomplete_address', 'attr': {'class': 'input', 'placeholder': 'Adresse de votre garage'}}) }}
     </div>
     <div class="control" onchange="affiche_bloc();">
@@ -28,9 +31,11 @@
     <div class="control">
         {{ form_row(formGarage.images)}}
     </div>
-    <div class="control">
-        {{ form_row(formGarage.service)}}
-    </div>
+    {% for ServiceField in formGarage.service %}
+                <div class="field-switch no-margin-bottom">
+                {{ form_row(ServiceField, { 'attr' : { 'class' : 'toggle' }}) }}
+                </div>
+        {% endfor %}
 
     {{ form_row(formGarage.gps) }}
 

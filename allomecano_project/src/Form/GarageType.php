@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class GarageType extends AbstractType
 {
@@ -25,6 +26,13 @@ class GarageType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de votre garage'
+            ])
+            ->add('presentation', TextareaType::class, [
+                'label' => 'Texte de présentation',
+                'required' => false,
+                'attr' => [
+                    'style' => 'min-height: 100px'
+                ]
             ])
             ->add('adress', TextType::class, [
                 'label' => 'Adresse de votre garage'
