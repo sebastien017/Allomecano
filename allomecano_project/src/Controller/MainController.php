@@ -33,9 +33,7 @@ class MainController extends AbstractController
      */
     public function showContactForm()
     {
-        return $this->render('home/contact.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        return $this->render('home/contact.html.twig');
     }
 
     /**

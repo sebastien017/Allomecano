@@ -67,6 +67,7 @@
 <form action="{{ path('reservation_confirm', {id: garage.id }) }}" method="POST">
   <div class="columns is-multiline is-12 has-text-centered">
     <div class="column reservation-infos is-12">
+
       {% for visit in visite %}
       {% if (visit.date | date('d/m/Y') != date_memo) and date_memo != null %}
       {% set id = id + 1 %}
@@ -115,6 +116,7 @@
 	</div>
 {% endif %}
 </form>
+
 </section>
 
 <script>

@@ -291,13 +291,13 @@ class UserController extends AbstractController
                 }
                 
                 $em->persist($garage); 
+                
+                $em->flush();
 
                 $this->addFlash(
                     'success',
                     "Inscription de votre garage terminée !"
                 );
-
-                $em->flush();
 
                 $ts->setToken(
                     new PostAuthenticationGuardToken($user, 'main', $user->getRoles())
