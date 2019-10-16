@@ -61,22 +61,22 @@
 </div>
 </section>
 
-  
 {% set date_memo = null %}
 <form action="{{ path('reservation_confirm', {id: garage.id }) }}" method="POST">
   <div class="columns is-multiline is-12 has-text-centered">
     <div class="column reservation-infos is-12">
-    {% for visit in visite %}
+      {% for visit in visite %}
         {% if visit.date | date('d/m/Y') != date_memo %}
           <i class="fas fa-chevron-circle-left mr-1"></i>{{ visit.date | date('d/m/Y') }}<i class="fas fa-chevron-circle-right ml-1"></i>
           {% set date_memo = visit.date | date('d/m/Y') %}
           {% endif %}
         <div class="radios">
-            <input type="radio" required name="visit_id" value="{{ visit.id }}" id="{{ visit.id }}"/>
-        <label class="radio" for="{{ visit.id }}">
-        <div class="garage is-vcentered" id="{{ visit.id }}">{{ visit.time | date('H \\h i')}}</div></label>
+            <input type="radio" name="visit_id" value="{{ visit.id }}" id="{{ visit.id }}"/>
+              <label class="radio" for="{{ visit.id }}">
+                <div class="garage is-vcentered" id="{{ visit.id }}">{{ visit.time | date('H \\h i')}}</div>
+              </label>
         </div>
-    {% endfor %}
+      {% endfor %}
     </div>
   </div>
 
