@@ -131,7 +131,6 @@ class PlanningController extends AbstractController
         // Récupération des informations de visit depuis la bdd
         $visit = $this->getDoctrine()->getRepository(Visit::class)->find($visitId);
 
-
         // Récupération des informations de garage depuis la bdd
         $garage = $this->getDoctrine()->getRepository(Garage::class)->find($garage);
 
@@ -172,7 +171,7 @@ class PlanningController extends AbstractController
     /**
      * @Route("/reservation/history/{id}", name="reservation_history", methods={"GET", "POST"})
      */
-    public function reservationHistory(Request $request, Visit $visit, ObjectManager $em)
+    public function showSingleReservationHistory(Request $request, Visit $visit, ObjectManager $em)
     {
         $visit = $this->getDoctrine()->getRepository(Visit::class)->find($visit);
         

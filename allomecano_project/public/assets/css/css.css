@@ -92,6 +92,7 @@ body {
 
 .garage {
     border: 1px solid lightgray;
+    background-color: #F1F2F0;
 }
 
 .section--garage {
@@ -499,11 +500,25 @@ header h1
     border-radius: 0.3em;
     background-color: #D0D0D0;
     font-weight: bold;
-    
-
 }
 
 .button-success {
     margin-top: 10em;
     
+.blue-text {
+    color: #5D93B5;
+}
+
+.blue-text-strong {
+    color: #5D93B5;
+    font-weight: bold;
+}
+
+.fa-star {
+    color: goldenrod;
+}
+
+.date {
+    border: 1px solid lightgray;
+    background-color: #F1F2F0;
 }

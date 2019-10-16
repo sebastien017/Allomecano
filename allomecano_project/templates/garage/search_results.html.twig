@@ -57,11 +57,11 @@
 <div class="column is-6">
 	{% for garage in garages  %}
 		<div class="search-garage-infos" data-id="{{ garage.id }}">
-			{% if (garage.distance != null) %}
+		{% if (garage.distance != null) %}
 			<div class="distance-garage">
 				<i class="fas fa-shoe-prints mr-1"></i>{{ garage.distance }}km
-				{% endif %}
 			</div>
+	{% endif %}
 		<h3>{{ garage.name }}
 		</h3>
 	{% if garage.comments|length > 0 %}
@@ -69,7 +69,8 @@
 		{% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
 	{% endif %}
 		<p>{{ garage.adress }}</p>
-		<a href="{{ path('reservation', {id: garage.id }) }}" class="button is-success mt-1"><i class="fas fa-external-link-alt mr-1"></i> Prendre rendez-vous</a>
+		<a href="{{ path('reservation', {id: garage.id }) }}" class="button is-success mt-1"><i class="fas fa-calendar-check mr-1"></i> Prendre rendez-vous</a>
+		<a href="{{ path('single_garage', {id: garage.id }) }}" class="button is-success mt-1"><i class="fas fa-address-card mr-1"></i> Profil du professionnel</a>
 		</div>
 	{% endfor %}
 </div>
