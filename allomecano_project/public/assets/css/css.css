@@ -571,5 +571,14 @@ img.profil {
 
 .display-none {
     display: none;
-  }
+}
+
+#table-rdv {
+    display: flex;
+    justify-content: center;
+}
+
+table.is-vcentered {
+    margin: 1em;
+}
 

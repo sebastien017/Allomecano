@@ -19,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -48,6 +49,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/profile/update-password", name="profile_password")
+     * @IsGranted("ROLE_USER")
      * 
      * @return Response
      */
@@ -58,13 +60,13 @@ class UserController extends AbstractController
         $user = $this->getUser();
 
         $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
-
+        
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
 
             if(password_verify($passwordUpdate->getOldPassword(), $user->getPassword())) {
-                $form->get('oldPassword')->addError(new FormError("Le mot de passe que vous avez tapé n'est pas votre mot de passe actuel !"));
+                $form->get('oldPassword')->addError(new FormError("Le mot de passe que vous avez tapé n'est pas votre mot de passe actuel !"));;
             } else {
                 $newPassword = $passwordUpdate->getNewPassword();
                 $password = $encoder->encodePassword($user, $newPassword);
