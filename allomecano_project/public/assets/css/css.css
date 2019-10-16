@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .content-home {
     flex-grow: 1;
     background-color: #3C4F76;
@@ -522,4 +526,33 @@ header h1
 .date {
     border: 1px solid lightgray;
     background-color: #F1F2F0;
+}
+
+#container-card-profil {
+    margin: auto;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: auto;
+    margin: 1em auto;
+    padding: 1em;
+    margin-bottom: 2em;
+} 
+
+p.card-footer {
+    position: absolute;
+    padding: .8em;
+    bottom: 5%;
+    border-top: 1px solid lightgrey;
+}
+
+img.profil {
+    margin: 0;
+    padding: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
 }
