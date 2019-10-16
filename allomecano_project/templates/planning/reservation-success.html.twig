@@ -43,11 +43,18 @@
 </section>
 
 
-<div class="reservation-success">
-<p>{% dump(visit) %}</p>
-<p>Merci de votre réservation {{ visit.user.firstname }}.</p>
-<p>Votre rendez-vous pour la prestation : {{ visit.service.name }}, avec le professionnel : {{ visit.garage.name }} est confirmé pour le {{ visit.date | date('d/m/Y') }} à {{ visit.time | date('H \\h i') }}</p>
-<div class="button-success">
+<section class="section-confirm column is-12">
+  <div class="column is-6 is-vcentered">
+    <div class="confirm-reservation">
+      <p class="blue-text-strong is-size-4">Merci de votre réservation {{ visit.user.firstname }}.</p>
+      <p>Votre rendez-vous pour la prestation : {{ visit.service.name }}, avec le professionnel : {{ visit.garage.name }} est confirmé pour le {{ visit.date | date('d/m/Y') }} à {{ visit.time | date('H\\hi') }}.</p>
+      <p> Pour rappel, le montant de : {{ service.price }}€ est à régler directement au professionnel qui s'occupera de votre véhicule.</p>
+    </div>
+  </div>
+</section>
+
+
+<div class="button-success is-vcentered">
 <a href="{{ path('home') }}" class="button is-primary is-vcentered">
     <i class="fas fa-car-side mr-1"></i>Prendre un autre rdv ?
   </a>

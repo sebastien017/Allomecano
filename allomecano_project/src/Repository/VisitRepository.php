@@ -51,4 +51,20 @@ class VisitRepository extends ServiceEntityRepository
           ;
           return $qb->getQuery()->getResult();
       }
+
+     /**
+      * @param Garage $garage
+      * @return Visit[]
+      */
+    
+      public function findHistoryByGarage($garage)
+      {
+          $qb = $this->createQueryBuilder('v')
+              ->where('v.garage = :myGarage')
+              ->andWhere('v.user IS NOT NULL')
+              ->setParameter('myGarage', $garage)
+              ->add('orderBy','v.date ASC, v.time ASC')
+          ;
+          return $qb->getQuery()->getResult();
+      }
 }

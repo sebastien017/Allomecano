@@ -12,7 +12,7 @@
         <i class="fa fa-check"></i>
       </span>
     </div>
-    <div class="step-details is-primary is-completed">
+    <div class="step-details">
       <p class="step-title">Choisir un professionnel</p>
       <p>Je choisis le professionnel qui s'occuper de mon véhicule.</p>
     </div>
@@ -28,7 +28,7 @@
       <p>Je choisis le créneau horaire de mon futur rdv.</p>
     </div>
   </li>
-  <li class="step-item is-completed is-info">
+  <li class="step-item is-active is-completed is-info">
     <div class="step-marker">
       <span class="icon">
         <i class="fa fa-flag"></i>
@@ -42,14 +42,16 @@
 </ul>
 </section>
 
-<section class="section-confirm">
-<div class="confirm-reservation">
-<p> RDV le : {{ visit.date | date('d/m/Y') }} </p>
-<p> A : {{ visit.time | date('H \\h i') }}  </p>
-<p> avec : {{ visit.garage.name }} </p>
-<p>Pour : {{ service.name }}</p>
-<p>Tarif de la préstation : {{ service.price }}€</p>
-</div>
+<section class="section-confirm column is-12">
+  <div class="column is-6 is-vcentered">
+    <div class="confirm-reservation">
+      <p class="blue-text-strong is-size-4">Résumé de votre sélection :</p>
+      <p> Date et heure et de votre rendez-vous : {{ visit.date | date('d/m/Y') }} à {{ visit.time | date('H\\hi') }} </p>
+      <p> Professionnel : {{ visit.garage.name }} </p>
+      <p> Prestation : {{ service.name }}</p>
+      <p> Montant à régler au professionnel : {{ service.price }}€</p>
+    </div>
+  </div>
 </section>
 
 <div class="button-confirm">

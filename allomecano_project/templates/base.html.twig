@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	    <title>{% block title %}Allomecano{% endblock %}</title>
+	    <title>{% block title %}AllO'Mecano{% endblock %}</title>
         {% block stylesheets %}
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
@@ -25,7 +25,7 @@
 		<nav class="navbar" role="navigation" aria-label="main navigation">
 			<div class="navbar-brand">
 				<a href="{{ path('home') }}" class="navbar-item" href="https://bulma.io">
-					<img src="{{ asset('assets/img/logo.jpg') }}" width="106" height="52">Allomecano
+					<img src="{{ asset('assets/img/logo.jpg') }}" width="106" height="52">AllO'Mecano
         </a>
           <span class="navbar-burger burger" data-target="navbarMenuHeroB">
               <span></span>
@@ -55,10 +55,13 @@
 					<div class="navbar-item">
 						<div class="buttons">
 							<a href="{{ path('profile', {'id': app.user.id }) }}" class="button is-primary"> 
-                <strong><i class="fas fa-user-circle mr-1"></i>Mon compte</strong>
+                <strong><i class="fas fa-user-circle mr-1"></i>Mon compte ({{ app.user.username }})</strong>
               </a> 
               {% if app.request.get('_route') != 'edit_planning' %}
                 {% if is_granted('ROLE_GARAGE') == true %}
+                  <a href="{{ path('garage_history', {'id': app.user.garage.id }) }}" class="button is-info">
+                    <i class="fas fa-address-book mr-1"></i>Mes rdv pro
+                  </a>
                   <a href="{{ path('edit_planning', {'id': app.user.garage.id }) }}" class="button is-link">
                     <i class="fas fa-calendar-check mr-1"></i>Modifier mes disponibilités
                   </a>

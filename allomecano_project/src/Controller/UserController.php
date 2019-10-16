@@ -325,7 +325,7 @@ class UserController extends AbstractController
     public function editGarage(Request $request, Garage $garage, FileUploadManager $fileUploadManager): Response
     {
         // Si l'id de l'utilisateur dans la route ne correspond pas à l'user qui est connecté, on ne l'autorise pas à éditer le profil
-        if ($this->getUser()->getId() == $request->get('id'))
+        if ($this->getUser()->getGarage()->getId() == $request->get('garage')->getId())
         {
             // $user = new User;
             $formGarage = $this->createForm(GarageType::class, $garage);

@@ -485,7 +485,7 @@ header h1
 }
 
 .confirm-reservation{
-    background-color:#D0D0D0;
+    background-color:#F1F2F0;
     box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7); 
     padding : 0.5em;
     font-weight:bold;
@@ -507,7 +507,7 @@ header h1
 }
 
 .button-success {
-    margin-top: 10em;
+    margin-top: 0.5em;
 }
     
 .blue-text {
@@ -557,10 +557,6 @@ img.profil {
     border-radius: 50%;
 }
 
-.disabled-click {
-    pointer-events: none;
-}
-
 .reservation-next {
     display: inline;
 }
@@ -582,3 +578,6 @@ table.is-vcentered {
     margin: 1em;
 }
 
+.underline-green {
+    text-decoration: underline dotted #00d1b2;
+}
