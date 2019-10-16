@@ -40,7 +40,11 @@
         {% endfor %}
     </section>
 {%  else %}
-<p>Vous n'avez pas encore de rdv réservés !</p>
+<div class="flex-1 mt-5 has-text-centered is-size-5"><i class="far fa-frown-open mr-1"></i>Vous n'avez pas encore de rdv réservés 
+!<br>
+<a href="{{ path('home') }}" class="button is-success mt-5"><i class="fas fa-search mr-1"></i>Rechercher un professionnel à proximité</a>
+</div>
+
 {% endif %}
 
 {% endblock %}
