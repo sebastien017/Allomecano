@@ -81,16 +81,28 @@
 		<div class="professional-wanted is-vcentered">
 			<div class="columns is-12 is-multiline is-mobile">
 				<div class="column is-10 is-vcentered professionnal-services">
+				{% if is_granted('ROLE_GARAGE') %}
+				<i class="far fa-calendar-alt mr-1"></i>Définissez vos disponibilités</div>
+				{% else %}
 					<i class="fas fa-wrench mr-1"></i>Vous êtes un professionnel ?
 				</div>
 				<div class="column is-10 is-vcentered service">
 					<i class="fas fa-car-alt mr-1"></i>Professionnel en mécanique ?
 				</div>
+				{% endif %}
 				<div class="column is-10 is-vcentered service">
 					<i class="fas fa-toolbox mr-1"></i>Proposez vos services et développez votre clientèle !
 				</div>
+				{% if is_granted('ROLE_GARAGE') %}
+				<div class="column is-10 mt-5 is-vcentered">
+					<a href="{{ path('edit_planning', { id : app.user.garage.id })  }}" class="button is-success"><i class="far fa-calendar-plus mr-1"></i>Définir mes disponibilités</a>
+				{% elseif is_granted('ROLE_USER') %}
+				<div class="column is-10 mt-5 is-vcentered">
+					<a href="{{ path('signup_garage', { id : app.user.id }) }}" class="button is-success"><i class="fas fa-user mr-1"></i>Je m'inscris</a>
+				{% else %}
 				<div class="column is-10 mt-5 is-vcentered">
 					<a href="{{ path('signup')  }}" class="button is-success"><i class="fas fa-user mr-1"></i>Je m'inscris</a>
+				{% endif %}
 				</div>
 				</div>
 			</div>

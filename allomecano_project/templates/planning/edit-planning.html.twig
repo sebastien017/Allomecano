@@ -9,7 +9,7 @@
         <div class="container">
         <div class="columns is-centered">
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-        <h3>Ajouter des disponibilités</h3>
+        <h3 class="mb-5">Ajouter des disponibilités</h3>
 
     {{ form_start(form) }}
         <div class="control">
@@ -25,11 +25,14 @@
     </section>
 
     
-    <section class="is-primary is-fullheight">
+    <section class="is-primary is-fullheight flex-1">
     <div class="hero-body is-primary">
         <div class="container">
         <div class="columns is-centered">
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+        {% if garage.visit|length == 0 %}
+        <h3>Aucune disponibilité encore définie</h3>
+        {% else %}
         <h3>Mes disponibilités à venir :</h3>
         {% for visit in garage.visit %}
         {% if date() < date(visit.date) %}
@@ -41,6 +44,7 @@
             </form>
         {% endif %}
         {% endfor %}
+        {% endif %}
     </section>
     
 {% endblock %}

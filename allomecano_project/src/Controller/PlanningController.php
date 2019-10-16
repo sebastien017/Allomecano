@@ -56,22 +56,29 @@ class PlanningController extends AbstractController
         
         $form = $this->createForm(EditVisitType::class);
         $form->handleRequest($request);
+        
+        if ($this->getUser()->getGarage()->getId() == $request->get('id'))
+        {
 
+            if ($form->isSubmitted() && $form->isValid()) {
+                $visit = $form->getData();
+                $visit->setGarage($garage);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $visit = $form->getData();
-            $visit->setGarage($garage);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($visit);
-            $em->flush();
-            return $this->redirectToRoute('edit_planning',['id' => $garage->getId()]);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($visit);
+                $em->flush();
+                return $this->redirectToRoute('edit_planning',['id' => $garage->getId()]);
+            }
+            return $this->render('planning/edit-planning.html.twig', [
+                'form' => $form->createView(),
+                'user' => $user,
+                'garage' => $garage
+            ]);
         }
-        return $this->render('planning/edit-planning.html.twig', [
-            'form' => $form->createView(),
-            'user' => $user,
-            'garage' => $garage
-        ]);
+        else {
+            // L'id de l'utilisateur connecté ne correspond pas, on redirige l'user à l'accueil
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
