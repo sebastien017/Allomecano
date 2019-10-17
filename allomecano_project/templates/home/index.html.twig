@@ -24,7 +24,12 @@
 				<input id="gps-coord" name="gps" style="visibility : hidden; width : 0%"></input>
      			<input class="input input--home input--home-address" autocomplete="off" required="required" oninvalid="setCustomValidity('Merci de choisir une ville dans la liste')"
  				oninput="setCustomValidity('')" type="text" name ="address" id="user_input_autocomplete_address" placeholder="Votre adresse...">
-            	{{ form_row(searchForm.name, {'attr': {'class': 'input input--home', 'name': 'service'}}) }}
+
+				<div class="inline-block">
+				 <div class="inline-arrow"><i class="fas fa-arrow-circle-down"></i></div>
+                	{{ form_widget(searchForm.name, {'attr': {'class': 'input input--home placeholder-is-lightgrey', 'name': 'service'}}) }}
+				</div>
+
 				<button type="submit" class="button is-success" id="button"><i class="fas fa-search mr-1"></i>Chercher</button>
 				{{ form_end(searchForm)}}
 				</form>

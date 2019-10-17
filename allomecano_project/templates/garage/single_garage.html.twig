@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="buttons is-vcentered">
-<button onclick="goBack()" class="button is-link mt-1"><i class="fas fa-backward mr-1"></i>Retour au choix du professionnel</button>
+    <button onclick="goBack()" class="button is-link mt-1"><i class="fas fa-backward mr-1"></i>Retour</button>
 </div>
 <section class="section section--garage">
 <div class="columns garage is-12 is-multiline has-text-centered">
@@ -17,8 +17,10 @@
     </div>
 
     <div class="column garage-data is-4">
-    <h1 class="title is-2 blue-text">{{ garage.name }}</h1>
-        <p>Note globale donnée par nos utilisateurs</p>
+        <h1 class="title is-2 blue-text">{{ garage.name }}</h1>
+        <div class="content is-small-3 blue-text-strong">Adresse :</div>
+        <p class="content is-small-2">{{garage.adress}}</p>
+        <div class="content is-small-3 blue-text-strong">Note globale donnée par nos utilisateurs :</div>
         {% if garage.comments|length > 0 %}
             <small>Moyenne calculée sur {{ garage.comments|length }} avis.</small>
             {% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
@@ -26,30 +28,22 @@
             <p>Ce garage n'a pas encore d'avis.</p>
         {% endif %}
     </div>
-    <div class="column garage-address is-4">
-    <br>
-    Adresse:
-    <div class="content is-small-2">{{garage.adress}}
-    </div>
-</div>
-</section>
 
-{% if garage.images|length > 0%}
-<section class="section section--garage">
-<div class="columns garage is-12 is-multiline has-text-centered">
-<div class="column garage-data is-4 is-vcentered">
-    <div class="siema">
-        {% for image in garage.images %}
-        <div><img src="{{ asset( image.url ) }}" alt="image" width="400"></div>
-        {% endfor %}
-    </div>
-    <div class="is-vcentered">
-        <button class="prev button is-link mt-1 is-vcentered"><i class="fas fa-backward mr-1"></i></button>
-        <button class="next button is-link mt-1 is-vcentered"><i class="fas fa-forward mr-1"></i></button>
+    <div class="column garage-data is-4">
+        <div class="column garage-data is-vcentered">
+            <div class="siema">
+                {% for image in garage.images %}
+                <div><img src="{{ asset( image.url ) }}" alt="image" width="400"></div>
+                {% endfor %}
+            </div>
+            <div class="is-vcentered">
+                <button class="prev button is-link mt-1 is-vcentered"><i class="fas fa-backward mr-1"></i></button>
+                <button class="next button is-link mt-1 is-vcentered"><i class="fas fa-forward mr-1"></i></button>
+            </div>
+        </div>
     </div>
 </div>
 </section>
-{% endif %}
 
 <section class="section section--garage">
 <div class="columns garage is-12 is-multiline has-text-centered">
@@ -65,12 +59,13 @@
 </div>
 </section>
 
-<section class="section section--garage">
-    <div class="columns garage is-12 has-text-centered flex-between">
-        <div class="column garage-info is-4">
-            <p>{{ garage.presentation }}</p>
+<section class="section section--garage flex-1">
+    <div class="columns garage is-12 has-text-centered flex-between is-mobile is-multiline">
+        <div class="column garage-info is-6-mobile is-mobile">
+            <div class="content is-small-3 blue-text-strong">Présentation du professionnel :</div>
+                <p>{{ garage.presentation }}</p>
         </div>
-    <div class="column garage-info is-4">
+    <div class="column garage-info is-6-mobile is-mobile">
         <div class="content is-small-3 blue-text-strong">Prochains rendez-vous disponibles :</div>
             <div class="columns flex-between is-12 is-multiline">
                 <div class="is-vcentered">
@@ -85,7 +80,9 @@
                 </div>
             </div>
         </div>
-    <div class="column garage-info is-4" id="map"></div>
+    <div class="column garage-info is-vcentered is-12-mobile is-mobile">
+    <div id="map" class="is-vcentered"></div>
+    </div>
 </section>
 
 {% if garage.comments|length > 0 %}
@@ -117,7 +114,7 @@
 var myLatlng = new google.maps.LatLng({{ zoomLatitude }}, {{ zoomLongitude }});
 map = new google.maps.Map(document.getElementById("map"), {
 		center: myLatlng,
-		zoom: 11,
+		zoom: 15,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		mapTypeControl: true,
 		scrollwheel: true,
