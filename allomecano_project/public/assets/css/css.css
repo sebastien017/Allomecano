@@ -27,6 +27,11 @@ span.rating i {
       width: 100%; 
       margin-bottom: 0.3em;
     } 
+
+    .inline-block {
+        width: 100%;
+    }
+
 }
 
 .mr-1 {
@@ -205,11 +210,18 @@ body {
     padding: 0;
 }
 
+.inline-block {
+   display: inline-block;
+   position: relative;
+}
 
-
-
-
-
+.inline-arrow {
+    position: absolute;
+    right: 0.5em;
+    top: 0.50em;
+    color: blue;
+    z-index: 1;
+}
 
 /* Présentation */
 
