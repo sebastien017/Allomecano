@@ -27,7 +27,6 @@
         {% else %}
             <p>Ce garage n'a pas encore d'avis.</p>
         {% endif %}
-
     </div>
 
     <div class="column garage-data is-4">
@@ -77,13 +76,13 @@
 </div>
 </section>
 
-<section class="section section--garage">
-    <div class="columns garage is-12 has-text-centered flex-between">
-        <div class="column garage-info is-4">
+<section class="section section--garage flex-1">
+    <div class="columns garage is-12 has-text-centered flex-between is-mobile is-multiline">
+        <div class="column garage-info is-6-mobile is-mobile">
             <div class="content is-small-3 blue-text-strong">Présentation du professionnel :</div>
                 <p>{{ garage.presentation }}</p>
         </div>
-    <div class="column garage-info is-4">
+    <div class="column garage-info is-6-mobile is-mobile">
         <div class="content is-small-3 blue-text-strong">Prochains rendez-vous disponibles :</div>
             <div class="columns flex-between is-12 is-multiline">
                 <div class="is-vcentered">
@@ -98,7 +97,9 @@
                 </div>
             </div>
         </div>
-    <div class="column garage-info is-4" id="map"></div>
+    <div class="column garage-info is-vcentered is-12-mobile is-mobile">
+    <div id="map" class="is-vcentered"></div>
+    </div>
 </section>
 
 {% if garage.comments|length > 0 %}
@@ -130,7 +131,7 @@
 var myLatlng = new google.maps.LatLng({{ zoomLatitude }}, {{ zoomLongitude }});
 map = new google.maps.Map(document.getElementById("map"), {
 		center: myLatlng,
-		zoom: 11,
+		zoom: 15,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		mapTypeControl: true,
 		scrollwheel: true,
