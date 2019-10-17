@@ -42,7 +42,7 @@
 </ul>
 </section>
 
-<section class="section-confirm column is-12">
+<section class="section no-padding-top section-confirm flex-1">
   <div class="column is-6 is-vcentered">
     <div class="confirm-reservation">
       <p class="blue-text-strong is-size-4">Résumé de votre sélection :</p>
@@ -51,15 +51,16 @@
       <p> Prestation : {{ service.name }}</p>
       <p> Montant à régler au professionnel : {{ service.price }}€</p>
     </div>
-  </div>
-</section>
-
-<div class="button-confirm">
+    <div class="button-confirm has-text-centered">
 {{ form_start(form)}}
   {{ form_widget(form, { 'attr': {'class': 'is-hidden'}}) }}
-  <button class="button is-primary is-vcentered">
+  <button class="button is-primary mt-5">
     <i class="fas fa-check mr-1"></i>Confirmer mon rdv
   </button>
 {{ form_end(form)}}
 </div>
+  </div>
+</section>
+
+
 {% endblock %}
