@@ -10,7 +10,7 @@ easy_admin:
           - { entity: 'Service' }
           - { entity: 'Utilisateur' }
         #   - { entity: 'Visit' }
-          - { label: 'Accueil', url: 'http://127.0.0.1:8001', rel: 'home' }
+          - { label: 'Accueil', route: 'home' }
 
    entities:
 
