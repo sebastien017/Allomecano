@@ -6,7 +6,7 @@ easy_admin:
         menu:
           - { entity: 'Commentaire' }
           - { entity: 'Garage' }
-          - { entity: 'Image' }
+        #   - { entity: 'Image' }
           - { entity: 'Service' }
           - { entity: 'Utilisateur' }
         #   - { entity: 'Visit' }
