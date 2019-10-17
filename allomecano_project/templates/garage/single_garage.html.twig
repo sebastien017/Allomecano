@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="buttons is-vcentered">
-<button onclick="goBack()" class="button is-link mt-1"><i class="fas fa-backward mr-1"></i>Retour au choix du professionnel</button>
+    <button onclick="goBack()" class="button is-link mt-1"><i class="fas fa-backward mr-1"></i>Retour au choix du professionnel</button>
 </div>
 <section class="section section--garage">
 <div class="columns garage is-12 is-multiline has-text-centered">
@@ -17,24 +17,36 @@
     </div>
 
     <div class="column garage-data is-4">
-    <h1 class="title is-2 blue-text">{{ garage.name }}</h1>
-        <p>Note globale donnée par nos utilisateurs</p>
+        <h1 class="title is-2 blue-text">{{ garage.name }}</h1>
+        <div class="content is-small-3 blue-text-strong">Adresse :</div>
+        <p class="content is-small-2">{{garage.adress}}</p>
+        <div class="content is-small-3 blue-text-strong">Note globale donnée par nos utilisateurs :</div>
         {% if garage.comments|length > 0 %}
             <small>Moyenne calculée sur {{ garage.comments|length }} avis.</small>
             {% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
         {% else %}
             <p>Ce garage n'a pas encore d'avis.</p>
         {% endif %}
+
     </div>
-    <div class="column garage-address is-4">
-    <br>
-    Adresse:
-    <div class="content is-small-2">{{garage.adress}}
+
+    <div class="column garage-data is-4">
+        <div class="column garage-data is-vcentered">
+            <div class="siema">
+                {% for image in garage.images %}
+                <div><img src="{{ asset( image.url ) }}" alt="image" width="400"></div>
+                {% endfor %}
+            </div>
+            <div class="is-vcentered">
+                <button class="prev button is-link mt-1 is-vcentered"><i class="fas fa-backward mr-1"></i></button>
+                <button class="next button is-link mt-1 is-vcentered"><i class="fas fa-forward mr-1"></i></button>
+            </div>
+        </div>
     </div>
 </div>
 </section>
 
-{% if garage.images|length > 0%}
+{# {% if garage.images|length > 0%}
 <section class="section section--garage">
 <div class="columns garage is-12 is-multiline has-text-centered">
 <div class="column garage-data is-4 is-vcentered">
@@ -49,7 +61,7 @@
     </div>
 </div>
 </section>
-{% endif %}
+{% endif %} #}
 
 <section class="section section--garage">
 <div class="columns garage is-12 is-multiline has-text-centered">
@@ -68,7 +80,8 @@
 <section class="section section--garage">
     <div class="columns garage is-12 has-text-centered flex-between">
         <div class="column garage-info is-4">
-            <p>{{ garage.presentation }}</p>
+            <div class="content is-small-3 blue-text-strong">Présentation du professionnel :</div>
+                <p>{{ garage.presentation }}</p>
         </div>
     <div class="column garage-info is-4">
         <div class="content is-small-3 blue-text-strong">Prochains rendez-vous disponibles :</div>
