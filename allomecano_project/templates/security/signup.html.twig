@@ -80,6 +80,11 @@
             </div>
 
             <div class="inline">
+            {% if form_errors(form.password.first)|length > 0 %}
+            <div class="notification is-danger">
+            {{ form_errors(form.password.first) }}
+            </div>
+            {% endif %}
                 <p>{{ form_label(form.password.first) }}</p>
                 <p class="control has-icons-left has-icons-right">
                 {{ form_widget(form.password.first, {'attr': {'class': 'input', 'placeholder' : '*********'}}) }}
