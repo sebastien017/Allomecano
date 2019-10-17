@@ -30,7 +30,7 @@
         </div>
         {% for visitDetails in visit %}
             {% if visitDetails.date | date('d/m/Y') >= "now"|date("m/d/Y") %}
-                <div class="column is-4">
+                <div class="column is-4 is-vcentered">
                     <div class="confirm-reservation">
                         <p>RDV du {{ visitDetails.date | date('d/m/Y') }} à {{ visitDetails.time | date('H\\hi')}}</p>
                         <p>Avec {{ visitDetails.user.firstname }} {{  visitDetails.user.lastname }}</p>
