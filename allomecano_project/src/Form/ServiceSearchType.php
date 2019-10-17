@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Repository\ServiceRepository;
 
 class ServiceSearchType extends AbstractType
 {
@@ -15,6 +16,9 @@ class ServiceSearchType extends AbstractType
         $builder
             ->add('name', EntityType::class, [
                 'class' => Service::class,
+                'query_builder' => function ( ServiceRepository $service ){
+                    return $service->createQueryBuilder('s')->orderBy('s.name', 'ASC');
+                },
                 'placeholder' => '(Freinage, Vidange...)',
                 'label' => false
             ]);

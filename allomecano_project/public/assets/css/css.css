@@ -589,3 +589,9 @@ table.is-vcentered {
 .logo-title {
     font-family: 'Permanent Marker', cursive;
 }
+
+img.avatar-garage {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}

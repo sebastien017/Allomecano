@@ -12,7 +12,7 @@
         {% if garage.avatar is null %}
         <img src="{{"https://bulma.io/images/placeholders/96x96.png"}}">
         {% else %}
-        <img src="{{ asset( garage.avatar) }}">
+        <img class="avatar-garage" src="{{ asset( garage.avatar) }}">
         {% endif %}
     </div>
 
