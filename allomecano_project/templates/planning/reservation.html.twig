@@ -40,12 +40,11 @@
 <section class="section section--garage">
 <div class="columns garage is-12 is-multiline has-text-centered">
     <div class="column garage-logo is-4">
-    <img src="https://bulma.io/images/placeholders/96x96.png">
-    Logo
-    
-    {# {% for image in garage.images %}
-        {{image.url}}
-    {% endfor %} #}
+      {% if garage.avatar is null %}
+        <img src="{{"https://bulma.io/images/placeholders/96x96.png"}}">
+      {% else %}
+        <img src="{{ asset( garage.avatar) }}">
+      {% endif %}
     </div>
     <div class="column garage-data is-4">
     <h2 class="title is-3">{{ garage.name }}</h2>
