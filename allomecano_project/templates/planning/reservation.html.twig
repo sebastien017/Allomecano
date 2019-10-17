@@ -49,8 +49,12 @@
     <div class="column garage-data is-4">
     <h2 class="title is-3">{{ garage.name }}</h2>
         <p>Note globale donnée par nos utilisateurs</p>
-        <small>Moyenne calculée sur {{ garage.comments|length }} avis.</small>
-        {% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
+        {% if garage.comments|length >0 %}
+          <small>Moyenne calculée sur {{ garage.comments|length }} avis.</small>
+          {% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
+        {% else %}
+          <p>Ce garage n'a pas encore d'avis.</p>
+        {% endif %}
     </div>
     <div class="column garage-address is-4">
     <br>

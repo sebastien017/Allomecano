@@ -65,7 +65,7 @@ class Visit
 
     public function __toString()
     {
-        return $this->user->getUsername();
+        return $this->date->format('d/m/Y');
     }
 
     public function getId(): ?int
