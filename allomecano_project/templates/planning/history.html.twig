@@ -29,7 +29,7 @@
             <span class="tag is-info is-medium">RDV à venir</span>
         </div>
         {% for visitDetails in visit %}
-        {% if date() > date(visitDetails.date) %}
+        {% if date() < date(visitDetails.date) %}
             {# {% if visitDetails.date | date('d/m/Y') >= "now"|date("d/m/Y") %} #}
                 <div class="column is-4 is-vcentered">
                     <div class="confirm-reservation">
