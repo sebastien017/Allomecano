@@ -58,11 +58,11 @@
 							<a href="{{ path('profile', {'id': app.user.id }) }}" class="button is-primary"> 
                 <strong><i class="fas fa-user-circle mr-1"></i>Mon compte ({{ app.user.username }})</strong>
               </a> 
-              {% if app.request.get('_route') != 'edit_planning' %}
-                {% if is_granted('ROLE_GARAGE') == true %}
+              {% if is_granted('ROLE_GARAGE') == true %}
                   <a href="{{ path('garage_history', {'id': app.user.garage.id }) }}" class="button is-info">
                     <i class="fas fa-address-book mr-1"></i>Mes RDV Pro
                   </a>
+                {% if app.request.get('_route') != 'edit_planning' %}
                   <a href="{{ path('edit_planning', {'id': app.user.garage.id }) }}" class="button is-link">
                     <i class="fas fa-calendar-check mr-1"></i>Mes disponibilités
                   </a>
