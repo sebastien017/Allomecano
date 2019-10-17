@@ -8,7 +8,7 @@
     <section class="section section-confirm columns is-12 is-multiline">
     <div class="column is-multiline is-12 has-text-centered"><span class="tag is-danger is-medium">RDV passés</span></div>
         {% for visitDetails in visit %}
-        {% if date() > date(visitDetails.date) %}
+            {% if date() > date(visitDetails.date) %}
             {# {% if visitDetails.date | date('d/m/Y') <= "now"|date("d/m/Y") %} #}
                 <div class="column is-4 is-vcentered">
                     <div class="confirm-reservation">
@@ -20,8 +20,8 @@
                     </div>
                 </div>
             {% endif %}
-    </section>
         {% endfor %}
+    </section>
 
     <section class="section section-confirm flex-1">
     <div class="columns is-12 is-multiline has-text-centered">
@@ -29,7 +29,7 @@
             <span class="tag is-info is-medium">RDV à venir</span>
         </div>
         {% for visitDetails in visit %}
-        {% if date() < date(visitDetails.date) %}
+            {% if date() < date(visitDetails.date) %}
             {# {% if visitDetails.date | date('d/m/Y') >= "now"|date("d/m/Y") %} #}
                 <div class="column is-4 is-vcentered">
                     <div class="confirm-reservation">
