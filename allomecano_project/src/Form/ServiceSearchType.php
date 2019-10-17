@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Service;
+use App\Repository\ServiceRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,6 +16,9 @@ class ServiceSearchType extends AbstractType
         $builder
             ->add('name', EntityType::class, [
                 'class' => Service::class,
+                'query_builder' => function ( ServiceRepository $service ){
+                    return $service->createQueryBuilder('s')->orderBy('s.name', 'ASC');
+                },
                 'placeholder' => '(Freinage, Vidange...)',
                 'label' => false
             ]);
