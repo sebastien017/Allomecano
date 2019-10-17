@@ -5,8 +5,8 @@
 {% block body %}
 
 {% if visit|length > 0 %}
-    <section class="section-confirm columns is-12 is-multiline">
-    <div class="column is-12 has-text-centered"><span class="tag is-danger is-medium">RDV passés</span></div>
+    <section class="section section-confirm columns is-12 is-multiline">
+    <div class="column is-multiline is-12 has-text-centered"><span class="tag is-danger is-medium">RDV passés</span></div>
         {% for visitDetails in visit %}
             {% if visitDetails.date | date('d/m/Y') <= "now"|date("m/d/Y") %}
                 <div class="column is-4 is-vcentered">
@@ -23,11 +23,14 @@
     </section>
         {% endfor %}
 
-    <section class="section-confirm columns is-12 is-multiline">
-    <div class="column is-12 has-text-centered"><span class="tag is-info is-medium">RDV à venir</span></div>
+    <section class="section section-confirm flex-1">
+    <div class="columns is-12 is-multiline has-text-centered">
+        <div class="column is-12 has-text-centered">
+            <span class="tag is-info is-medium">RDV à venir</span>
+        </div>
         {% for visitDetails in visit %}
             {% if visitDetails.date | date('d/m/Y') >= "now"|date("m/d/Y") %}
-                <div class="column is-4 is-vcentered">
+                <div class="column is-4">
                     <div class="confirm-reservation">
                         <p>RDV du {{ visitDetails.date | date('d/m/Y') }} à {{ visitDetails.time | date('H\\hi')}}</p>
                         <p>Avec {{ visitDetails.user.firstname }} {{  visitDetails.user.lastname }}</p>
@@ -38,6 +41,7 @@
                 </div>
             {% endif %}
         {% endfor %}
+        </div>
     </section>
 {%  else %}
 <div class="flex-1 mt-5 has-text-centered is-size-5"><i class="far fa-frown-open mr-1"></i>Vous n'avez pas encore de rdv réservés 
