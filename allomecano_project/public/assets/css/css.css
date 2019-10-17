@@ -41,6 +41,10 @@ span.rating i {
         height: 300px !important;
     }
 
+    .button-responsive-mb {
+        margin-bottom: 0.4em;
+    }
+
 }
 
 .mr-1 {
