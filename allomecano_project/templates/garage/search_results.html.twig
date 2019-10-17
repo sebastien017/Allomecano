@@ -4,13 +4,12 @@
 
 {% block body %}
 
-<section class="section no-padding-top">
+<section class="section is-vcentered no-padding-top">
 {% if (garages == null) %}
-<div class="column is-8 is-vcentered has-text-centered">
+<div class="column is-12 is-vcentered has-text-centered">
 	<h1 class="is-size-5"><i class="far fa-eye-slash mr-1"></i>Aucun résultat à proximité de {{ address }}</h1><br>
 	<a href="{{ path('home') }}" class="button is-success"><i class="fas fa-home mr-1"></i>Retour à l'accueil</a>
 </div>
-</section>
 {% else %}
 <ul class="steps">
   <li class="step-item is-info">
@@ -42,19 +41,21 @@
 </ul>
 </section>
 
-<section class="section flex-1 no-padding-top">
-<div class="columns is-12 is-multiline has-text-centered">
-<div class="column is-12 is-vcentered is-size-5">
+<section class="section is-vcentered flex-1 no-padding-top">
 
+<div class="column is-12 is-vcentered is-size-5">
 <i class="fas fa-search-location mr-1"></i>Résultats à proximité de {{ address }} (< 50km)
 </div>
-<div class="column is-6">
+
+<div class="columns is-mobile is-12 is-multiline has-text-centered">
+<div class="column is-6-desktop is-12-mobile">
 		<div class="is-sticky">
-			<div id="map">
+			<div id="map" class="is-vcentered">
 			</div>
 		</div>
 </div>
-<div class="column is-6">
+
+<div class="column is-vcentered is-10-mobile">
 	{% for garage in garages  %}
 		<div class="search-garage-infos" data-id="{{ garage.id }}">
 		{% if (garage.distance != null) %}

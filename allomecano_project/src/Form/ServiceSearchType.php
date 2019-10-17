@@ -3,11 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Service;
+use App\Repository\ServiceRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Repository\ServiceRepository;
 
 class ServiceSearchType extends AbstractType
 {

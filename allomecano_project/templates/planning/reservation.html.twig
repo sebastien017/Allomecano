@@ -40,33 +40,46 @@
 <section class="section section--garage">
 <div class="columns garage is-12 is-multiline has-text-centered">
     <div class="column garage-logo is-4">
-      {% if garage.avatar is null %}
+        {% if garage.avatar is null %}
         <img src="{{"https://bulma.io/images/placeholders/96x96.png"}}">
-      {% else %}
-        <img src="{{ asset( garage.avatar) }}">
-      {% endif %}
-    </div>
-    <div class="column garage-data is-4">
-    <h2 class="title is-3">{{ garage.name }}</h2>
-        <p>Note globale donnée par nos utilisateurs</p>
-        {% if garage.comments|length >0 %}
-          <small>Moyenne calculée sur {{ garage.comments|length }} avis.</small>
-          {% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
         {% else %}
-          <p>Ce garage n'a pas encore d'avis.</p>
+        <img src="{{ asset( garage.avatar) }}">
         {% endif %}
     </div>
-    <div class="column garage-address is-4">
-    <br>
-    Adresse:
-    <div class="content is-small-2">{{garage.adress}}
+
+    <div class="column garage-data is-4">
+        <h1 class="title is-2 blue-text">{{ garage.name }}</h1>
+        <div class="content is-small-3 blue-text-strong">Adresse :</div>
+        <p class="content is-small-2">{{garage.adress}}</p>
+        <div class="content is-small-3 blue-text-strong">Note globale donnée par nos utilisateurs :</div>
+        {% if garage.comments|length > 0 %}
+            <small>Moyenne calculée sur {{ garage.comments|length }} avis.</small>
+            {% include 'partials/rating.html.twig' with {'rating': garage.avgRatings } %}
+        {% else %}
+            <p>Ce garage n'a pas encore d'avis.</p>
+        {% endif %}
+
+    </div>
+
+    <div class="column garage-data is-4">
+        <div class="column garage-data is-vcentered">
+            <div class="siema">
+                {% for image in garage.images %}
+                <div><img src="{{ asset( image.url ) }}" alt="image" width="400"></div>
+                {% endfor %}
+            </div>
+            <div class="is-vcentered">
+                <button class="prev button is-link mt-1 is-vcentered"><i class="fas fa-backward mr-1"></i></button>
+                <button class="next button is-link mt-1 is-vcentered"><i class="fas fa-forward mr-1"></i></button>
+            </div>
+        </div>
     </div>
 </div>
 </section>
 
 <section class="section section--garage flex-1">
 <div class="column is-6 is-size-4 is-vcentered has-text-centered underline-green">
-<i class="far fa-calendar-alt mr-1"></i>Choisir mon créneau horaire
+<i class="far fa-calendar-alt mr-1"></i>Choisir mon RDV
 </div>
 {% set date_memo = null %}
 {% set id = 0 %}
@@ -194,6 +207,15 @@
     }
   }
 
+</script>
+
+{# Script du carroussel #}
+
+<script src="{{ asset('assets/js/siema/dist/siema.min.js') }}"></script>
+<script>
+const mySiema = new Siema();
+document.querySelector('.prev').addEventListener('click', () => mySiema.prev());
+document.querySelector('.next').addEventListener('click', () => mySiema.next());
 </script>
 
 {% endblock %}
