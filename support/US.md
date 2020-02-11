@@ -5,13 +5,13 @@
 | En tant que | Je veux | Afin de (optionnel) |
 |--|--|--|
 | visiteur | m'inscrire sur le site | avoir un compte et utiliser le site |
-| professionnel | spécifier que je propose des prestations | commencer à proposer mes services sur le site |
+| prestataire | spécifier que je propose des prestations | commencer à proposer mes services sur le site |
 | visiteur | trouver un professionnel proche de chez moi | trouver un prestataire |
 | visiteur | trouver un professionel avec son nom | retrouver un prestataire dont j'ai déjà entendu parler |
 | visiteur | voir le profil d'un prestaire | vérifier les prestations qu'un prestataire propose |
 | visiteur | rechercher un professionel par prestation | trouver le prestataire qu'il me faut par prestation |
 | utilisateur | compléter mon profil | renseigner mes informations personnelles |
-| professionnel | renseigner mes disponibilités | afficher mon planing aux utilisateur |
+| prestataire | renseigner mes disponibilités | afficher mon planing aux utilisateur |
 | visiteur | choisir une prestation auprès d'un professionnel | indiquer quel sera la nature de la prestation|
 | visiteur | choisir l'heure de mon rdv avant qu'on me demande de créer un compte pour le valider | |
 | utilisateur | noter et commenter la prestation d'un professionnel | laisser un avis utile aux autres clients |
