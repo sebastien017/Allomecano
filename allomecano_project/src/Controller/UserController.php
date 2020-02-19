@@ -66,7 +66,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             if(password_verify($passwordUpdate->getOldPassword(), $user->getPassword())) {
-                $form->get('oldPassword')->addError(new FormError("Le mot de passe que vous avez tapé n'est pas votre mot de passe actuel !"));;
+                $form->get('oldPassword')->addError(new FormError("Le mot de passe que vous avez tapé n'est pas votre mot de passe actuel !"));
             } else {
                 $newPassword = $passwordUpdate->getNewPassword();
                 $password = $encoder->encodePassword($user, $newPassword);
