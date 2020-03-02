@@ -8,7 +8,7 @@
 | prestataire | spécifier que je propose des prestations | commencer à proposer mes services sur le site |
 | visiteur | trouver un professionnel proche de chez moi | trouver un prestataire |
 | visiteur | trouver un professionel avec son nom | retrouver un prestataire dont j'ai déjà entendu parler |
-| visiteur | voir le profil d'un prestaire | vérifier les prestations qu'un prestataire propose |
+| visiteur | voir le profil d'un prestataire | vérifier les prestations qu'un prestataire propose |
 | visiteur | rechercher un professionel par prestation | trouver le prestataire qu'il me faut par prestation |
 | utilisateur | compléter mon profil | renseigner mes informations personnelles |
 | prestataire | renseigner mes disponibilités | afficher mon planing aux utilisateur |
